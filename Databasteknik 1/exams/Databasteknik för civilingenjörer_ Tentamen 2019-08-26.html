@@ -1,0 +1,384 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0091)http://basen.oru.se/kurser/dbciv/2019-2020-p4/tentor/tenta-2019-08-26/tenta-2019-08-26.html -->
+<html lang="sv"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title>Databasteknik för civilingenjörer: Tentamen 2019-08-26</title>
+<style type="text/css">
+     P.breakhere {page-break-before: always}
+</style>
+<script data-dapp-detection="">
+(function() {
+  let alreadyInsertedMetaTag = false
+
+  function __insertDappDetected() {
+    if (!alreadyInsertedMetaTag) {
+      const meta = document.createElement('meta')
+      meta.name = 'dapp-detected'
+      document.head.appendChild(meta)
+      alreadyInsertedMetaTag = true
+    }
+  }
+
+  if (window.hasOwnProperty('web3')) {
+    // Note a closure can't be used for this var because some sites like
+    // www.wnyc.org do a second script execution via eval for some reason.
+    window.__disableDappDetectionInsertion = true
+    // Likely oldWeb3 is undefined and it has a property only because
+    // we defined it. Some sites like wnyc.org are evaling all scripts
+    // that exist again, so this is protection against multiple calls.
+    if (window.web3 === undefined) {
+      return
+    }
+    __insertDappDetected()
+  } else {
+    var oldWeb3 = window.web3
+    Object.defineProperty(window, 'web3', {
+      configurable: true,
+      set: function (val) {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        oldWeb3 = val
+      },
+      get: function () {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        return oldWeb3
+      }
+    })
+  }
+})()</script></head>
+
+<body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+Örebro universitet
+<br>
+Institutionen för naturvetenskap och teknik
+<br>
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Databasteknik%20f%C3%B6r%20civilingenj%C3%B6rer:%20Tentamen%202019-08-26">thomas.padron-mccarthy@oru.se</a>)
+
+<pre>
+
+
+
+</pre>
+<center>
+<font size="+2">Tentamen i</font>
+<p>
+<font size="+4">Databasteknik</font>
+</p><p>
+måndag 26 augusti 2019
+</p><p>
+<font size="-1">
+Gäller som tentamen för:
+<br>
+DT504G Databasteknik för civilingenjörer, provkod 0100
+</font>
+</p></center>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+</p><table>
+<tbody><tr><td valign="top">
+<b>Hjälpmedel:</b>
+</td><td valign="top">
+Ordbok för översättning.
+</td></tr>
+<tr><td valign="top">
+<b>Poängkrav:</b>
+</td><td valign="top">
+Maximal poäng är 38.
+För godkänt betyg krävs 20 poäng,
+varav minst fyra poäng på uppgift 1 och minst fem poäng på uppgift 2.
+<!--
+För den som följt kursen våren 2019
+ger varje i tid inlämnad inlämningsuppgift en extra poäng.
+Den som <i>inte</i> gått kursen våren 2019 får dessa (fem) extrapoäng ändå.
+-->
+</td></tr>
+<tr><td valign="top">
+<b>Resultat:</b>
+</td><td valign="top">
+Meddelas på kursens hemsida eller via e-post senast måndag 16 september 2019.
+</td></tr>
+<tr><td valign="top">
+<b>Återlämning av tentor:</b>
+</td><td valign="top">
+Elektroniskt via Studentforum.
+</td></tr>
+<tr><td valign="top">
+<b>Examinator och jourhavande:</b>
+</td><td valign="top">
+Thomas Padron-McCarthy, telefon 070 - 73 47 013.
+</td></tr>
+</tbody></table>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+<font size="-1">
+</font></p><ul><font size="-1">
+
+<li>
+Skriv tydligt och klart. Lösningar som inte går att läsa kan
+naturligtvis inte ge några poäng.
+Oklara och tvetydiga formuleringar kommer att misstolkas.
+
+</li><li>
+Skriv den personliga tentamenskoden på varje inlämnat blad.
+Skriv <i>inte</i> namn eller personnummer på bladen.
+
+</li><li>
+Skriv bara på en sida av papperet.
+Använd inte röd skrift.
+
+</li><li>
+Antaganden utöver de som står i uppgifterna måste anges. Gjorda
+antaganden får inte förändra den givna uppgiften.
+
+</li><li>
+Skriv gärna förklaringar om hur du tänkt.
+Även ett svar som är fel kan ge poäng,
+om det finns med en förklaring som visar att huvudtankarna var rätt.
+</li></font></ul><font size="-1">
+</font>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+</p><center>LYCKA TILL!</center>
+
+
+
+<p class="breakhere">
+
+
+
+<a name="scenario"></a>
+</p><h2>Scenario till uppgifterna</h2>
+
+Alla känner till Örebro universitet,
+men ett annat universitet som inte är lika känt är Laxå universitet:
+
+<p>
+
+<img src="./Databasteknik för civilingenjörer_ Tentamen 2019-08-26_files/laxa-universitet.jpg" width="348" height="232" alt="Laxå" title="Laxå">
+
+</p><p>
+
+<font size="-2">
+Fotograf: Johan Jönsson. Licens:
+<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+</font>
+
+</p><p>
+  
+Laxå universitet planerar att växa kraftigt,
+och nu behöver de en databas för att hålla reda på sina lokaler och lärare.
+Det som finns är:
+
+</p><ul>
+
+  <li><b>Hus</b>, med ett unikt nummer, till exempel <b>17</b>,
+      och ett unikt namn, till exempel <b>Teknikhuset</b>.
+
+  </li><li><b>Rum</b>, som alla har ett unikt namn, till exempel <b>T2220</b>.
+    Varje rum finns i ett visst hus.
+
+  </li><li><b>Korridorer</b>, som alla har ett unikt nummer och en längd.
+    Korridorerna finns i husen.
+    En del korridorer är så långa att de räcker genom flera hus,
+    så en korridor kan alltså finnas i flera olika hus.
+    Det kan finnas flera korridorer i samma hus.
+
+  </li><li><b>Dörrar</b>. Varje dörr har ett unikt nummer,
+    och den leder från en korridor och in till ett rum.
+    Varje korridor kan förstås ha dörrar till många rum,
+    och ett rum (till exempel en stor föreläsningssal) kan ha flera dörrar,
+    som leder till olika korridorer.
+
+  </li><li><b>Lärare</b>.
+    Varje lärare har ett unikt nummer och ett (inte nödvändigtvis unikt) namn.
+    Varje lärare befinner sig i ett av rummen.
+    Det finns också lärare som gått hem, och då finns den läraren inte i något rum.
+
+</li></ul>
+
+
+
+<p class="breakhere">
+
+
+
+<a name="uppgift-1"></a>
+</p><h2>Uppgift 1 (5 p)</h2>
+
+Rita ett ER- eller EER-diagram för den beskrivna databasen.
+Använd informationen i scenariot ovan,
+men tänk också på att det ska gå att svara på frågorna i uppgift 4 nedan.
+
+<p>
+
+ER- och EER-diagram kan ritas på flera olika sätt.
+Om du använder en annan notation än kursboken, måste du förklara den notation som du använder.
+
+
+
+<a name="uppgift-2"></a>
+</p><h2>Uppgift 2 (6 p)</h2>
+
+Implementera den beskrivna databasen i relationsmodellen, dvs
+översätt ER-diagrammet till tabeller.
+
+<p>
+
+Du behöver inte skriva <b>create table</b>-kommandon i SQL,
+men du ska ange vilka relationer som finns och vilka attribut varje relation innehåller.
+Ange också alla kandidatnycklar, vilken av dessa som är primärnyckel,
+samt vilka referensattribut som finns och vad de refererar till.
+
+</p><p>
+
+Implementationen ska vara bra.
+
+
+
+<a name="uppgift-3"></a>
+</p><h2>Uppgift 3 (3 p)</h2>
+
+Välj själv en av tabellerna som du gjort i uppgift 2 ovan.
+Ange vilken som är den högsta normalform (av 1NF, 2NF, 3NF och BCNF)
+som tabellen uppfyller.
+
+<p>
+
+Visa sen att tabellen uppfyller den normalformen.
+
+
+
+<a name="uppgift-4"></a>
+</p><h2>Uppgift 4 (10 p)</h2>
+
+Formulera följande frågor i SQL.
+Definiera gärna vyer eller CTE:er om det underlättar, men skapa inte nya tabeller.
+
+<p>
+
+a) (1p)
+Vilka rum finns i <b>Teknikhuset</b> och <b>Långhuset</b>?
+
+</p><p>
+
+b) (2p)
+Vilka rum med namn som börjar på <b>T</b> finns i <b>Teknikhuset</b>?
+
+</p><p>
+
+c) (2p)
+Vad heter de lärare som finns i <b>Teknikhuset</b>?
+
+</p><p>
+
+d) (2p)
+Vad heter de lärare som har gått hem?
+Det är alltså de lärare som inte finns i ett rum.
+
+</p><p>
+
+e) (3p)
+Genom vilka hus går den längsta korridoren?
+Vi vill veta vad de husen heter.
+
+
+
+</p><p class="breakhere">
+
+
+
+<a name="uppgift-5"></a>
+</p><h2>Uppgift 5 (4 p)</h2>
+
+Universitetet växer, och alla tabeller blir mycket stora.
+Vi märker att SQL-frågorna i uppgift 3 börjar bli långsamma.
+Vi ser också att det inte finns några index i databasen, inte ens på nycklar.
+
+<p>
+
+Vilka index bör man skapa för att
+
+</p><p>
+
+a) fråga a
+<br>
+b) fråga b
+<br>
+c) fråga c
+
+</p><p>
+
+ska gå snabbare?
+
+
+
+<a name="uppgift-6"></a>
+</p><h2>Uppgift 6 (3 p)</h2>
+
+Ange tre olika databashanterare.
+Skriv för var och en åtminstone någon egenskap som skiljer den från de andra. 
+
+
+
+<a name="uppgift-7"></a>
+<h2>Uppgift 7 (2 p)</h2>
+
+Laxå universitet är mindre känt än Örebro universitet,
+men det blev universitet redan 1998, ett år före Örebro.
+Tyvärr är deras webbplats,
+<b>laxu.se</b>,
+också från 1998, och den har byggts med hjälp av CGI-program.
+De data som visas på webbplatsen hämtas ur en databas.
+I början fungerade webbplatsen snabbt och bra,
+men nu när antalet studenter på Laxå universitet har ökat,
+har webbplatsen börjat få ganska dåliga prestanda.
+En konsult kommer och tittar, och skyller på CGI-programmen.
+
+<p>
+
+Kan konsulten ha rätt? Varför skulle just CGI-program vara långsamma?
+
+
+
+<a name="uppgift-8"></a>
+</p><h2>Uppgift 8 (5 p)</h2>
+
+Förklara kort vad som menas med:
+
+<p>
+
+a) Isolering (I:et i ACID)
+<br>
+b) Hållbarhet (D:et i ACID)
+<br>
+c) Relation (i en relationsdatabas)
+<br>
+d) Yttre join
+<br>
+e) Referensintegritet
+
+</p><p>
+
+</p><hr>
+
+
+
+</body></html>

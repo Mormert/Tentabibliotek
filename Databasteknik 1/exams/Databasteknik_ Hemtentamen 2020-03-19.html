@@ -1,0 +1,346 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0083)http://basen.oru.se/kurser/dbtek/2019-2020-p2/tentor/hemtenta-2020-03-19/index.html -->
+<html lang="sv"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title>Databasteknik: Hemtentamen 2020-03-19</title>
+<style type="text/css">
+     P.breakhere {page-break-before: always}
+</style>
+<script data-dapp-detection="">
+(function() {
+  let alreadyInsertedMetaTag = false
+
+  function __insertDappDetected() {
+    if (!alreadyInsertedMetaTag) {
+      const meta = document.createElement('meta')
+      meta.name = 'dapp-detected'
+      document.head.appendChild(meta)
+      alreadyInsertedMetaTag = true
+    }
+  }
+
+  if (window.hasOwnProperty('web3')) {
+    // Note a closure can't be used for this var because some sites like
+    // www.wnyc.org do a second script execution via eval for some reason.
+    window.__disableDappDetectionInsertion = true
+    // Likely oldWeb3 is undefined and it has a property only because
+    // we defined it. Some sites like wnyc.org are evaling all scripts
+    // that exist again, so this is protection against multiple calls.
+    if (window.web3 === undefined) {
+      return
+    }
+    __insertDappDetected()
+  } else {
+    var oldWeb3 = window.web3
+    Object.defineProperty(window, 'web3', {
+      configurable: true,
+      set: function (val) {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        oldWeb3 = val
+      },
+      get: function () {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        return oldWeb3
+      }
+    })
+  }
+})()</script></head>
+
+<body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+
+<h1><a href="http://basen.oru.se/kurser/dbtek/2019-2020-p2/index.html">Databasteknik</a>: Hemtentamen 2020-03-19</h1>
+
+Det här är hemtentan som går torsdag 19 mars 2020 i kursen Databasteknik.
+Ansvarig lärare är
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Databasteknik-hemtenta%202020-03-19">thomas.padron-mccarthy@oru.se</a>),
+telefon <b>070-73 47 013</b>.
+
+<p>
+
+Tid: 14:15 - 20:15
+
+
+
+</p><h2>Instruktioner</h2>
+
+<ol>
+
+<li>
+Den här hemtentan ersätter den planerade salstentan, och är endast för de studenter som anmält sig till den tentan.
+
+</li><li>
+Uppgifterna ska lösas enskilt, dvs inga grupper av två eller flera studenter.
+
+</li><li>
+Lös de angivna uppgifterna och samla svaren på lämpligt sätt,
+till exempel i en PDF.
+Skicka sen in lösningarna till mig,
+antingen som ett kursmeddelande i
+<a href="http://lms.oru.se/">Blackboard</a>
+eller via vanlig e-post
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Databasteknik-hemtenta%202020-03-19">thomas.padron-mccarthy@oru.se</a>),
+senast vid tentatidens slut.
+
+</li><li>
+Om du inte senast under dagen efter tentan får
+ett svar från mig med en bekräftelse
+på att du skickat in svaren,
+bör du kontakta mig, enklast genom att ringa eller SMS:a mig
+(ifall det är e-posten som inte fungerar).
+Tänk på att en del mailtjänster (särskilt Hotmail.com, Outlook.com, Live.com)
+ibland kastar bort brev med bilagor, utan att meddela det.
+
+</li><li>
+Skriv gärna svaren i ett ordbehandlingsprogram.
+Rita gärna eventuella diagram i ett ritprogram.
+Det är inte förbjudet att skriva och rita för hand,
+men då måste text och bilder scannas in eller fotograferas.
+Det ska finnas scanner-appar till Android och iPhone,
+och de ska ge bättre resultat än att bara ta vanliga kort med kameran.
+
+</li><li>
+Tentatiden är utökad med två timmar
+för att täcka in problem med e-post, inscanning eller fotografering av diagram, och liknande.
+
+</li><li>
+<b>Du får använda dator, böcker och vilka andra hjälpmedel som helst,</b>
+men du får inte samarbeta eller fråga någon (utom mig).
+Exempelvis är det tillåtet att söka och läsa på webbplatser som Stack Overflow, men inte att ställa egna frågor.
+Du kan alltså provköra dina SQL-kommandon, om du vill.
+
+</li><li>
+Om du behöver fråga något, så kontakta gärna mig.
+Ring eller skicka SMS,
+för jag kanske inte kommer att sitta vid datorn hela tiden.
+
+</li><li>
+Oklara och tvetydiga formuleringar kommer att misstolkas.
+Lösningar som inte går att läsa eller förstå kan naturligtvis inte ge några poäng. 
+
+</li><li>
+Antaganden utöver de som står i uppgifterna måste anges. Gjorda antaganden får inte förändra den givna uppgiften.
+
+</li><li>
+Skriv gärna förklaringar om hur du tänkt. Även ett svar som är fel kan ge poäng, om det finns med en förklaring som visar att huvudtankarna var rätt. 
+
+</li><li>
+Maximal poäng är 36.
+För godkänt betyg krävs 20 poäng,
+varav minst fyra poäng på uppgift 1 och minst fyra poäng på uppgift 2.
+
+</li><li>
+Resultat
+meddelas på kursens hemsida eller via e-post senast torsdag 9 april 2020.
+Eftersom svaren skickas in elektroniskt scannas tentorna inte för retur.
+
+</li></ol>
+
+
+
+<p class="breakhere">
+
+
+
+<a name="scenario"></a>
+</p><h2>Scenario till uppgifterna</h2>
+
+Just nu är det aktuellt med smittsamma sjukdomar,
+och vi ska skapa en databas för att underlätta smittspårning.
+
+<p>
+
+Det som ska lagras i databasen är följande:
+
+</p><ol>
+
+  <li>
+    <b>Sjukdomar</b>.
+    Varje sjukdom har ett unikt namn.
+
+  </li><li>
+    <b>Patienter</b>.
+    Varje patient har ett unikt nummer och ett namn, som inte behöver vara unikt,
+    och dessutom en hemadress.
+
+  </li><li>
+    Vilka patienter som har vilka sjukdomar.
+    Till exempel kanske patienten <b>Olle</b> har <b>pest</b>,
+    medan patienten <b>Lisa</b> har både <b>pest</b> och <b>kolera</b>.
+
+  </li><li>
+    <b>Evenemang</b>, där många människor träffas och kan smitta varandra.
+    Varje evenemang har ett namn (som inte behöver vara unikt)
+    och ett datum (som inte heller behöver vara unikt),
+    men det kan inte finnas två evenemang med samma namn och datum.
+
+  </li><li>
+    Vilka patienter som har besökt vilka evenemang.
+    Till exempel kanske patienten <b>Olle</b> besökte <b>Universitetsdagarna</b> 4 mars
+    medan patienten <b>Lisa</b> besökt både <b>Universitetsdagarna</b> 4 mars
+    och <b>Melodifestivalen</b> 7 mars.
+
+</li></ol>
+
+
+
+<p class="breakhere">
+
+
+
+<a name="uppgift-1"></a>
+</p><h2>Uppgift 1 (5 p)</h2>
+
+Rita ett ER- eller EER-diagram för den beskrivna databasen.
+Använd informationen i scenariot ovan,
+men tänk också på att det ska gå att svara på frågorna i uppgift 3 nedan.
+
+<p>
+
+ER- och EER-diagram kan ritas på flera olika sätt.
+Om du använder en annan notation än kursboken, måste du förklara den notation som du använder.
+
+
+
+<a name="uppgift-2"></a>
+</p><h2>Uppgift 2 (5 p)</h2>
+
+Implementera den beskrivna databasen i relationsmodellen, dvs
+översätt ER-diagrammet till tabeller.
+Implementationen ska vara bra.
+
+<p>
+
+a)
+Visa en tydlig översikt över dina tabeller.
+Ange vilka relationer som finns och vilka attribut varje relation innehåller,
+med väl valda exempeldata.
+Ange också alla kandidatnycklar, vilken av dessa som är primärnyckel,
+samt vilka referensattribut som finns och vad de refererar till.
+
+</p><p>
+
+b)
+Skriv de SQL-kommandon som behövs för att skapa tabellerna,
+med lämpliga integritetsvillkor.
+
+
+
+<a name="uppgift-3"></a>
+</p><h2>Uppgift 3 (12 p)</h2>
+
+Formulera följande frågor i SQL.
+Definiera gärna vyer eller CTE:er om det underlättar, men skapa inte nya tabeller.
+
+<p>
+
+a) (2p)
+Vilka patienter har <b>kolera</b>?
+Vi vill veta deras namn och nummer.
+
+</p><p>
+
+b) (2p)
+Hur många patienter besökte <b>Universitetsdagarna</b> 4 mars i år?
+Vi vill veta antalet.
+
+</p><p>
+
+c) (2p)
+Vilka av dessa patienter (alltså de som besökte Universitetsdagarna 4 mars)
+har <b>COVID-19</b>?
+Vi vill veta deras namn och nummer.
+
+</p><p>
+
+d) (3p)
+Vilka patienter har ännu inte sjukdomen <b>COVID-19</b>,
+men bor på samma hemadress som någon som har den sjukdomen?
+Vi vill veta deras namn och nummer.
+
+</p><p>
+
+e) (3p)
+Vi vill ha en sammanställning över alla sjukdomarna,
+och hur många patienter som har varje sjukdom.
+Sjukdomar som ingen har ska ändå vara med i resultatet,
+med antalet noll.
+
+
+
+</p><p class="breakhere">
+
+
+
+<a name="uppgift-4"></a>
+</p><h2>Uppgift 4 (4 p)</h2>
+
+Fler och fler människor blir smittade,
+nya sjukdomar upptäcks,
+och databasen växer.
+Efter några år har alla tabellerna väldigt många rader.
+Det finns inga index i databasen, inte ens på nycklar.
+
+<p>
+
+Sökningarna i deluppgift <b>a</b> och <b>b</b> i frågan ovan
+körs ofta, men kanske med andra konstanter
+(till exempel att man söker efter <b>pest</b> i stället för <b>kolera</b>).
+De tar för lång tid att köra.
+Hur skulle man kunna få de sökningarna att gå snabbare att köra?
+
+
+
+<a name="uppgift-5"></a>
+</p><h2>Uppgift 5 (4 p)</h2>
+
+Ibland talar man om <b>ACID-transaktioner</b>,
+där bokstäverna i förkortningen <b>ACID</b> står för
+
+<ul>
+<li><b>atomicitet</b>,
+</li><li><b>consistency preserving</b>, dvs "konsistensbevarande" eller "konsekvensbevarande",
+</li><li><b>isolering</b> och
+</li><li><b>durability</b>, dvs "hållbarhet".
+</li></ul>
+
+Förklara för var och en av de fyra egenskaperna vad den egentligen betyder,
+och ge exempel på vad som kan hända om den saknas,
+i scenariot med sjukdomsdatabasen i scenariot.
+
+
+
+<a name="uppgift-6"></a>
+<h2>Uppgift 6 (3 p)</h2>
+
+För att underlätta arbetet med sjukdomsdatabasen,
+vill man göra den tillgänglig via webben.
+Ange tre principiellt olika metoder för att åstadkomma detta.
+(Alltså inte produkter.)
+Beskriv kort hur metoderna fungerar!
+
+
+
+<a name="uppgift-7"></a>
+<h2>Uppgift 7 (3 p)</h2>
+
+Vilken databashanterare bör man välja för sjukdomsdatabasen?
+Nämn tre förslag på databashanterare, och tala om varför, eller varför inte,
+de passar för den här tillämpningen!
+
+<p>
+
+</p><hr>
+
+<font size="-1">
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Databasteknik-hemtenta%202020-03-19">thomas.padron-mccarthy@oru.se</a>),
+19 mars 2020
+</font>
+
+
+
+</body></html>

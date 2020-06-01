@@ -1,0 +1,166 @@
+-- SQL-kommandon som en del av lösningen till hemtentan i Datbasteknik 2020-03-19
+-- Provkört i Mimer
+
+DROP TABLE Besökt CASCADE;
+DROP TABLE Evenemang CASCADE;
+DROP TABLE Har CASCADE;
+DROP TABLE Patienter CASCADE;
+DROP TABLE Sjukdomar CASCADE;
+
+CREATE TABLE Sjukdomar
+(ID INTEGER NOT NULL PRIMARY KEY,
+Namn NVARCHAR(50) NOT NULL UNIQUE);
+
+CREATE TABLE Patienter
+(Nummer INTEGER NOT NULL PRIMARY KEY,
+Namn NVARCHAR(50) NOT NULL,
+Adress NVARCHAR(50));
+
+CREATE TABLE Har
+(Patient INTEGER NOT NULL REFERENCES Patienter(Nummer),
+Sjukdom INTEGER NOT NULL REFERENCES Sjukdomar(ID),
+PRIMARY KEY (Patient, Sjukdom));
+
+CREATE TABLE Evenemang
+(ID INTEGER NOT NULL PRIMARY KEY,
+Namn NVARCHAR(50) NOT NULL,
+Datum DATE NOT NULL,
+UNIQUE (Namn, Datum));
+
+CREATE TABLE Besökt
+(Patient INTEGER NOT NULL REFERENCES Patienter(Nummer),
+Evenemang INTEGER NOT NULL REFERENCES Evenemang(ID),
+PRIMARY KEY (Patient, Evenemang));
+
+INSERT INTO Patienter (Nummer, Namn, Adress) VALUES (1, 'Olle', 'Vägen 1');
+INSERT INTO Patienter (Nummer, Namn, Adress) VALUES (2, 'Lisa', 'Vägen 2');
+INSERT INTO Patienter (Nummer, Namn, Adress) VALUES (3, 'Anna', 'Vägen 2');
+INSERT INTO Patienter (Nummer, Namn, Adress) VALUES (4, 'Friskus', 'Vägen 3');
+INSERT INTO Patienter (Nummer, Namn, Adress) VALUES (5, 'Sjukis', 'Vägen 3');
+INSERT INTO Patienter (Nummer, Namn, Adress) VALUES (6, 'Annansjukis', 'Vägen 3');
+
+INSERT INTO Sjukdomar (ID, Namn) VALUES (1, 'pest');
+INSERT INTO Sjukdomar (ID, Namn) VALUES (2, 'kolera');
+INSERT INTO Sjukdomar (ID, Namn) VALUES (3, 'COVID-19');
+INSERT INTO Sjukdomar (ID, Namn) VALUES (4, 'skoskav');
+
+INSERT INTO Har (Patient, Sjukdom) VALUES (1, 1);
+INSERT INTO Har (Patient, Sjukdom) VALUES (2, 1);
+INSERT INTO Har (Patient, Sjukdom) VALUES (2, 2);
+INSERT INTO Har (Patient, Sjukdom) VALUES (5, 3);
+INSERT INTO Har (Patient, Sjukdom) VALUES (6, 1);
+
+INSERT INTO Evenemang (ID, Namn, Datum) VALUES (1, 'Universitetsdagarna', DATE '2020-03-04');
+INSERT INTO Evenemang (ID, Namn, Datum) VALUES (2, 'Universitetsdagarna', DATE '2020-03-05');
+INSERT INTO Evenemang (ID, Namn, Datum) VALUES (3, 'Melodifestivalen', DATE '2020-03-07');
+
+INSERT INTO Besökt (Patient, Evenemang) VALUES (1, 1);
+INSERT INTO Besökt (Patient, Evenemang) VALUES (2, 1);
+INSERT INTO Besökt (Patient, Evenemang) VALUES (2, 3);
+
+SELECT * FROM Sjukdomar;
+SELECT * FROM Patienter;
+SELECT * FROM Har;
+SELECT * FROM Evenemang;
+SELECT * FROM Besökt;
+
+-- a) (2p) Vilka patienter har kolera? Vi vill veta deras namn och nummer.
+
+SELECT Nummer, Namn
+FROM Patienter
+WHERE Nummer IN (SELECT Patient
+                 FROM Har
+                 WHERE Sjukdom IN (SELECT ID
+                                   FROM Sjukdomar
+                                   WHERE Namn = 'kolera'));
+
+-- Eller:
+
+SELECT P.Nummer, P.Namn
+FROM Patienter AS P, Har AS H, Sjukdomar as S
+WHERE P.Nummer = H.Patient
+AND H.Sjukdom = S.ID
+AND S.Namn = 'kolera';
+
+-- Eller:
+
+SELECT P.Nummer, P.Namn
+FROM Patienter AS P JOIN Har AS H ON P.Nummer = H.Patient
+    JOIN Sjukdomar as S ON H.Sjukdom = S.ID
+WHERE S.Namn = 'kolera';
+
+-- b) (2p) Hur många patienter besökte Universitetsdagarna 4 mars i år? Vi vill veta antalet.
+
+SELECT COUNT(*)
+FROM Patienter AS P, Besökt AS B, Evenemang AS E
+WHERE P.Nummer = B.Patient
+AND B.Evenemang = E.ID
+AND E.Namn = 'Universitetsdagarna'
+AND E.Datum = DATE '2020-03-04';
+
+-- c) (2p) Vilka av dessa patienter har COVID-19? Vi vill veta deras namn och nummer.
+
+SELECT P.Nummer, P.Namn
+FROM Patienter AS P, Besökt AS B, Evenemang AS E, Har AS H, Sjukdomar AS S
+WHERE P.Nummer = B.Patient
+AND B.Evenemang = E.ID
+AND E.Namn = 'Universitetsdagarna'
+AND E.Datum = DATE '2020-03-04'
+AND P.Nummer = H.Patient
+AND H.Sjukdom = S.ID
+AND S.Namn = 'COVID-19';
+
+-- d) (3p) Vilka patienter har ännu inte sjukdomen COVID-19, men bor på samma hemadress som någon som har den sjukdomen? Vi vill veta deras namn och nummer.
+
+-- En lösning med CTE:er:
+
+WITH HarWuhan AS
+(SELECT Nummer
+FROM Patienter
+WHERE Nummer IN (SELECT Har.Patient
+                 FROM Har, Sjukdomar
+                 WHERE Har.Sjukdom = Sjukdomar.ID
+                 AND Sjukdomar.Namn = 'COVID-19')),
+HarInteWuhan AS
+(SELECT Nummer
+FROM Patienter
+WHERE Nummer NOT IN (SELECT Har.Patient
+                     FROM Har, Sjukdomar
+                     WHERE Har.Sjukdom = Sjukdomar.ID
+                     AND Sjukdomar.Namn = 'COVID-19'))
+SELECT Frisk.Nummer, Frisk.Namn
+FROM Patienter AS Frisk, Patienter AS Sjuk
+WHERE Frisk.Nummer IN (SELECT Nummer FROM HarInteWuhan)
+AND Sjuk.Nummer IN (SELECT Nummer FROM HarWuhan)
+AND Frisk.Adress = Sjuk.Adress;
+
+-- Samma lösning men med vyer:
+
+CREATE VIEW HarWuhan AS
+SELECT Nummer
+FROM Patienter
+WHERE Nummer IN (SELECT Har.Patient
+                 FROM Har, Sjukdomar
+                 WHERE Har.Sjukdom = Sjukdomar.ID
+                 AND Sjukdomar.Namn = 'COVID-19');
+
+CREATE VIEW HarInteWuhan AS
+SELECT Nummer
+FROM Patienter
+WHERE Nummer NOT IN (SELECT Har.Patient
+                     FROM Har, Sjukdomar
+                     WHERE Har.Sjukdom = Sjukdomar.ID
+                     AND Sjukdomar.Namn = 'COVID-19');
+
+SELECT Frisk.Nummer, Frisk.Namn
+FROM Patienter AS Frisk, Patienter AS Sjuk
+WHERE Frisk.Nummer IN (SELECT Nummer FROM HarInteWuhan)
+AND Sjuk.Nummer IN (SELECT Nummer FROM HarWuhan)
+AND Frisk.Adress = Sjuk.Adress;
+
+-- e) (3p) Vi vill ha en sammanställning över alla sjukdomarna, och hur många patienter som har varje sjukdom. Sjukdomar som ingen har ska ändå vara med i resultatet, med antalet noll.
+
+SELECT S.Namn, COUNT(P.Nummer)
+FROM Sjukdomar as S LEFT JOIN Har AS H ON S.ID = H.Sjukdom
+    LEFT JOIN Patienter AS P ON H.Patient = P.Nummer
+GROUP BY S.Namn;

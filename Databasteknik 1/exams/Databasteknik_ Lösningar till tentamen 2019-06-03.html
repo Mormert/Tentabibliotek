@@ -1,0 +1,688 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0095)http://basen.oru.se/kurser/dbciv/2019-2020-p4/tentor/tenta-2019-06-03/losningar-2019-06-03.html -->
+<html lang="sv"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title>Databasteknik: Lösningar till tentamen 2019-06-03</title>
+
+<script data-dapp-detection="">
+(function() {
+  let alreadyInsertedMetaTag = false
+
+  function __insertDappDetected() {
+    if (!alreadyInsertedMetaTag) {
+      const meta = document.createElement('meta')
+      meta.name = 'dapp-detected'
+      document.head.appendChild(meta)
+      alreadyInsertedMetaTag = true
+    }
+  }
+
+  if (window.hasOwnProperty('web3')) {
+    // Note a closure can't be used for this var because some sites like
+    // www.wnyc.org do a second script execution via eval for some reason.
+    window.__disableDappDetectionInsertion = true
+    // Likely oldWeb3 is undefined and it has a property only because
+    // we defined it. Some sites like wnyc.org are evaling all scripts
+    // that exist again, so this is protection against multiple calls.
+    if (window.web3 === undefined) {
+      return
+    }
+    __insertDappDetected()
+  } else {
+    var oldWeb3 = window.web3
+    Object.defineProperty(window, 'web3', {
+      configurable: true,
+      set: function (val) {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        oldWeb3 = val
+      },
+      get: function () {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        return oldWeb3
+      }
+    })
+  }
+})()</script></head><body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+<h1><a href="http://basen.oru.se/kurser/dbciv/2019-2020-p4/index.html">Databasteknik</a>: Lösningar till tentamen 2019-06-03</h1>
+
+Observera att detta är förslag på lösningar.
+Det kan finnas andra lösningar som också är korrekta.
+Det kan hända att en del av lösningarna är mer omfattande än vad som krävs för full poäng på uppgiften,
+eller att de bara hänvisar till var man kan läsa svaren.
+Dessutom har det inträffat i världshistorien att lärare skrivit fel i lösningsförslagen.
+<i>Jag</i> har förstås aldrig gjort det, men andra.
+Är det verkligen någon som läser såna här inledande texter?
+Jag vet inte. Det kan vara så. Rabarber rabarber rabarber.
+Det har jag hört att statisterna får säga på filminspelningar
+när det ska vara bakgrundssorl från en restaurang eller liknande.
+Här nedan kommer lösningsförslagen till uppgifterna.
+
+
+
+<a name="uppgift-1"></a>
+<h2>Uppgift 1 (5 p)</h2>
+
+<img src="./Databasteknik_ Lösningar till tentamen 2019-06-03_files/er.png" width="473" height="402" alt="Ett EER-diagram" title="Ett ER-diagram">
+
+
+
+<a name="uppgift-2"></a>
+<h2>Uppgift 2 (6 p)</h2>
+
+Länder(<u>Nummer</u>, <u>Namn</u>)
+<br>
+Partigrupper(<u>Nummer</u>, <u>Namn</u>)
+<br>
+Partier(<u>Nummer</u>, <u>Namn</u>, Land, Partigrupp)
+<br>
+Val(<u>År</u>)
+<br>
+Deltar(<u>Parti, Val</u>, Röster)
+
+<p>
+
+Primärnycklarna är understrukna.
+
+</p><p>
+
+Främmande nycklar:
+
+</p><p>
+
+Partier.Land till Länder.Nummer
+<br>
+Partier.Partigrupp till Partigrupper.Nummer
+<br>
+Deltar.Parti till Partier.Nummer
+<br>
+Deltar.Val till Val.År
+
+</p><p>
+
+En kommentar:
+Man kan, om man vill, låta bli att skapa surrogatnycklarna <b>Nummer</b>,
+och använda namnen som primärnycklar.
+SQL-frågorna blir enklare då.
+
+</p><p>
+
+Nedan visas <b>create table</b>-kommandon och exempeldata,
+för att underlätta provkörningar.
+  
+</p><blockquote>
+<pre>DROP VIEW Partigruppsröster2019;
+DROP TABLE Deltar;
+DROP TABLE Val;
+DROP TABLE Partier;
+DROP TABLE Partigrupper;
+DROP TABLE Länder;
+
+CREATE TABLE Länder
+(Nummer INTEGER NOT NULL PRIMARY KEY,
+Namn VARCHAR(20) NOT NULL UNIQUE);
+
+CREATE TABLE Partigrupper
+(Nummer INTEGER NOT NULL PRIMARY KEY,
+Namn VARCHAR(20) NOT NULL UNIQUE);
+
+CREATE TABLE Partier
+(Nummer INTEGER NOT NULL PRIMARY KEY,
+Namn VARCHAR(20) NOT NULL UNIQUE,
+Land INTEGER NOT NULL REFERENCES Länder(Nummer),
+Partigrupp INTEGER REFERENCES Partigrupper(Nummer));
+
+CREATE TABLE Val
+(År INTEGER NOT NULL PRIMARY KEY);
+
+CREATE TABLE Deltar
+(Parti INTEGER REFERENCES Partier(Nummer),
+Val INTEGER REFERENCES Val(År),
+Röster INTEGER NOT NULL,
+PRIMARY KEY (Parti, Val));
+
+INSERT INTO Länder VALUES (1, 'Sverige');
+INSERT INTO Länder VALUES (2, 'Tyskland');
+INSERT INTO Länder VALUES (3, 'UK');
+INSERT INTO Länder VALUES (4, 'Danmark');
+
+INSERT INTO Partigrupper VALUES (1, 'Stalin-Kommunisterna');
+INSERT INTO Partigrupper VALUES (2, 'Ultrahögern');
+INSERT INTO Partigrupper VALUES (3, 'Tröttmitten');
+INSERT INTO Partigrupper VALUES (4, 'EUNSP');
+INSERT INTO Partigrupper VALUES (5, 'EPP');
+
+INSERT INTO Partier VALUES (1, 'Folkpartiet', 1, 5);
+INSERT INTO Partier VALUES (2, 'VPK', 1, 1);
+INSERT INTO Partier VALUES (3, 'Högern', 1, 2);
+INSERT INTO Partier VALUES (4, 'Baader-Meinhof-ligan', 2, 1);
+INSERT INTO Partier VALUES (5, 'Alte Kameraden', 2, 2);
+INSERT INTO Partier VALUES (6, 'Vi som hatar EU', 3, NULL);
+INSERT INTO Partier VALUES (7, 'EUNSP-1', 4, NULL);
+INSERT INTO Partier VALUES (8, 'EUNSP-2', 4, 3);
+INSERT INTO Partier VALUES (9, 'EUNSP-3', 4, 4);
+INSERT INTO Partier VALUES (10, 'EUNSP-4', 4, 4);
+
+INSERT INTO VAL VALUES (2014);
+INSERT INTO VAL VALUES (2019);
+
+INSERT INTO Deltar VALUES (1, 2014, 100);
+INSERT INTO Deltar VALUES (1, 2019, 47);
+INSERT INTO Deltar VALUES (2, 2014, 100);
+INSERT INTO Deltar VALUES (2, 2019, 90);
+INSERT INTO Deltar VALUES (3, 2014, 100);
+INSERT INTO Deltar VALUES (3, 2019, 200);
+INSERT INTO Deltar VALUES (4, 2014, 10);
+INSERT INTO Deltar VALUES (5, 2019, 10);
+INSERT INTO Deltar VALUES (6, 2019, 1000);
+
+SELECT * FROM Länder;
+SELECT * FROM Partigrupper;
+SELECT * FROM Partier;
+SELECT * FROM Val;
+SELECT * FROM Deltar;
+</pre>
+</blockquote>
+
+
+
+<a name="uppgift-3"></a>
+<h2>Uppgift 3 (9 p)</h2>
+
+Formulera följande frågor i SQL.
+Definiera gärna vyer eller CTE:er om det underlättar, men skapa inte nya tabeller.
+
+<p>
+
+a) (2p)
+Vilka partier finns i Sverige och Tyskland?
+Vi vill alltså veta namnen på alla partier från Sverige och från Tyskland.  
+
+</p><blockquote>
+<pre>SELECT Namn
+FROM Partier
+WHERE Land IN (SELECT Nummer FROM Länder WHERE Namn = 'Sverige')
+OR Land IN (SELECT Nummer FROM Länder WHERE Namn = 'Tyskland');
+</pre>
+</blockquote>
+
+En alternativ lösning:
+
+<blockquote>
+<pre>SELECT Partier.Namn
+FROM Partier, Länder
+WHERE Partier.Land = Länder.Nummer
+AND (Länder.Namn = 'Sverige'
+     OR Länder.Namn = 'Tyskland');
+</pre>
+</blockquote>
+
+En tredje lösning:
+
+<blockquote>
+<pre>SELECT Partier.Namn
+FROM Partier JOIN Länder ON Partier.Land = Länder.Nummer
+WHERE Länder.Namn = 'Sverige'
+OR Länder.Namn = 'Tyskland';
+</pre>
+</blockquote>
+
+<p>
+
+b) (2p)
+Vilka partier från Sverige är med i partigruppen <b>EPP</b>?
+
+</p><blockquote>
+<pre>SELECT Partier.Namn
+FROM Partier, Länder, Partigrupper
+WHERE Partier.Land = Länder.Nummer
+AND Partier.Partigrupp = Partigrupper.Nummer
+AND Länder.Namn = 'Sverige'
+AND Partigrupper.Namn = 'EPP';
+</pre>
+</blockquote>
+
+<p>
+
+c) (2p)
+Totalt hur många röstade i Sverige
+i EU-valet 2019?
+
+</p><blockquote>
+<pre>SELECT SUM(Röster)
+FROM Partier, Länder, Deltar
+WHERE Partier.Land = Länder.Nummer
+AND Partier.Nummer = Deltar.Parti
+AND Deltar.Val = 2019
+AND Länder.Namn = 'Sverige';
+</pre>
+</blockquote>
+
+<p>
+
+d) (3p)
+Vad heter den partigrupp som fick
+flest röster i EU-valet 2019?
+
+</p><blockquote>
+<pre>CREATE VIEW Partigruppsröster2019 AS
+SELECT Partigrupper.Namn, SUM(Röster) AS Röster
+FROM Partier, Partigrupper, Deltar
+WHERE Partier.Partigrupp = Partigrupper.Nummer
+AND Partier.Nummer = Deltar.Parti
+AND Deltar.Val = 2019
+GROUP BY Partigrupper.Namn;
+
+SELECT Namn
+FROM Partigruppsröster2019
+WHERE Röster IN (SELECT MAX(Röster) FROM Partigruppsröster2019);
+</pre>
+</blockquote>
+
+Eller med en CTE:
+
+<blockquote>
+<pre>WITH Partigruppsröster2019 AS
+(SELECT Partigrupper.Namn, SUM(Röster) AS Röster
+FROM Partier, Partigrupper, Deltar
+WHERE Partier.Partigrupp = Partigrupper.Nummer
+AND Partier.Nummer = Deltar.Parti
+AND Deltar.Val = 2019
+GROUP BY Partigrupper.Namn)
+SELECT Namn
+FROM Partigruppsröster2019
+WHERE Röster IN (SELECT MAX(Röster) FROM Partigruppsröster2019);
+</pre>
+</blockquote>
+
+
+
+<p class="breakhere">
+
+
+
+<a name="uppgift-4"></a>
+</p><h2>Uppgift 4 (2 p)</h2>
+
+Man kanske vill ha med inte bara antalet röster som varje parti fick,
+utan också hur många procent av rösterna de fick.
+Hur skulle man kunna lösa det med en vy?
+Om du inte vill skriva SQL-kod,
+kan du i stället förklara hur det skulle fungera.
+
+<p>
+
+Räkna ut summan av antalet röster i det valet,
+och dela varje partis röster med den summan,
+gånger 100 så det blir procent.
+Om man gör det som en vy slipper man dubbellagringen att också
+ha procentandelen lagrad i databasen.
+
+</p><p>
+
+Det blir enklare om man först skapar en vy (eller CTE)
+för totalt antal röster per val.
+
+</p><blockquote>
+<pre>CREATE VIEW TotaltAntalRösterPerVal AS
+SELECT Deltar.Val, SUM(Röster) AS Röster
+FROM Partier, Deltar
+WHERE Partier.Nummer = Deltar.Parti
+GROUP BY Deltar.Val;
+
+CREATE VIEW RösterMedProcent AS
+SELECT Partier.Namn, Deltar.Val, Deltar.Röster, 100.0 * Deltar.Röster / TotaltAntalRösterPerVal.Röster AS Procent
+FROM Partier, Deltar, TotaltAntalRösterPerVal
+WHERE Partier.Nummer = Deltar.Parti
+AND Deltar.Val = TotaltAntalRösterPerVal.Val;
+
+SELECT * FROM RösterMedProcent;
+</pre>
+</blockquote>
+
+En kommentar:
+Jag tänkte mig procent av alla röstande i hela EU,
+men egentligen är det förstås mer realistiskt med procent av de röstande i samma land som partiet är från.
+Det är förstås inte fel att ha gjort en sådan lösning.
+
+
+
+<a name="uppgift-5"></a>
+<h2>Uppgift 5 (5 p)</h2>
+
+Här är ett försök att lösa uppgift 2 ovan,
+med en databas som bara består av en enda tabell.
+Den ser ganska rimlig ut, och skulle man visa valresultatet
+som en tabell i en tidning skulle den mycket väl kunna se ut så här.
+
+<p>
+
+</p><table border="1" cellspacing="0" cellpadding="3">
+
+<tbody><tr><th colspan="5">Valresultat</th></tr>
+<tr><th>Parti</th> <th>Land</th> <th>Grupp</th> <th>År</th> <th>Röster</th></tr>
+
+<tr><td>Vänsterpartiet</td> <td>Sverige</td> <td>GUE/NGL</td> <td>2019</td> <td>267949</td></tr>
+<tr><td>Socialdemokraterna</td> <td>Sverige</td> <td>S&amp;D</td> <td>2019</td> <td>940131</td></tr>
+<tr><td>Miljöpartiet</td> <td>Sverige</td> <td>G/EFA</td> <td>2019</td> <td>454336</td></tr>
+<tr><td>Kristdemokraterna</td> <td>Sverige</td> <td>EPP</td> <td>2019</td> <td>344884</td></tr>
+<tr><td>Centerpartiet</td> <td>Sverige</td> <td>Alde</td> <td>2019</td> <td>429811</td></tr>
+<tr><td>Liberalerna</td> <td>Sverige</td> <td>Alde</td> <td>2019</td> <td>163169</td></tr>
+<tr><td>Moderaterna</td> <td>Sverige</td> <td>EPP</td> <td>2019</td> <td>670931</td></tr>
+<tr><td>Sverigedemokraterna</td> <td>Sverige</td> <td>ECR</td> <td>2019</td> <td>614699</td></tr>
+
+</tbody></table>
+
+<p>
+
+a)
+Om vi betraktar tabellen som en tabell i en relationsdatabas,
+och inte en tabell som är tryckt i en tidning,
+vilka kandidatnycklar finns i tabellen?
+
+</p><p>
+
+Den enda kandidatnyckeln är kombinationen av <b>Parti</b> och <b>År</b>.
+Enbart <b>Parti</b> räcker inte,
+om man ska kunna lagra resultaten av flera olika val,
+och det ska man ju enligt scenariot.
+
+</p><p>
+
+b)
+Vilka fullständiga funktionella beroenden finns i tabellen?
+
+</p><p>
+
+{ Parti, År } -&gt; Röster
+<br>
+Parti -&gt; Land
+<br>
+Parti -&gt; Grupp
+
+</p><p>
+
+c)
+Vilka av de fyra normalformerna
+1NF, 2NF, 3NF och BCNF
+uppfyller tabellen?
+
+</p><p>
+
+Endast 1NF.
+ 
+</p><p>
+
+d)
+Motivera svaret i c-uppgiften ovan!
+
+</p><p>
+
+Tabellen uppfyller 1NF eftersom den endast innehåller
+enkla, atomära värden. Inga rutor innehåller listor eller tupler.
+("GUE/NGL", "S&amp;D" och "G/EFA" är namn på partigrupper,
+och betyder inte att partierna är med i flera olika partigrupper.)
+
+</p><p>
+
+Tabellen uppfyller inte 2NF
+eftersom det finns ffb från delar av primärnyckeln,
+nämligen beroendena
+<b>Parti -&gt; Land</b>
+och
+<b>Parti -&gt; Grupp</b>.
+
+</p><p>
+
+Tabellen uppfyller inte 3NF och BCNF eftersom högre normalformer
+(i ordningen 1NF, 2NF, 3NF och BCNF, där BCNF är en högsta normalformen)
+bygger på lägre, så en tabell som inte uppfyller 2NF kan inte heller
+uppfylla 3NF eller BCNF.
+
+
+</p><p class="breakhere">
+
+
+
+<a name="uppgift-6"></a>
+</p><h2>Uppgift 6 (4 p)</h2>
+
+a) Vad skulle transaktioner kunna behövas till i EU:s valdatabas?
+
+<p>
+
+ACID-transaktioner har egenskaperna
+atomicitet, konsistensbevarande, isolering och hållbarhet,
+och alla är viktiga i EU-valet.
+<b>Hållbarhet</b> är förstås viktigt,
+för när man räknat röster i en vallokal
+och lägger till dem till partiernas röstsummor,
+vill man inte att de räknade rösterna ska försvinna.
+<b>Isolering</b> är viktigt,
+eftersom man räknar röster på många olika platser samtidigt,
+och då får det inte bli några förlorade uppdateringar eller liknande problem
+när man lägger till dem i databasen.
+<b>Atomicitet</b> behövs, så inte bara en del röster läggs in i databasen,
+och en del försvinner.
+Det är också viktigt att transaktionerna är <b>konsistensbevarande</b>,
+så man inte får inkonsistenser i databasen,
+till exempel att ett parti som inte finns har fått röster registrerade.
+
+</p><p>
+
+b) Databashanterare brukar använda en loggfil.
+Vad är det som lagras på loggfilen,
+och vad har man för nytta av den
+i samband med transaktioner?
+
+</p><p>
+
+På loggfilen lagras alla ändringar som görs i databasen.
+Man lagrar vilka data det är som ändrats, och det gamla och det nya värdet,
+och vilken transaktion det var som gjorde ändringen.
+Man lagrar också när en transaktion startas och när den avslutas, med commit eller rollback.
+(Dessutom skrivs så kallade checkpoints, men det tar vi inte upp här.)
+
+</p><p>
+
+Om en transaktion avbryts mitt i och måste rullas tillbaka
+(för att uppfylla egenskapen atomicitet)
+kan databashanteraren se i loggfilen vilka data som ändrats,
+tillsammans med de gamla värdena, så den kan ändra tillbaka.
+
+</p><p>
+
+Om systemet kraschar, till exempel vid ett strömavbrott,
+och <i>färdiga</i> transaktioners alla ändringar kanske inte hunnit
+fysiskt skrivas till sekundärminnet,
+kan databashanteraren se i loggfilen vilka data som ändrats,
+tillsammans med de nya värdena, så den kan skriva dem på nytt,
+för att garantera att de verkligen finns permanent lagrade
+(för att uppfylla egenskaperna atomicitet och hållbarhet).
+
+  
+
+<a name="uppgift-7"></a>
+</p><h2>Uppgift 7 (5 p)</h2>
+
+a) (3p)
+Visa med ett par enkla exempel
+vad man har SQL-kommandona <b>grant</b> och <b>revoke</b> till.
+Glöm inte att förklara vad som händer!
+
+<p>
+
+<b>Grant</b> och <b>revoke</b>
+är två kommandon som används
+för att ange vad olika användare får göra med de data som finns i databasen.
+Med <b>grant</b> delar man ut rättigheter,
+och med <b>revoke</b> tar man bort dem igen.
+Normalt är det databasadministratören som gör detta.
+
+</p><p>
+
+Exempel:
+
+</p><blockquote>
+<pre>GRANT SELECT, INSERT ON Svampar TO vladimir;
+</pre>
+</blockquote>
+
+Det ger användaren <b>vladimir</b> rätt att göra sökningar i tabellen <b>Svampar</b>,
+och att lägga till rader i den tabellen,
+men inte att ta bort eller ändra rader.
+
+<blockquote>
+<pre>GRANT UPDATE ON Svampar TO vladimir;
+</pre>
+</blockquote>
+
+Nu har Vladimir även fått rätt att ändra existerande rader,
+men fortfarande inte att ta bort rader.
+
+<p>
+
+</p><blockquote>
+<pre>REVOKE INSERT ON Svampar FROM vladimir;
+</pre>
+</blockquote>
+
+<p>
+
+Nu har Vladimir inte längre rätt att ta lägga till nya rader,
+men han kan fortfarande både söka i tabellen och ändra existerande rader.
+
+</p><p>
+
+b) (2p)
+Visa hur man kan kombinera <b>grant</b> och <b>revoke</b>
+med vyer för att ge en mer finkornig kontroll av vad användarna får göra med databasen.
+
+</p><p>
+
+Man kan styra åtkomsten mer finkornigt genom att skapa vyer,
+och dela ut rättigheter till dessa vyer,
+i stället för till de tabeller som de baseras på.
+Exempel:
+
+</p><p>
+
+</p><blockquote>
+<pre>REVOKE SELECT ON Svampar FROM vladimir;
+
+CREATE VIEW ViktenPåGulaSvamparISkåne AS
+SELECT Vikt
+FROM Svampar
+WHERE Färg = 'Gul'
+AND Placering IN (SELECT Nummer FROM Landskap WHERE Namn = 'Skåne');
+
+GRANT SELECT ON ViktenPåGulaSvamparISkåne TO vladimir;
+</pre>
+</blockquote>
+
+Nu har Vladimir rätt att se vikten på gula svampar i Skåne
+men inga andra kolumner, och inga andra svampar.
+
+
+
+<a name="uppgift-8"></a>
+<h2>Uppgift 8 (3 p)</h2>
+
+Förklara vad ett B-träd är, och särskilt hur B-träd skiljer sig från binära träd.
+Varför används B-träd ofta i databashanterare?
+
+<p>
+
+B-träd är alltid balanserade,
+så alla lövnoder befinner sig på samma nivå.
+Binära träd finns både i versioner som balanseras automatiskt,
+och i helt obalanserade versioner.
+
+</p><p>
+
+Men den stora skillnaden är ordningen, dvs hur många underträd en nod maximalt kan ha.
+Medan ett binärt träd bara har plats för högst två underträd
+under varje nod ("binär" betyder ju två),
+kan ett B-träd ha plats för betydligt fler underträd, kanske flera hundra.
+Det gör att B-trädet blir mycket lägre än ett binärt träd,
+så man behöver besöka färre noder för att hitta de data man söker.
+Exempelvis innehåller ett binärt träd med en miljon noder minst tjugo nivåer,
+medan ett B-träd av ordningen 100 behöver ungefär fyra nivåer för en miljon noder.
+
+</p><p>
+
+Eftersom B-träd av hög ordning är så låga, jämfört med binära träd,
+behöver man besöka färre noder vid en sökning.
+Å andra sidan är det mer arbete att göra i varje nod, med fler jämförelser.
+I en datastruktur i primärminne kan det gå på ett ut.
+Men vanliga databaser är sekundärminnesbaserade,
+och data lagras på hårddisk eller SSD.
+Både från hårddiskar och SSD:er läser man data i ganska stora block,
+och en sådan läsning är mycket långsam jämfört med åtkomst av primärminnet.
+Man tjänar inget på att läsa en mindre datamängd än ett helt block.
+Eftersom arbetet i en nod sker när den väl är inläst till primärminnet,
+kan det ofta försummas jämfört med tiden att läsa från det långsamma sekundärminnet,
+och man vill bara minimera antalet läsningar från sekundärminnet.
+
+</p><p>
+
+Notera att sökning i ett B-träd av exempelvis ordning 100
+(med upp till 100 underträd under varje nog)
+har samma tidskomplexitet som sökning i ett balanserat binärt träd (som har ordning 2),
+nämligen <b>O(log n)</b>.
+Det är bara en konstant faktor som skiljer.
+(Jämför med att en algoritm som alltid tar 1 sekund och en som alltid tar 1000 år
+båda har tidskomplexiteten <b>O(1)</b>. Även där är det bara en konstant faktor som skiljer!)
+
+
+
+<a name="uppgift-9"></a>
+</p><h2>Uppgift 9 (4 p)</h2>
+
+            I databaser kan det förekomma redundans av olika slag.
+            Förklara vad som menas med redundans.
+            Beskriv också två olika typer av redundans som kan förekomma,
+            och i vilka sammanhang de förekommer.
+            Vilka fördelar och nackdelar finns med de olika typerna av redundans?
+
+<p>
+
+Några förslag på olika typer av redundans:
+</p><ul>
+<li>
+Redundans i form av upprepade faktauppgifter i lågt normaliserade tabeller
+</li><li>
+Loggfilen
+</li><li>
+Backup
+</li><li>
+Buffring och cachning
+</li><li>
+Replikering i distribuerade och parallella databaser,
+dvs att samma data lagras på flera olika datorer i nätverket
+</li></ul>
+
+Dessa har olika fördelar och nackdelar.
+Exempelvis ger redundans i lågt normaliserade tabeller
+förstås nackdelen att upprepade data tar upp onödig plats i databasen,
+men också att det lätt kan bli inkonsistenser i databasen vid ändringar,
+om man glömmer att ändra alla förekomsterna av samma uppgift.
+Låg normalisering kan ha fördelen att databasen blir snabbare,
+eftersom man behöver färre joinar mellan tabeller,
+och den kan i vissa fall faktiskt bli mer lättförståelig och lätt att arbeta med.
+
+<p>
+
+</p><hr>
+
+<font size="-1">
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Databasteknik:%20L%C3%B6sningar%20till%20tentamen%202019-06-03">thomas.padron-mccarthy@oru.se</a>),
+19 juni 2019
+</font>
+
+
+
+</body></html>

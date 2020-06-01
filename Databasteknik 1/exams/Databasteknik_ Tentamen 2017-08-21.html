@@ -1,0 +1,371 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0091)http://basen.oru.se/kurser/dbciv/2019-2020-p4/tentor/tenta-2017-08-21/tenta-2017-08-21.html -->
+<html lang="sv"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title>Databasteknik: Tentamen 2017-08-21</title>
+<style type="text/css">
+     P.breakhere {page-break-before: always}
+</style>
+<script data-dapp-detection="">
+(function() {
+  let alreadyInsertedMetaTag = false
+
+  function __insertDappDetected() {
+    if (!alreadyInsertedMetaTag) {
+      const meta = document.createElement('meta')
+      meta.name = 'dapp-detected'
+      document.head.appendChild(meta)
+      alreadyInsertedMetaTag = true
+    }
+  }
+
+  if (window.hasOwnProperty('web3')) {
+    // Note a closure can't be used for this var because some sites like
+    // www.wnyc.org do a second script execution via eval for some reason.
+    window.__disableDappDetectionInsertion = true
+    // Likely oldWeb3 is undefined and it has a property only because
+    // we defined it. Some sites like wnyc.org are evaling all scripts
+    // that exist again, so this is protection against multiple calls.
+    if (window.web3 === undefined) {
+      return
+    }
+    __insertDappDetected()
+  } else {
+    var oldWeb3 = window.web3
+    Object.defineProperty(window, 'web3', {
+      configurable: true,
+      set: function (val) {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        oldWeb3 = val
+      },
+      get: function () {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        return oldWeb3
+      }
+    })
+  }
+})()</script></head>
+
+<body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+Örebro universitet
+<br>
+Institutionen för naturvetenskap och teknik
+<br>
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Databasteknik:%20Tentamen%202017-08-21">thomas.padron-mccarthy@oru.se</a>)
+
+<pre>
+
+
+</pre>
+<center>
+<font size="+2">Tentamen i</font>
+<p>
+<font size="+4">Databasteknik för civilingenjörer</font>
+</p><p>
+måndag 21 augusti 2017
+</p><p>
+<font size="-1">
+Gäller som tentamen för:
+<br>
+DT504G Databasteknik för civilingenjörer, provkod 0100
+</font>
+</p></center>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+</p><table>
+<tbody><tr><td valign="top">
+<b>Hjälpmedel:</b>
+</td><td valign="top">
+Ordbok för översättning.
+</td></tr>
+<tr><td valign="top">
+<b>Poängkrav:</b>
+</td><td valign="top">
+Maximal poäng är 35.
+För godkänt betyg krävs 20 poäng,
+varav minst fyra poäng på uppgift 1 och minst fyra poäng på uppgift 2.
+<!--
+För den som följt kursen våren 2017
+ger varje i tid inlämnad inlämningsuppgift en extra poäng.
+Den som <i>inte</i> gått kursen våren 2017 får dessa (fem) extrapoäng ändå.
+-->
+</td></tr>
+<tr><td valign="top">
+<b>Resultat:</b>
+</td><td valign="top">
+Meddelas på kursens hemsida eller via e-post senast måndag 11 september 2017.
+</td></tr>
+<tr><td valign="top">
+<b>Återlämning av tentor:</b>
+</td><td valign="top">
+Elektroniskt via Studentforum.
+</td></tr>
+<tr><td valign="top">
+<b>Examinator och jourhavande:</b>
+</td><td valign="top">
+Thomas Padron-McCarthy, telefon 070 - 73 47 013.
+</td></tr>
+</tbody></table>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+<font size="-1">
+</font></p><ul><font size="-1">
+
+<li>
+Skriv tydligt och klart. Lösningar som inte går att läsa kan
+naturligtvis inte ge några poäng. Oklara formuleringar kommer att
+misstolkas.
+
+</li><li>
+Skriv den personliga tentamenskoden på varje inlämnat blad.
+Skriv <i>inte</i> namn eller personnummer på bladen.
+
+</li><li>
+Skriv bara på en sida av papperet.
+Använd inte röd skrift.
+
+</li><li>
+Antaganden utöver de som står i uppgifterna måste anges. Gjorda
+antaganden får inte förändra den givna uppgiften.
+
+</li><li>
+Skriv gärna förklaringar om hur du tänkt.
+Även ett svar som är fel kan ge poäng,
+om det finns med en förklaring som visar att huvudtankarna var rätt.
+</li></font></ul><font size="-1">
+</font>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+</p><center>LYCKA TILL!</center>
+
+
+
+<p class="breakhere">
+
+
+
+<a name="scenario"></a>
+</p><h2>Scenario till uppgifterna</h2>
+
+
+I och med den nya McDonald's-restaurangen,
+som i höst kommer att öppnas i Långhuset på universitetsområdet,
+kommer McDonald's i Sverige att ha blivit så stora att de behöver en ny databas för
+att hålla reda på sin försäljning.
+
+<p>
+
+Det man behöver hålla reda på är, mer detaljerat, följande:
+
+</p><ul>
+
+<li>
+<b>Restauranger.</b>
+Varje restaurang har ett unikt nummer, en adress och
+ett telefonnummer.
+
+</li><li>
+<b>Varor</b>
+som man kan köpa, till exempel "Big Mac". Varje vara
+har ett unikt nummer, ett unikt namn och ett pris.
+
+</li><li>
+<b>Försäljningen.</b> 
+Alla varor som slås in i kassan och betalas
+tillsammans räknas som ett <b>försäljningstillfälle</b>. Det ska gå att
+se hur många varor av varje sort som sålts vid varje försäljningstillfälle,
+vilken restaurang det skedde på, och när.
+
+</li></ul>
+
+
+
+<p class="breakhere">
+
+
+
+<a name="uppgift-1"></a>
+</p><h2>Uppgift 1 (5 p)</h2>
+
+Rita ett ER- eller EER-diagram för den beskrivna databasen.
+Använd informationen i scenariot ovan, men tänk också på att det ska gå att svara på frågorna i uppgift 3 nedan.
+
+<p>
+
+ER- och EER-diagram kan ritas på flera olika sätt.
+Om du använder en annan notation än kursboken, måste du förklara den notation som du använder.
+
+
+
+<a name="uppgift-2"></a>
+</p><h2>Uppgift 2 (5 p)</h2>
+
+Implementera den beskrivna databasen i relationsmodellen, dvs
+översätt ER-diagrammet till tabeller.
+
+<p>
+
+Du behöver inte skriva <b>create table</b>-kommandon i SQL,
+men du ska ange vilka relationer som finns och vilka attribut varje relation innehåller.
+Ange också alla kandidatnycklar, vilken av dessa som är primärnyckel,
+samt vilka referensattribut som finns och vad de refererar till.
+
+</p><p>
+
+Implementationen ska vara bra.
+
+
+
+<a name="uppgift-3"></a>
+</p><h2>Uppgift 3 (13 p)</h2>
+
+Formulera följande frågor i SQL.
+Definiera gärna vyer om det underlättar, men skapa inte nya tabeller.
+
+
+
+<p>
+
+a) (1p)
+Vad kostar en Big Mac?
+
+</p><p>
+
+b) (1p)
+Vilka olika pajer (alltså varor som innehåller "paj" i namnet) finns det?
+
+</p><p>
+
+c) (2p)
+Hur många Big Mac har sålts, sammanlagt?
+
+</p><p>
+
+d) (2p)
+På vilka restauranger har det sålts äppelpajer?
+Ge restaurangernas nummer, adress och telefonnummer.
+
+</p><p>
+
+e) (2p)
+På vilka restauranger har det INTE sålts några äppelpajer?
+Ge restaurangernas nummer, adress och telefonnummer.
+
+</p><p>
+
+f) (3p)
+Hur mycket har varje restaurang sålt för?
+Vi vill ha en listning med restaurangens nummer, adress, och den restaurangens sammanlagda försäljningssumma.
+Listningen ska sorteras i ordning efter försäljningssumman,
+så restaurangen som sålt mest kommer först.
+De restauranger som inte sålt något alls, behöver inte vara med i listan.
+
+</p><p>
+
+g) (2p)
+Det är förmodligen fel i databasen om det finns två restauranger på samma adress.
+Finns det några sådana restauranger i databasen,
+och vad har de i så fall för nummer och adress?
+
+
+
+</p><p class="breakhere">
+
+
+
+<a name="uppgift-4"></a>
+</p><h2>Uppgift 4 (6 p)</h2>
+
+McDonald's vill att antalet sålda Big Mac hela tiden ska visas på en gigantisk ljustavla
+på taket till huvudkontoret. För att få ett aktuellt värde, hämtas antalet ur databasen,
+genom att köra SQL-fråga <b>c</b> från uppgiften ovan.
+Frågan kommer att köras flera gånger i sekunden.
+Från början finns det inga index alls i databasen,
+inte ens på primärnycklar.
+
+<p>
+
+a) (2p)
+Vi lägger in några testrader i databasen och provkör frågan.
+Den går tillräckligt snabbt.
+Då är väl allt bra, och vi behöver inte göra något mer?
+Förklara hur det är!
+
+</p><p>
+
+b) (2p)
+Vi vill (oavsett svaret på fråga a) snabba upp körningen av frågan.
+Vilka index bör man skapa för att just den frågan ska gå snabbt att köra?
+Motivera valet.
+
+</p><p>
+
+c) (2p)
+När databasen varit i drift några månader ringer McDonald's
+och berättar att de har skapat alla index som behövs,
+och visst går frågan fortare att köra än utan indexen,
+men den tar ändå alldeles för lång tid.
+Förklara varför, och berätta vad de kan göra åt saken!
+
+
+
+<a name="uppgift-5"></a>
+</p><h2>Uppgift 5 (6 p)</h2>
+
+McDonald's vill kunna dela in sina varor i flera olika kategorier,
+till exempel <b>Efterrätter</b>, <b>Hamburgare</b> och <b>Drycker</b>.
+
+<p>
+
+a) (2p)
+Man kan göra ändringen i ER-diagrammet,
+genom att skapa under-entitetstyper till entitetstypen <b>Vara</b>.
+Diagrammet blir då ett så kallat EER-diagram.
+Visa hur EER-diagrammet kommer att se ut.
+(Glöm inte kopplingarna till de andra entitetstyperna.)
+
+</p><p>
+
+b) (2p)
+Översätt entitetstypen <b>Vara</b> och dess under-entitetstyper till tabeller.
+<br>
+Du behöver inte skriva <b>create table</b>-kommandon i SQL,
+men du ska ange vilka relationer som finns och vilka attribut varje
+relation innehåller. Ange också vad som är primärnyckel, och
+vilka referensattribut som finns och vad de refererar till.
+
+</p><p>
+
+c) (2p)
+En nackdel med att skapa under-entitetstyper i EER-diagrammet är att databasen blir oflexibel.
+Det är svårt att lägga till en ny kategori.
+Visa en alternativ lösning, där det är lättare att lägga till kategorier.
+Rita upp ett ER- eller EER-diagram,
+och översätt också till tabeller!
+
+</p><p>
+
+</p><hr>
+
+
+
+</body></html>

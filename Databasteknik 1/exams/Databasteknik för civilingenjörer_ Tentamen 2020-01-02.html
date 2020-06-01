@@ -1,0 +1,377 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0091)http://basen.oru.se/kurser/dbciv/2019-2020-p4/tentor/tenta-2020-01-02/tenta-2020-01-02.html -->
+<html lang="sv"><script data-dapp-detection="">
+(function() {
+  let alreadyInsertedMetaTag = false
+
+  function __insertDappDetected() {
+    if (!alreadyInsertedMetaTag) {
+      const meta = document.createElement('meta')
+      meta.name = 'dapp-detected'
+      document.head.appendChild(meta)
+      alreadyInsertedMetaTag = true
+    }
+  }
+
+  if (window.hasOwnProperty('web3')) {
+    // Note a closure can't be used for this var because some sites like
+    // www.wnyc.org do a second script execution via eval for some reason.
+    window.__disableDappDetectionInsertion = true
+    // Likely oldWeb3 is undefined and it has a property only because
+    // we defined it. Some sites like wnyc.org are evaling all scripts
+    // that exist again, so this is protection against multiple calls.
+    if (window.web3 === undefined) {
+      return
+    }
+    __insertDappDetected()
+  } else {
+    var oldWeb3 = window.web3
+    Object.defineProperty(window, 'web3', {
+      configurable: true,
+      set: function (val) {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        oldWeb3 = val
+      },
+      get: function () {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        return oldWeb3
+      }
+    })
+  }
+})()</script><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title>Databasteknik för civilingenjörer: Tentamen 2020-01-02</title>
+<style type="text/css">
+     P.breakhere {page-break-before: always}
+</style>
+</head>
+
+<body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+Örebro universitet
+<br>
+Institutionen för naturvetenskap och teknik
+<br>
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Databasteknik%20f%C3%B6r%20civilingenj%C3%B6rer:%20Tentamen%202020-01-02">thomas.padron-mccarthy@oru.se</a>)
+
+<pre>
+
+
+
+</pre>
+<center>
+<font size="+2">Tentamen i</font>
+<p>
+<font size="+4">Databasteknik</font>
+</p><p>
+torsdag 2 januari 2020
+</p><p>
+<font size="-1">
+Gäller som tentamen för:
+<br>
+DT504G Databasteknik för civilingenjörer, provkod 0100
+</font>
+</p></center>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+</p><table>
+<tbody><tr><td valign="top">
+<b>Hjälpmedel:</b>
+</td><td valign="top">
+Ordbok för översättning.
+</td></tr>
+<tr><td valign="top">
+<b>Poängkrav:</b>
+</td><td valign="top">
+Maximal poäng är 39.
+För godkänt betyg krävs 21 poäng,
+varav minst fyra poäng på uppgift 1 och minst fem poäng på uppgift 2.
+<!--
+För den som följt kursen våren 2020
+ger varje i tid inlämnad inlämningsuppgift en extra poäng.
+Den som <i>inte</i> gått kursen våren 2020 får dessa (fem) extrapoäng ändå.
+-->
+</td></tr>
+<tr><td valign="top">
+<b>Resultat:</b>
+</td><td valign="top">
+Meddelas på kursens hemsida eller via e-post senast torsdag 23 januari 2020.
+</td></tr>
+<tr><td valign="top">
+<b>Återlämning av tentor:</b>
+</td><td valign="top">
+Elektroniskt via webbportalen Studenttjänster.
+</td></tr>
+<tr><td valign="top">
+<b>Examinator och jourhavande:</b>
+</td><td valign="top">
+Thomas Padron-McCarthy, telefon 070 - 73 47 013.
+</td></tr>
+</tbody></table>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+<font size="-1">
+</font></p><ul><font size="-1">
+
+<li>
+Skriv tydligt och klart. Lösningar som inte går att läsa kan
+naturligtvis inte ge några poäng.
+Oklara och tvetydiga formuleringar kommer att misstolkas.
+
+</li><li>
+Skriv den personliga tentamenskoden på varje inlämnat blad.
+Skriv <i>inte</i> namn eller personnummer på bladen.
+
+</li><li>
+Skriv bara på en sida av papperet.
+Använd inte röd skrift.
+
+</li><li>
+Antaganden utöver de som står i uppgifterna måste anges. Gjorda
+antaganden får inte förändra den givna uppgiften.
+
+</li><li>
+Skriv gärna förklaringar om hur du tänkt.
+Även ett svar som är fel kan ge poäng,
+om det finns med en förklaring som visar att huvudtankarna var rätt.
+</li></font></ul><font size="-1">
+</font>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+</p><center>LYCKA TILL!</center>
+
+
+
+<p class="breakhere">
+
+
+
+<a name="scenario"></a>
+</p><h2>Scenario till uppgifterna</h2>
+
+Laxå universitet,
+som är känt för att ha varit med på den förra tentan i kursen,
+men som inte är särskilt känt i övrigt,
+har startat ett forskningsprojekt
+om maskinöversättning mellan naturliga språk, som svenska och engelska.
+Forskningsprojekt behöver en databas för att
+hålla reda på ord och vad de heter i olika språk,
+och därför har har man gjort en tabell:
+
+<p>
+
+</p><table border="1" cellspacing="0" cellpadding="3">
+<tbody><tr><th colspan="6">Ord</th></tr>
+<tr><th><u>Nummer</u></th> <th>Svenska</th> <th>Engelska</th> <th>Tyska</th> <th>Smurfspråk</th> <th>Kattspråk</th></tr>
+<tr><td>1</td> <td> bil </td> <td> car </td> <td> Auto </td> <td> smurf </td> <td> mjau </td></tr>
+<tr><td>2</td> <td> skola </td> <td> school </td> <td> Schule </td> <td> smurf </td> <td> mjau </td></tr>
+<tr><td>3</td> <td> hus </td> <td> house </td> <td> Haus </td> <td> smurf </td> <td> mjau </td></tr>
+</tbody></table>
+
+<p>
+
+Den tabellen har nackdelen att om man vill lägga in ett nytt språk i databasen,
+till exempel finska,
+måste man ändra schemat på tabellen.
+Den enda som kan ändra schemat är en konsult från Örebro,
+och hon tar 2000 kronor i timmen plus resekostnader, traktamente och moms.
+Det har Laxå universitet inte råd att betala.
+
+</p><p>
+
+Därför vill vi skapa en ny databas,
+där de olika språken finns i databasens <i>data</i> i stället för i dess <i>schema</i>,
+så det blir enkelt att lägga till nya språk.
+
+</p><p>
+
+Vad behövs då i databasen? Jo:
+  
+</p><ul>
+
+  <li><b>Språk</b>, som har ett unikt namn, till exempel <b>svenska</b> eller <b>rätoromanska</b> (som är ett språk som talas i Schweiz).
+
+  </li><li><b>Ord</b>, som är ord, till exempel <b>skola</b> och <b>school</b>.
+  Notera att <b>skola</b> och <b>school</b> är olika ord, trots att de betyder samma sak.
+  Varje ord hör till ett visst språk.
+
+  </li><li><b>Begrepp</b>. Ett begrepp är den idé som ett ord uttrycker.
+    Exempelvis uttrycker det svenska ordet <b>skola</b> och det engelska ordet <b>school</b> samma idé,
+    trots att de skrivs på olika sätt.
+    Varje begrepp får ett unikt nummer, men inget namn (för vilket språk skulle det namnet skrivas på?).
+
+  </li><li><b>Kopplingarna</b> mellan orden och begreppen,
+    så att vi till exempel kan lagra att
+    både det svenska ordet <b>skola</b> och det engelska ordet <b>school</b> är kopplade till samma begrepp.
+
+</li></ul>
+
+
+
+<p class="breakhere">
+
+
+
+<a name="uppgift-1"></a>
+</p><h2>Uppgift 1 (5 p)</h2>
+
+Rita ett ER- eller EER-diagram för den beskrivna databasen.
+Använd informationen i scenariot ovan,
+men tänk också på att det ska gå att svara på frågorna i uppgift 4 nedan.
+
+<p>
+
+ER- och EER-diagram kan ritas på flera olika sätt.
+Om du använder en annan notation än kursboken, måste du förklara den notation som du använder.
+
+
+
+<a name="uppgift-2"></a>
+</p><h2>Uppgift 2 (6 p)</h2>
+
+Implementera den beskrivna databasen i relationsmodellen, dvs
+översätt ER-diagrammet till tabeller.
+
+<p>
+
+Du behöver inte skriva <b>create table</b>-kommandon i SQL,
+men du ska ange vilka relationer som finns och vilka attribut varje relation innehåller.
+Ange också alla kandidatnycklar, vilken av dessa som är primärnyckel,
+samt vilka referensattribut som finns och vad de refererar till.
+
+</p><p>
+
+Implementationen ska vara bra.
+
+
+
+<a name="uppgift-3"></a>
+</p><h2>Uppgift 3 (3 p)</h2>
+
+Välj själv en av tabellerna som du gjort i uppgift 2 ovan.
+Ange vilken som är den högsta normalform (av 1NF, 2NF, 3NF och BCNF)
+som tabellen uppfyller.
+
+<p>
+
+Visa sen att tabellen uppfyller den normalformen.
+
+
+
+<a name="uppgift-4"></a>
+</p><h2>Uppgift 4 (9 p)</h2>
+
+Formulera följande frågor i SQL.
+Definiera gärna vyer eller CTE:er om det underlättar, men skapa inte nya tabeller.
+
+<p>
+
+a) (2p)
+Vad heter det svenska ordet <b>hus</b> på engelska?
+
+</p><p>
+
+b) (2p)
+Vilka svenska ord innehåller bokstaven <b>a</b>?
+
+</p><p>
+
+c) (2p)
+Vilka ord på svenska har ingen motsvarighet på tyska?
+
+</p><p>
+
+d) (3p)
+Vilket språk har flest ord?
+
+
+
+</p><p class="breakhere">
+
+
+
+<a name="uppgift-5"></a>
+</p><h2>Uppgift 5 (5 p)</h2>
+
+Forskningsprojektet växer, och alla tabeller blir mycket stora.
+SQL-frågorna börjar bli långsamma.
+Fråga a i uppgift 3,
+om vad det svenska ordet <b>hus</b> heter på engelska,
+ställs ofta, men kanske om andra ord och språk,
+till exempel att vi vill veta vad det spanska ordet <b>marinero</b>
+heter på ryska.
+Vi ser också att det inte finns några index i databasen, inte ens på nycklar.
+
+<p>
+
+a) Varför skulle bristen på index få frågorna att gå långsamt att köra?
+
+</p><p>
+
+b) Vilka index bör man skapa för att den angivna frågan ska gå snabbare att köra?
+
+</p><p>
+
+c) Ange ett index som <i>inte</i> skulle få den frågan att gå snabbare att köra,
+och förklara varför det indexet inte hjälper.
+
+
+
+<a name="uppgift-6"></a>
+</p><h2>Uppgift 6 (3 p)</h2>
+
+Ange tre olika databashanterare.
+Skriv för var och en åtminstone någon egenskap som skiljer den från de andra. 
+
+
+
+<a name="uppgift-7"></a>
+<h2>Uppgift 7 (3 p)</h2>
+
+Vad är skillnaden på en lagrad procedur och ett program som innehåller SQL-kommandon?
+Vilket är bäst?
+
+
+
+<a name="uppgift-8"></a>
+<h2>Uppgift 8 (5 p)</h2>
+
+Förklara kort vad som menas med:
+
+<p>
+
+a) Atomicitet (A:et i ACID)
+<br>
+b) Atomära värden (som krävs av första normalformen)
+<br>
+c) Konsistensbevarande (C:et i ACID)
+<br>
+d) Aktiv databas
+<br>
+e) SQL-injektion (på engelska: SQL Injection)
+
+</p><p>
+
+</p><hr>
+
+
+
+</body></html>

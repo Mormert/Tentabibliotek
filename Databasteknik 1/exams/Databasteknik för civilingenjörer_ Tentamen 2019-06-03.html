@@ -1,0 +1,412 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0091)http://basen.oru.se/kurser/dbciv/2019-2020-p4/tentor/tenta-2019-06-03/tenta-2019-06-03.html -->
+<html lang="sv"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title>Databasteknik för civilingenjörer: Tentamen 2019-06-03</title>
+<style type="text/css">
+     P.breakhere {page-break-before: always}
+</style>
+<script data-dapp-detection="">
+(function() {
+  let alreadyInsertedMetaTag = false
+
+  function __insertDappDetected() {
+    if (!alreadyInsertedMetaTag) {
+      const meta = document.createElement('meta')
+      meta.name = 'dapp-detected'
+      document.head.appendChild(meta)
+      alreadyInsertedMetaTag = true
+    }
+  }
+
+  if (window.hasOwnProperty('web3')) {
+    // Note a closure can't be used for this var because some sites like
+    // www.wnyc.org do a second script execution via eval for some reason.
+    window.__disableDappDetectionInsertion = true
+    // Likely oldWeb3 is undefined and it has a property only because
+    // we defined it. Some sites like wnyc.org are evaling all scripts
+    // that exist again, so this is protection against multiple calls.
+    if (window.web3 === undefined) {
+      return
+    }
+    __insertDappDetected()
+  } else {
+    var oldWeb3 = window.web3
+    Object.defineProperty(window, 'web3', {
+      configurable: true,
+      set: function (val) {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        oldWeb3 = val
+      },
+      get: function () {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        return oldWeb3
+      }
+    })
+  }
+})()</script></head>
+
+<body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+Örebro universitet
+<br>
+Institutionen för naturvetenskap och teknik
+<br>
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Databasteknik%20f%C3%B6r%20civilingenj%C3%B6rer:%20Tentamen%202019-06-03">thomas.padron-mccarthy@oru.se</a>)
+
+<pre>
+
+
+
+</pre>
+<center>
+<font size="+2">Tentamen i</font>
+<p>
+<font size="+4">Databasteknik</font>
+</p><p>
+måndag 3 juni 2019
+</p><p>
+<font size="-1">
+Gäller som tentamen för:
+<br>
+DT504G Databasteknik för civilingenjörer, provkod 0100
+</font>
+</p></center>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+</p><table>
+<tbody><tr><td valign="top">
+<b>Hjälpmedel:</b>
+</td><td valign="top">
+Ordbok för översättning.
+</td></tr>
+<tr><td valign="top">
+<b>Poängkrav:</b>
+</td><td valign="top">
+Maximal poäng är 43.
+För godkänt betyg krävs 25 poäng,
+varav minst fyra poäng på uppgift 1 och minst fem poäng på uppgift 2.
+För den som följt kursen våren 2019
+ger varje i tid inlämnad inlämningsuppgift en extra poäng.
+Den som <i>inte</i> gått kursen våren 2019 får dessa (fem) extrapoäng ändå.
+</td></tr>
+<tr><td valign="top">
+<b>Resultat:</b>
+</td><td valign="top">
+Meddelas på kursens hemsida eller via e-post senast måndag 24 juni 2019.
+</td></tr>
+<tr><td valign="top">
+<b>Återlämning av tentor:</b>
+</td><td valign="top">
+Elektroniskt via Studentforum.
+</td></tr>
+<tr><td valign="top">
+<b>Examinator och jourhavande:</b>
+</td><td valign="top">
+Thomas Padron-McCarthy, telefon 070 - 73 47 013.
+</td></tr>
+</tbody></table>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+<font size="-1">
+</font></p><ul><font size="-1">
+
+<li>
+Skriv tydligt och klart. Lösningar som inte går att läsa kan
+naturligtvis inte ge några poäng.
+Oklara och tvetydiga formuleringar kommer att misstolkas.
+
+</li><li>
+Skriv den personliga tentamenskoden på varje inlämnat blad.
+Skriv <i>inte</i> namn eller personnummer på bladen.
+
+</li><li>
+Skriv bara på en sida av papperet.
+Använd inte röd skrift.
+
+</li><li>
+Antaganden utöver de som står i uppgifterna måste anges. Gjorda
+antaganden får inte förändra den givna uppgiften.
+
+</li><li>
+Skriv gärna förklaringar om hur du tänkt.
+Även ett svar som är fel kan ge poäng,
+om det finns med en förklaring som visar att huvudtankarna var rätt.
+</li></font></ul><font size="-1">
+</font>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+</p><center>LYCKA TILL!</center>
+
+
+
+<p class="breakhere">
+
+
+
+<a name="scenario"></a>
+</p><h2>Scenario till uppgifterna</h2>
+
+<img src="./Databasteknik för civilingenjörer_ Tentamen 2019-06-03_files/eu-flagga.png" width="240" height="160" alt="EU-flaggan" title="EU-flaggan">
+
+<p>
+
+Det har nyligen varit val till Europaparlamentet,
+och vi vill lagra resultaten från det och andra EU-val.
+Vi behöver förstås en databas för det!
+
+</p><p>
+
+Det som ska lagras i databasen är följande:
+
+</p><ol>
+
+  <li>
+    <b>Länder</b> som är med i EU, och som har partier som medborgarna i landet kan rösta på.
+    Varje land har ett unikt <b>namn</b>, till exempel <b>Sverige</b> eller <b>Tyskland</b>.
+
+  </li><li>
+    <b>Partier</b> som väljarna kan rösta på.
+    Varje parti har ett unikt <b>namn</b>,
+    till exempel <b>Socialdemokraterna</b> eller <b>Moderaterna</b>.
+    Varje parti hör till ett land,
+    till exempel att <b>Socialdemokraterna</b> hör till <b>Sverige</b>.
+
+  </li><li>
+    <b>Partigrupper</b> är sammanslutningar av partier.
+    Varje partigrupp har ett unikt <b>namn</b>,
+    som <b>EPP</b>, <b>ECR</b> eller <b>ENF</b>,
+    och den kan innehålla ett eller flera partier.
+    Ett parti kan bara vara med i en partigrupp,
+    men det finns partier som inte är med i någon partigrupp alls.
+
+  </li><li>
+    <b>Val</b>, till exempel det nyligen hållna valet 2019.
+    Varje val har ett unikt <b>år</b>, som <b>2014</b> eller <b>2019</b>.
+
+  </li><li>
+    Partierna <b>deltar</b> i valen.
+    Till exempel kan <b>Socialdemokraterna</b> ha deltagit i valet <b>2014</b> och valet <b>2019</b>,
+    så varje parti kan delta i flera val.
+    I varje val är det förstås flera partier som deltar.
+    I varje val får partiet ett <b>antal röster</b>.
+    
+</li></ol>
+
+För enkelhets skull tänker vi oss att partier aldrig ändrar
+vilken partigrupp de tillhör.
+Partierna flyttar inte heller till andra länder.
+
+
+
+<p class="breakhere">
+
+
+
+<a name="uppgift-1"></a>
+</p><h2>Uppgift 1 (5 p)</h2>
+
+Rita ett ER- eller EER-diagram för den beskrivna databasen.
+Använd informationen i scenariot ovan,
+men tänk också på att det ska gå att svara på frågorna i uppgift 3 nedan.
+
+<p>
+
+ER- och EER-diagram kan ritas på flera olika sätt.
+Om du använder en annan notation än kursboken, måste du förklara den notation som du använder.
+
+
+
+<a name="uppgift-2"></a>
+</p><h2>Uppgift 2 (6 p)</h2>
+
+Implementera den beskrivna databasen i relationsmodellen, dvs
+översätt ER-diagrammet till tabeller.
+
+<p>
+
+Du behöver inte skriva <b>create table</b>-kommandon i SQL,
+men du ska ange vilka relationer som finns och vilka attribut varje relation innehåller.
+Ange också alla kandidatnycklar, vilken av dessa som är primärnyckel,
+samt vilka referensattribut som finns och vad de refererar till.
+
+</p><p>
+
+Implementationen ska vara bra.
+
+
+
+<a name="uppgift-3"></a>
+</p><h2>Uppgift 3 (9 p)</h2>
+
+Formulera följande frågor i SQL.
+Definiera gärna vyer eller CTE:er om det underlättar, men skapa inte nya tabeller.
+
+<p>
+
+a) (2p)
+Vilka partier finns i Sverige och Tyskland?
+Vi vill alltså veta namnen på alla partier från Sverige och från Tyskland.  
+
+</p><p>
+
+b) (2p)
+Vilka partier från Sverige är med i partigruppen <b>EPP</b>?
+
+</p><p>
+
+c) (2p)
+Totalt hur många röstade i Sverige
+i EU-valet 2019?
+
+</p><p>
+
+d) (3p)
+Vad heter den partigrupp som fick
+flest röster i EU-valet 2019?
+
+
+
+</p><p class="breakhere">
+
+
+
+<a name="uppgift-4"></a>
+</p><h2>Uppgift 4 (2 p)</h2>
+
+Man kanske vill ha med inte bara antalet röster som varje parti fick,
+utan också hur många procent av rösterna de fick.
+Hur skulle man kunna lösa det med en vy?
+Om du inte vill skriva SQL-kod,
+kan du i stället förklara hur det skulle fungera.
+
+
+
+<a name="uppgift-5"></a>
+<h2>Uppgift 5 (5 p)</h2>
+
+Här är ett försök att lösa uppgift 2 ovan,
+med en databas som bara består av en enda tabell.
+Den ser ganska rimlig ut, och skulle man visa valresultatet
+som en tabell i en tidning skulle den mycket väl kunna se ut så här.
+
+<p>
+
+</p><table border="1" cellspacing="0" cellpadding="3">
+
+<tbody><tr><th colspan="5">Valresultat</th></tr>
+<tr><th>Parti</th> <th>Land</th> <th>Grupp</th> <th>År</th> <th>Röster</th></tr>
+
+<tr><td>Vänsterpartiet</td> <td>Sverige</td> <td>GUE/NGL</td> <td>2019</td> <td>267949</td></tr>
+<tr><td>Socialdemokraterna</td> <td>Sverige</td> <td>S&amp;D</td> <td>2019</td> <td>940131</td></tr>
+<tr><td>Miljöpartiet</td> <td>Sverige</td> <td>G/EFA</td> <td>2019</td> <td>454336</td></tr>
+<tr><td>Kristdemokraterna</td> <td>Sverige</td> <td>EPP</td> <td>2019</td> <td>344884</td></tr>
+<tr><td>Centerpartiet</td> <td>Sverige</td> <td>Alde</td> <td>2019</td> <td>429811</td></tr>
+<tr><td>Liberalerna</td> <td>Sverige</td> <td>Alde</td> <td>2019</td> <td>163169</td></tr>
+<tr><td>Moderaterna</td> <td>Sverige</td> <td>EPP</td> <td>2019</td> <td>670931</td></tr>
+<tr><td>Sverigedemokraterna</td> <td>Sverige</td> <td>ECR</td> <td>2019</td> <td>614699</td></tr>
+
+</tbody></table>
+
+<p>
+
+a)
+Om vi betraktar tabellen som en tabell i en relationsdatabas,
+och inte en tabell som är tryckt i en tidning,
+vilka kandidatnycklar finns i tabellen?
+
+</p><p>
+
+b)
+Vilka fullständiga funktionella beroenden finns i tabellen?
+
+</p><p>
+
+c)
+Vilka av de fyra normalformerna
+1NF, 2NF, 3NF och BCNF
+uppfyller tabellen?
+
+</p><p>
+
+d)
+Motivera svaret i c-uppgiften ovan!
+
+
+
+</p><p class="breakhere">
+
+
+
+<a name="uppgift-6"></a>
+</p><h2>Uppgift 6 (4 p)</h2>
+
+a) Vad skulle transaktioner kunna behövas till i EU:s valdatabas?
+
+<p>
+
+b) Databashanterare brukar använda en loggfil.
+Vad är det som lagras på loggfilen,
+och vad har man för nytta av den
+i samband med transaktioner?
+
+
+
+<a name="uppgift-7"></a>
+</p><h2>Uppgift 7 (5 p)</h2>
+
+a) (3p)
+Visa med ett par enkla exempel
+vad man har SQL-kommandona <b>grant</b> och <b>revoke</b> till.
+Glöm inte att förklara vad som händer!
+
+<p>
+
+b) (2p)
+Visa hur man kan kombinera <b>grant</b> och <b>revoke</b>
+med vyer för att ge en mer finkornig kontroll av vad användarna får göra med databasen.
+
+
+
+<a name="uppgift-8"></a>
+</p><h2>Uppgift 8 (3 p)</h2>
+
+Förklara vad ett B-träd är, och särskilt hur B-träd skiljer sig från binära träd.
+Varför används B-träd ofta i databashanterare?
+
+
+
+<a name="uppgift-9"></a>
+<h2>Uppgift 9 (4 p)</h2>
+
+            I databaser kan det förekomma redundans av olika slag.
+            Förklara vad som menas med redundans.
+            Beskriv också två olika typer av redundans som kan förekomma,
+            och i vilka sammanhang de förekommer.
+            Vilka fördelar och nackdelar finns med de olika typerna av redundans?
+
+<p>
+
+</p><hr>
+
+
+
+</body></html>

@@ -1,0 +1,642 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0095)http://basen.oru.se/kurser/dbciv/2019-2020-p4/tentor/tenta-2017-08-21/losningar-2017-08-21.html -->
+<html lang="sv"><script data-dapp-detection="">
+(function() {
+  let alreadyInsertedMetaTag = false
+
+  function __insertDappDetected() {
+    if (!alreadyInsertedMetaTag) {
+      const meta = document.createElement('meta')
+      meta.name = 'dapp-detected'
+      document.head.appendChild(meta)
+      alreadyInsertedMetaTag = true
+    }
+  }
+
+  if (window.hasOwnProperty('web3')) {
+    // Note a closure can't be used for this var because some sites like
+    // www.wnyc.org do a second script execution via eval for some reason.
+    window.__disableDappDetectionInsertion = true
+    // Likely oldWeb3 is undefined and it has a property only because
+    // we defined it. Some sites like wnyc.org are evaling all scripts
+    // that exist again, so this is protection against multiple calls.
+    if (window.web3 === undefined) {
+      return
+    }
+    __insertDappDetected()
+  } else {
+    var oldWeb3 = window.web3
+    Object.defineProperty(window, 'web3', {
+      configurable: true,
+      set: function (val) {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        oldWeb3 = val
+      },
+      get: function () {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        return oldWeb3
+      }
+    })
+  }
+})()</script><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title>Databasteknik: Lösningar till tentamen 2017-08-21</title>
+
+</head><body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+<h1><a href="http://basen.oru.se/kurser/dbciv/2019-2020-p4/index.html">Databasteknik</a>: Lösningar till tentamen 2017-08-21</h1>
+
+Observera att detta är förslag på lösningar.
+Det kan finnas andra lösningar som också är korrekta.
+Det kan hända att en del av lösningarna är mer omfattande än vad som krävs för full poäng på uppgiften,
+eller att de bara hänvisar till var man kan läsa svaren.
+Dessutom har det inträffat i världshistorien att lärare skrivit fel i lösningsförslagen.
+<i>Jag</i> har förstås aldrig gjort det, men andra.
+Är det verkligen någon som läser såna här inledande texter?
+Jag vet inte. Det kan vara så. Rabarber rabarber rabarber.
+Det har jag hört att statisterna får säga på filminspelningar
+när det ska vara bakgrundsorl från en restaurang eller liknande.
+Här nedan kommer lösningsförslagen till uppgifterna.
+
+
+
+<a name="uppgift-1"></a>
+<h2>Uppgift 1 (5 p)</h2>
+
+Rita ett ER- eller EER-diagram för den beskrivna databasen.
+Använd informationen i scenariot ovan, men tänk också på att det ska gå att svara på frågorna i uppgift 3 nedan.
+
+<p>
+
+ER- och EER-diagram kan ritas på flera olika sätt.
+Om du använder en annan notation än kursboken, måste du förklara den notation som du använder.
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+<img src="./Databasteknik_ Lösningar till tentamen 2017-08-21_files/er.png" alt="Ett ER-diagram" title="Ett ER-diagram">
+
+</p><p>
+
+Ett alternativ är att byta ut många-till-många-sambanet <b>Ingår</b>
+mot en entitetstyp <b>Försäljningsrad</b>,
+som motsvarar kopplingen mellan ett försäljningstillfälle och en vara.
+<b>Försäljningsrad</b> kan vara en svag entitetstyp.
+
+
+
+<a name="uppgift-2"></a>
+</p><h2>Uppgift 2 (6 p)</h2>
+
+Implementera den beskrivna databasen i relationsmodellen, dvs
+översätt ER-diagrammet till tabeller.
+
+<p>
+
+Du behöver inte skriva <b>create table</b>-kommandon i SQL,
+men du ska ange vilka relationer som finns och vilka attribut varje relation innehåller.
+Ange också alla kandidatnycklar, vilken av dessa som är primärnyckel,
+samt vilka referensattribut som finns och vad de refererar till.
+
+</p><p>
+
+Implementationen ska vara bra.
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+Restauranger(<u>Nummer</u>, <u>Adress</u>, <u>Telefon</u>)
+<br>
+Varor(<u>Nummer</u>, <u>Namn</u>, Pris)
+<br>
+Försäljningstillfällen(<u>Nummer</u>, Restaurang, Tid)
+<br>
+Ingår(<u>ID</u>, <u>Försäljningstillfälle, Vara</u>, Antal);
+
+</p><p>
+
+Primär- och kandidatnycklarna är understrukna.
+I alla tabellerna den kandidatnyckel som står först primärnyckel.
+I tabellen <b>Ingår</b> är <b>ID</b> en databasintern nyckel för att underlätta arbetet.
+Vi kan också klara oss utan den.
+
+</p><p>
+
+Främmande nycklar:
+
+</p><p>
+
+Försäljningstillfälle.Restaurang till Restauranger.Nummer
+<br>
+Ingår.Försäljningstillfälle till Försäljningstillfälle.Nummer
+<br>
+Ingår.Vara till Varor.Nummer
+
+</p><p>
+
+Här finns <b>create table</b>-kommandon och exempeldata,
+för att underlätta provkörningar:
+
+</p><blockquote>
+<pre>DROP TABLE Ingår;
+DROP TABLE Försäljningstillfällen;
+DROP TABLE Varor;
+DROP TABLE Restauranger;
+
+CREATE TABLE Restauranger
+(Nummer INTEGER NOT NULL PRIMARY KEY,
+Adress NVARCHAR(10) NOT NULL UNIQUE, -- Motverkar felet i fråga 3g!
+Telefon NVARCHAR(10) NOT NULL UNIQUE );
+
+CREATE TABLE Varor
+(Nummer INTEGER NOT NULL PRIMARY KEY,
+Namn NVARCHAR(10) NOT NULL UNIQUE,
+Pris DECIMAL(5,2) NOT NULL);
+
+CREATE TABLE Försäljningstillfällen
+(Nummer INTEGER NOT NULL PRIMARY KEY,
+Restaurang INTEGER NOT NULL REFERENCES Restauranger(Nummer),
+Tid TIMESTAMP NOT NULL);
+
+CREATE TABLE Ingår
+(ID INTEGER NOT NULL PRIMARY KEY,
+Försäljningstillfälle INTEGER NOT NULL REFERENCES Försäljningstillfällen(Nummer),
+Vara INTEGER NOT NULL REFERENCES Varor(Nummer),
+Antal INTEGER,
+UNIQUE(Vara, Försäljningstillfälle));
+
+INSERT INTO Restauranger (Nummer, Adress, Telefon) VALUES (1, 'Vägen 1', '012345');
+INSERT INTO Restauranger (Nummer, Adress, Telefon) VALUES (2, 'Vägen 2', '728009');
+INSERT INTO Restauranger (Nummer, Adress, Telefon) VALUES (3, 'Vägen 3', '019-94639');
+
+INSERT INTO Varor (Nummer, Namn, Pris) VALUES (1, 'Big Mac', 49.00);
+INSERT INTO Varor (Nummer, Namn, Pris) VALUES (2, 'McFeast', 49.90);
+INSERT INTO Varor (Nummer, Namn, Pris) VALUES (3, 'El Maco', 10.00);
+INSERT INTO Varor (Nummer, Namn, Pris) VALUES (4, 'Äppelpaj', 0.90);
+INSERT INTO Varor (Nummer, Namn, Pris) VALUES (5, 'Spajk', 10.00);
+
+INSERT INTO Försäljningstillfällen (Nummer, Restaurang, Tid) VALUES (1, 1, TIMESTAMP '2017-08-21 12:10:21');
+INSERT INTO Försäljningstillfällen (Nummer, Restaurang, Tid) VALUES (2, 2, TIMESTAMP '2017-08-21 12:10:22');
+INSERT INTO Försäljningstillfällen (Nummer, Restaurang, Tid) VALUES (3, 1, TIMESTAMP '2017-08-21 12:10:23');
+
+INSERT INTO Ingår (ID, Försäljningstillfälle, Vara, Antal) VALUES (1, 1, 1, 1);
+INSERT INTO Ingår (ID, Försäljningstillfälle, Vara, Antal) VALUES (2, 1, 2, 1);
+INSERT INTO Ingår (ID, Försäljningstillfälle, Vara, Antal) VALUES (3, 2, 1, 100);
+INSERT INTO Ingår (ID, Försäljningstillfälle, Vara, Antal) VALUES (4, 2, 2, 10);
+INSERT INTO Ingår (ID, Försäljningstillfälle, Vara, Antal) VALUES (5, 3, 4, 10);
+
+SELECT * FROM Restauranger;
+SELECT * FROM Varor;
+SELECT * FROM Försäljningstillfällen;
+SELECT * FROM Ingår;
+</pre>
+</blockquote>
+
+Tabellutskrifter från Mimer med exempelraderna:
+
+<blockquote>
+<pre>SELECT * FROM Restauranger;
+
+     Nummer Adress     Telefon
+=========== ========== ==========
+          1 Vägen 1    012345
+          2 Vägen 2    728009
+          3 Vägen 3    019-94639
+
+                  3 rows found
+
+SELECT * FROM Varor;
+
+     Nummer Namn          Pris
+=========== ========== =======
+          1 Big Mac      49.00
+          2 McFeast      49.90
+          3 El Maco      10.00
+          4 Äppelpaj      0.90
+          5 Spajk        10.00
+
+                  5 rows found
+
+SELECT * FROM Försäljningstillfällen;
+
+     Nummer  Restaurang Tid
+=========== =========== ==========================
+          1           1 2017-08-21 12:10:21.000000
+          2           2 2017-08-21 12:10:22.000000
+          3           1 2017-08-21 12:10:23.000000
+
+                  3 rows found
+
+SELECT * FROM Ingår;
+
+         ID Försäljningstillfälle        Vara       Antal
+=========== ===================== =========== ===========
+          1                     1           1           1
+          2                     1           2           1
+          3                     2           1         100
+          4                     2           2          10
+          5                     3           4          10
+
+                  5 rows found
+</pre>
+</blockquote>
+
+
+
+<a name="uppgift-3"></a>
+<h2>Uppgift 3 (13 p)</h2>
+
+Formulera följande frågor i SQL.
+Definiera gärna vyer om det underlättar, men skapa inte nya tabeller.
+
+<p>
+
+a) (1p)
+Vad kostar en Big Mac?
+
+</p><p>
+
+</p><blockquote>
+<pre>SELECT Pris FROM Varor WHERE Namn = 'Big Mac';
+</pre>
+</blockquote>
+
+<p>
+
+b) (1p)
+Vilka olika pajer (alltså varor som innehåller "paj" i namnet) finns det?
+
+</p><p>
+
+</p><blockquote>
+<pre>SELECT Namn FROM Varor WHERE Namn LIKE '%paj%';
+</pre>
+</blockquote>
+
+<p>
+
+c) (2p)
+Hur många Big Mac har sålts, sammanlagt?
+
+</p><p>
+
+</p><blockquote>
+<pre>SELECT Sum(Ingår.Antal)
+FROM Ingår, Varor
+WHERE Ingår.Vara = Varor.Nummer
+AND Varor.Namn = 'Big Mac';
+</pre>
+</blockquote>
+
+<p>
+
+d) (2p)
+På vilka restauranger har det sålts äppelpajer?
+Ge restaurangernas nummer, adress och telefonnummer.
+
+</p><p>
+
+</p><blockquote>
+<pre>SELECT DISTINCT Restauranger.Nummer, Restauranger.Adress, Restauranger.Telefon
+FROM Restauranger, Försäljningstillfällen, Ingår, Varor
+WHERE Restauranger.Nummer = Försäljningstillfällen.Restaurang
+AND Försäljningstillfällen.Nummer = Ingår.Försäljningstillfälle
+AND Ingår.Vara = Varor.Nummer
+AND Varor.Namn = 'Äppelpaj';
+</pre>
+</blockquote>
+
+<p>
+
+Det blir kortare med tabellalias,
+och därför kan det faktiskt vara lättare att läsa:
+  
+</p><p>
+
+</p><blockquote>
+<pre>SELECT DISTINCT R.Nummer, R.Adress, R.Telefon
+FROM Restauranger AS R, Försäljningstillfällen AS F, Ingår AS I, Varor AS V
+WHERE R.Nummer = F.Restaurang
+AND F.Nummer = I.Försäljningstillfälle
+AND I.Vara = V.Nummer
+AND V.Namn = 'Äppelpaj';
+</pre>
+</blockquote>
+
+<p>
+
+Man behöver inte ange tabellen för de kolumner
+som bara finns i en av de använda tabellerna,
+men jag rekommenderar inte att man gör så här,
+för då måste man hålla reda på vilka kolumner det är:
+
+</p><p>
+
+</p><blockquote>
+<pre>SELECT DISTINCT Restauranger.Nummer, Adress, Telefon
+FROM Restauranger, Försäljningstillfällen, Ingår, Varor
+WHERE Restauranger.Nummer = Restaurang
+AND Försäljningstillfällen.Nummer = Försäljningstillfälle
+AND Vara = Varor.Nummer
+AND Namn = 'Äppelpaj';
+</pre>
+</blockquote>
+
+<p>
+
+Ett alternativ med nästlade frågor:
+
+</p><p>
+
+</p><blockquote>
+<pre>SELECT Nummer, Adress, Telefon
+FROM Restauranger
+WHERE Nummer IN (SELECT Restaurang
+                 FROM Försäljningstillfällen
+                 WHERE Nummer IN (SELECT Försäljningstillfälle
+                                  FROM Ingår
+                                  WHERE Vara IN (SELECT Nummer
+                                                 FROM Varor
+                                                 WHERE Namn = 'Äppelpaj')));
+</pre>
+</blockquote>
+
+<p>
+
+Ytterligare ett alternativ, med explicita joinar:
+
+</p><p>
+
+</p><blockquote>
+<pre>SELECT DISTINCT Restauranger.Nummer, Restauranger.Adress, Restauranger.Telefon
+FROM Restauranger JOIN Försäljningstillfällen ON Restauranger.Nummer = Försäljningstillfällen.Restaurang
+    JOIN Ingår ON Försäljningstillfällen.Nummer = Ingår.Försäljningstillfälle
+    JOIN Varor ON Ingår.Vara = Varor.Nummer
+WHERE Varor.Namn = 'Äppelpaj';
+</pre>
+</blockquote>
+
+<p>
+
+e) (2p)
+På vilka restauranger har det INTE sålts några äppelpajer?
+Ge restaurangernas nummer, adress och telefonnummer.
+
+</p><p>
+
+</p><blockquote>
+<pre>SELECT Nummer, Adress, Telefon
+FROM Restauranger
+WHERE Nummer NOT IN (SELECT Restaurang
+                     FROM Försäljningstillfällen
+                     WHERE Nummer IN (SELECT Försäljningstillfälle
+                                      FROM Ingår
+                                      WHERE Vara IN (SELECT Nummer
+                                                     FROM Varor
+                                                     WHERE Namn = 'Äppelpaj')));
+</pre>
+</blockquote>
+
+<p>
+
+f) (3p)
+Hur mycket har varje restaurang sålt för?
+Vi vill ha en listning med restaurangens nummer, adress, och den restaurangens sammanlagda försäljningssumma.
+Listningen ska sorteras i ordning efter försäljningssumman,
+så restaurangen som sålt mest kommer först.
+De restauranger som inte sålt något alls, behöver inte vara med i listan.
+
+</p><p>
+
+</p><blockquote>
+<pre>SELECT Restauranger.Nummer, Restauranger.Adress, SUM(Varor.Pris * Ingår.Antal) AS Summan
+FROM Restauranger, Försäljningstillfällen, Ingår, Varor
+WHERE Restauranger.Nummer = Försäljningstillfällen.Restaurang
+AND Försäljningstillfällen.Nummer = Ingår.Försäljningstillfälle
+AND Ingår.Vara = Varor.Nummer
+GROUP BY Restauranger.Nummer, Restauranger.Adress
+ORDER BY Summan DESC;
+</pre>
+</blockquote>
+
+<p>
+
+g) (2p)
+Det är förmodligen fel i databasen om det finns två restauranger på samma adress.
+Finns det några sådana restauranger i databasen,
+och vad har de i så fall för nummer och adress?
+
+</p><p>
+
+</p><blockquote>
+<pre>SELECT *
+FROM Restauranger AS ena, Restauranger AS andra
+WHERE ena.Adress = andra.Adress
+AND ena.Nummer &lt;&gt; andra.Nummer;
+</pre>
+</blockquote>
+
+
+
+<a name="uppgift-4"></a>
+<h2>Uppgift 4 (6 p)</h2>
+
+McDonald's vill att antalet sålda Big Mac hela tiden ska visas på en gigantisk ljustavla
+på taket till huvudkontoret. För att få ett aktuellt värde, hämtas antalet ur databasen,
+genom att köra SQL-fråga <b>c</b> från uppgiften ovan.
+Frågan kommer att köras flera gånger i sekunden.
+Från början finns det inga index alls i databasen,
+inte ens på primärnycklar.
+
+<p>
+
+a) (2p)
+Vi lägger in några testrader i databasen och provkör frågan.
+Den går tillräckligt snabbt.
+Då är väl allt bra, och vi behöver inte göra något mer?
+Förklara hur det är!
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+Nej, allt är inte bra än!
+Om man testkör med några få rader kan det gå snabbt,
+men när databasen kommer i drift på riktigt ska hela McDonald's försäljning lagras,
+och de säljer miljoner varor varje dag.
+Alltså kommer databasen att innehålla många miljoner rader i åtminstone <b>Ingår</b>-tabellen.
+Om vi antar att frågan har en tidskomplexitet på <b>O(n)</b>,
+som vi ser nedan, kommer den att gå miljoner gånger långsammare.
+
+</p><p>
+
+b) (2p)
+Vi vill (oavsett svaret på fråga a) snabba upp körningen av frågan.
+Vilka index bör man skapa för att just den frågan ska gå snabbt att köra?
+Motivera valet.
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+</p><ul>
+<li>
+Ingår.Vara
+</li><li>
+Varor.Nummer (eventuellt inte, eftersom tabellen är liten)
+</li><li>
+Varor.Namn (eventuellt inte, eftersom tabellen är liten)
+</li></ul>
+
+<p>
+
+Det är de kolumner som används i frågan för sökningar eller i joinvillkor.
+
+</p><p>
+
+c) (2p)
+När databasen varit i drift några månader ringer McDonald's
+och berättar att de har skapat alla index som behövs,
+och visst går frågan fortare att köra än utan indexen,
+men den tar ändå alldeles för lång tid.
+Förklara varför, och berätta vad de kan göra åt saken!
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+Oavsett vilka index man har, måste man läsa igenom hela tabellen <b>Ingår</b>.
+Man ska ju summera kolumnen <b>Antal</b> från samtliga rader.
+Frågan har alltså tidskomplexiteten <b>O(n)</b>,
+där <b>n</b> är antalet rader i tabellen <b>Ingår</b>,
+och den tabellen innehåller miljoner rader.
+Enkla sökningar i en tabell med trädindex brukar ha tidskomplexiteten <b>O(log n)</b>,
+men det är inte det vi gör här.
+
+</p><p>
+
+En möjlig lösning är att skapa en materialiserad vy med hjälp av triggers.
+En särskild tabell innehåller antalet sålda Big Mac,
+och vi skapar en trigger <b>after insert on Ingår</b>,
+som lägger till antalet Big Mac från <b>Ingår</b>-raden
+till antalet i tabellen med antalet sålda Big Mac.
+På det viset hålls summan hela tiden aktuell,
+och uppslagning av summan sker i konstant tid,
+dvs med tidskomplexiteten <b>O(1)</b>.
+  
+
+
+<a name="uppgift-5"></a>
+</p><h2>Uppgift 5 (6 p)</h2>
+
+McDonald's vill kunna dela in sina varor i flera olika kategorier,
+till exempel <b>Efterrätter</b>, <b>Hamburgare</b> och <b>Drycker</b>.
+
+<p>
+
+a) (2p)
+Man kan göra ändringen i ER-diagrammet,
+genom att skapa under-entitetstyper till entitetstypen <b>Vara</b>.
+Diagrammet blir då ett så kallat EER-diagram.
+Visa hur EER-diagrammet kommer att se ut.
+(Glöm inte kopplingarna till de andra entitetstyperna.)
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+<img src="./Databasteknik_ Lösningar till tentamen 2017-08-21_files/eer-a.png" alt="Ett EER-diagram" title="Ett EER-diagram">
+
+</p><p>
+
+b) (2p)
+Översätt entitetstypen <b>Vara</b> och dess under-entitetstyper till tabeller.
+<br>
+Du behöver inte skriva <b>create table</b>-kommandon i SQL,
+men du ska ange vilka relationer som finns och vilka attribut varje
+relation innehåller. Ange också vad som är primärnyckel, och
+vilka referensattribut som finns och vad de refererar till.
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+Varor(<u>Nummer</u>, <u>Namn</u>, Pris)
+<br>
+Efterrätter(<u>Nummer</u>)
+<br>
+Hamburgare(<u>Nummer</u>)
+<br>
+Drycker(<u>Nummer</u>)
+
+</p><p>
+
+<b>Nummer</b> är primärnyckel i samtliga dessa tabeller,
+och i underentitetstypstabellerna är <b>Nummer</b> dessutom en främmande nyckel
+som refererar till <b>Nummer</b> i <b>Varor</b>.
+Notera att tabellen <b>Varor</b> är oförändrad jämfört med uppgift 2,
+och kolumnen <b>Vara</b> i tabellen <b>Ingår</b> refererar fortfarande till
+<b>Nummer</b> i <b>Varor</b>.
+
+</p><p>
+
+c) (2p)
+En nackdel med att skapa under-entitetstyper i EER-diagrammet är att databasen blir oflexibel.
+Det är svårt att lägga till en ny kategori.
+Visa en alternativ lösning, där det är lättare att lägga till kategorier.
+Rita upp ett ER- eller EER-diagram,
+och översätt också till tabeller!
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+<img src="./Databasteknik_ Lösningar till tentamen 2017-08-21_files/eer-c.png" alt="Ett EER-diagram" title="Ett EER-diagram">
+
+</p><p>
+
+Tabeller:
+
+</p><p>
+
+Varor(<u>Nummer</u>, <u>Namn</u>, Pris, Kategori)
+<br>
+Kategorier(<u>Namn</u>)
+
+</p><p>
+
+<b>Kategori</b> i <b>Varor</b> refererar till <b>Namn</b> i <b>Kategorier</b>.
+
+</p><p>
+
+</p><hr>
+
+<font size="-1">
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Databasteknik:%20L%C3%B6sningar%20till%20tentamen%202017-08-21">thomas.padron-mccarthy@oru.se</a>),
+23 augusti 2017
+</font>
+
+
+
+</body></html>

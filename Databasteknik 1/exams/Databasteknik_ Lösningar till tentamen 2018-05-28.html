@@ -1,0 +1,632 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0095)http://basen.oru.se/kurser/dbciv/2019-2020-p4/tentor/tenta-2018-05-28/losningar-2018-05-28.html -->
+<html lang="sv"><script data-dapp-detection="">
+(function() {
+  let alreadyInsertedMetaTag = false
+
+  function __insertDappDetected() {
+    if (!alreadyInsertedMetaTag) {
+      const meta = document.createElement('meta')
+      meta.name = 'dapp-detected'
+      document.head.appendChild(meta)
+      alreadyInsertedMetaTag = true
+    }
+  }
+
+  if (window.hasOwnProperty('web3')) {
+    // Note a closure can't be used for this var because some sites like
+    // www.wnyc.org do a second script execution via eval for some reason.
+    window.__disableDappDetectionInsertion = true
+    // Likely oldWeb3 is undefined and it has a property only because
+    // we defined it. Some sites like wnyc.org are evaling all scripts
+    // that exist again, so this is protection against multiple calls.
+    if (window.web3 === undefined) {
+      return
+    }
+    __insertDappDetected()
+  } else {
+    var oldWeb3 = window.web3
+    Object.defineProperty(window, 'web3', {
+      configurable: true,
+      set: function (val) {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        oldWeb3 = val
+      },
+      get: function () {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        return oldWeb3
+      }
+    })
+  }
+})()</script><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title>Databasteknik: Lösningar till tentamen 2018-05-28</title>
+
+</head><body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+<h1><a href="http://basen.oru.se/kurser/dbciv/2019-2020-p4/index.html">Databasteknik</a>: Lösningar till tentamen 2018-05-28</h1>
+
+Observera att detta är förslag på lösningar.
+Det kan finnas andra lösningar som också är korrekta.
+Det kan hända att en del av lösningarna är mer omfattande än vad som krävs för full poäng på uppgiften,
+eller att de bara hänvisar till var man kan läsa svaren.
+Dessutom har det inträffat i världshistorien att lärare skrivit fel i lösningsförslagen.
+<i>Jag</i> har förstås aldrig gjort det, men andra.
+Är det verkligen någon som läser såna här inledande texter?
+Jag vet inte. Det kan vara så. Rabarber rabarber rabarber.
+Det har jag hört att statisterna får säga på filminspelningar
+när det ska vara bakgrundssorl från en restaurang eller liknande.
+Här nedan kommer lösningsförslagen till uppgifterna.
+
+
+
+<a name="uppgift-1"></a>
+<h2>Uppgift 1 (5 p)</h2>
+
+<img src="./Databasteknik_ Lösningar till tentamen 2018-05-28_files/er.png" alt="Ett EER-diagram" title="Ett ER-diagram">
+
+<p>
+
+En kommentar:
+ER-diagrammet visar en historisk databas, där vi sparar alla teportioner och bryggningar.
+Om man i stället vill ha en snapshot-databas,
+skulle varje tekopp bara användas till en enda teportion,
+och varje tekanna bara användas till en enda bryggning.
+Men hur löser man då att en teportion kan innehålla te från två olika
+bryggningar, som båda gjorts i samma tekanna?
+Kanske måste man ändå spara alla bryggningar,
+åtminstone alla som fortfarande har te i någon kopp?
+En del av sökningarna i uppgift 3 verkar också kräva en historisk databas,
+för hur kan man annars veta till exempel vilka kannor som <i>någonsin</i>
+innehållit Bolmörtsblandning?
+
+
+<a name="uppgift-2"></a>
+</p><h2>Uppgift 2 (6 p)</h2>
+
+Koppar(<u>Nummer</u>, Volym)
+<br>
+Kannor(<u>Nummer</u>, Volym)
+<br>
+Sorter(<u>Namn</u>)
+<br>
+Bryggningar(<u>Nummer</u>, Datum, Sort, Kanna)
+<br>
+Portioner(<u>Nummer</u>, Kopp)
+<br>
+Bryggning_I_Portion(<u>Bryggning, Portion</u>)
+
+<p>
+
+Primärnycklarna är understrukna.
+
+</p><p>
+
+Främmande nycklar:
+
+</p><p>
+
+Bryggning.Sort till Sorter.Namn
+<br>
+Bryggning.Kanna till Kannor.Nummer
+<br>
+Portioner.Kopp till Koppar.Nummer
+<br>
+Bryggning_I_Portion.Bryggning till Bryggning.Nummer
+<br>
+Bryggning_I_Portion.Portion till Portioner.Nummer
+
+</p><p>
+
+En kommentar: Man kan, om man vill, skapa en surrogatnyckel för tesorter.
+
+</p><p>
+
+Nedan visas <b>create table</b>-kommandon och exempeldata,
+för att underlätta provkörningar.
+  
+</p><blockquote>
+<pre>DROP TABLE Koppar;
+DROP TABLE Kannor;
+DROP TABLE Sorter;
+DROP TABLE Bryggningar;
+DROP TABLE Portioner;
+DROP TABLE Bryggning_I_Portion;
+
+CREATE TABLE Koppar
+(Nummer INTEGER NOT NULL PRIMARY KEY,
+Volym FLOAT NOT NULL);
+
+CREATE TABLE Kannor
+(Nummer INTEGER NOT NULL PRIMARY KEY,
+Volym FLOAT NOT NULL);
+
+CREATE TABLE Sorter
+(Namn NVARCHAR(50) NOT NULL PRIMARY KEY);
+
+CREATE TABLE Bryggningar
+(Nummer INTEGER NOT NULL PRIMARY KEY,
+Datum DATE NOT NULL,
+Sort NVARCHAR(50) NOT NULL REFERENCES Sorter(Namn),
+Kanna INTEGER NOT NULL REFERENCES Kannor(Nummer));
+
+CREATE TABLE Portioner
+(Nummer INTEGER NOT NULL PRIMARY KEY,
+Kopp INTEGER NOT NULL REFERENCES Koppar(Nummer));
+
+CREATE TABLE Bryggning_I_Portion
+(Bryggning INTEGER NOT NULL REFERENCES Bryggningar(Nummer),
+Portion INTEGER NOT NULL REFERENCES Portioner(Nummer),
+PRIMARY KEY(Bryggning, Portion));
+
+INSERT INTO Koppar (Nummer, Volym) VALUES (1, 0.4);
+INSERT INTO Koppar (Nummer, Volym) VALUES (2, 0.5);
+INSERT INTO Koppar (Nummer, Volym) VALUES (3, 0.6);
+INSERT INTO Koppar (Nummer, Volym) VALUES (4, 0.7);
+
+INSERT INTO Kannor (Nummer, Volym) VALUES (1, 1);
+INSERT INTO Kannor (Nummer, Volym) VALUES (2, 2);
+INSERT INTO Kannor (Nummer, Volym) VALUES (3, 3);
+INSERT INTO Kannor (Nummer, Volym) VALUES (4, 4);
+
+INSERT INTO Sorter (Namn) VALUES ('Söderblandning');
+INSERT INTO Sorter (Namn) VALUES ('Döderblandning');
+INSERT INTO Sorter (Namn) VALUES ('Bolmörtsblandning');
+INSERT INTO Sorter (Namn) VALUES ('Gray Horror');
+INSERT INTO Sorter (Namn) VALUES ('Grey Terror');
+INSERT INTO Sorter (Namn) VALUES ('Stingray Bite');
+
+INSERT INTO Bryggningar (Nummer, Datum, Sort, Kanna)
+  VALUES (1, DATE '2018-05-27', 'Söderblandning', 1);
+INSERT INTO Bryggningar (Nummer, Datum, Sort, Kanna)
+  VALUES (2, DATE '2018-05-27', 'Döderblandning', 1);
+INSERT INTO Bryggningar (Nummer, Datum, Sort, Kanna)
+  VALUES (3, DATE '2018-05-27', 'Bolmörtsblandning', 1);
+INSERT INTO Bryggningar (Nummer, Datum, Sort, Kanna)
+  VALUES (4, DATE '2018-05-27', 'Bolmörtsblandning', 2);
+INSERT INTO Bryggningar (Nummer, Datum, Sort, Kanna)
+  VALUES (5, DATE '2018-05-27', 'Söderblandning', 3);
+
+INSERT INTO Portioner (Nummer, Kopp) VALUES (1, 1);
+INSERT INTO Portioner (Nummer, Kopp) VALUES (2, 1);
+INSERT INTO Portioner (Nummer, Kopp) VALUES (3, 1);
+INSERT INTO Portioner (Nummer, Kopp) VALUES (4711, 1);
+
+INSERT INTO Bryggning_I_Portion(Bryggning, Portion) VALUES (1, 1);
+INSERT INTO Bryggning_I_Portion(Bryggning, Portion) VALUES (1, 2);
+INSERT INTO Bryggning_I_Portion(Bryggning, Portion) VALUES (1, 3);
+INSERT INTO Bryggning_I_Portion(Bryggning, Portion) VALUES (2, 1);
+INSERT INTO Bryggning_I_Portion(Bryggning, Portion) VALUES (2, 2);
+INSERT INTO Bryggning_I_Portion(Bryggning, Portion) VALUES (2, 3);
+INSERT INTO Bryggning_I_Portion(Bryggning, Portion) VALUES (1, 4711);
+INSERT INTO Bryggning_I_Portion(Bryggning, Portion) VALUES (2, 4711);
+
+SELECT * FROM Koppar;
+SELECT * FROM Kannor;
+SELECT * FROM Sorter;
+SELECT * FROM Bryggningar;
+SELECT * FROM Portioner;
+SELECT * FROM Bryggning_I_Portion;
+</pre>
+</blockquote>
+
+
+
+<a name="uppgift-3"></a>
+<h2>Uppgift 3 (11 p)</h2>
+
+a) (1p)
+Vi behöver en stor tekopp!
+Vad är numren på de tekoppar som har större volym än en halv liter?
+
+<p>
+
+</p><blockquote>
+<pre>SELECT Nummer
+FROM Koppar
+WHERE Volym &gt; 0.5;
+</pre>
+</blockquote>
+
+<p>
+
+b) (1p)
+Det finns en tesort som heter <b>Earl Grey</b>.
+Eller ska den kanske stavas <b>Earl Gray</b>?
+Visa alla namn på tesorter som innehåller <b>Grey</b> eller <b>Gray</b>!
+
+</p><p>
+
+</p><blockquote>
+<pre>SELECT Namn
+FROM Sorter
+WHERE Namn LIKE '%Grey%' OR Namn LIKE '%Gray%';
+</pre>
+</blockquote>
+
+<p>
+
+c) (2p)
+Det visar sig att tesorten <b>Bolmörtsblandning</b> är giftig,
+och alla tekannor som någonsin innehållit den sortens te måste kasseras.
+Vad är numren på de tekannor som vi bryggt den tesorten i?
+
+</p><p>
+
+</p><blockquote>
+<pre>SELECT DISTINCT Kanna
+FROM Bryggningar
+WHERE Sort = 'Bolmörtsblandning';
+</pre>
+</blockquote>
+
+<p>
+
+d) (2p)
+Här har jag en kopp med te.
+Den har nummer <b>4711</b>.
+Vilka sorters te innehåller den?
+Vi vill veta namnen på tesorterna.
+
+</p><p>
+
+</p><blockquote>
+<pre>SELECT DISTINCT Sort
+FROM Bryggningar
+WHERE Nummer IN (SELECT Bryggning
+                 FROM Bryggning_I_Portion
+                 WHERE Portion = 4711);
+</pre>
+</blockquote>
+
+Två alternativa sätt:
+
+<blockquote>
+<pre>SELECT DISTINCT Bryggningar.Sort
+FROM Bryggningar, Bryggning_I_Portion
+WHERE Bryggningar.Nummer = Bryggning_I_Portion.Bryggning
+AND Bryggning_I_Portion.Portion = 4711;
+</pre>
+</blockquote>
+
+<blockquote>
+<pre>SELECT DISTINCT Bryggningar.Sort
+FROM Bryggningar JOIN Bryggning_I_Portion ON Bryggningar.Nummer = Bryggning_I_Portion.Bryggning
+WHERE Bryggning_I_Portion.Portion = 4711;
+</pre>
+</blockquote>
+
+<p>
+
+e) (2p)
+
+Vilka tesorter som finns med i databasen har vi ännu inte bryggt te med?
+Vi vill veta namnen på de tesorterna.
+
+</p><p>
+
+</p><blockquote>
+<pre>SELECT Namn
+FROM Sorter
+WHERE Namn NOT IN (SELECT Sort
+                   FROM Bryggningar);
+</pre>
+</blockquote>
+
+<p>
+
+f) (3p)
+Vilken tekanna har använts flest gånger?
+
+</p><p>
+
+</p><blockquote>
+<pre>CREATE VIEW AntalBryggningarIVarjeKanna AS
+SELECT Kanna, COUNT(*) AS Antal
+FROM Bryggningar
+GROUP BY Kanna;
+
+SELECT * FROM AntalBryggningarIVarjeKanna;
+
+SELECT Kanna
+FROM AntalBryggningarIVarjeKanna
+WHERE Antal IN (SELECT MAX(Antal)
+                FROM AntalBryggningarIVarjeKanna);
+</pre>
+</blockquote>
+
+Eller, med en CTE:
+
+<blockquote>
+<pre>WITH AntalBryggningarIVarjeKanna AS
+(SELECT Kanna, COUNT(*) AS Antal
+FROM Bryggningar
+GROUP BY Kanna)
+SELECT Kanna
+FROM AntalBryggningarIVarjeKanna
+WHERE Antal IN (SELECT MAX(Antal)
+                FROM AntalBryggningarIVarjeKanna);
+</pre>
+</blockquote>
+
+
+
+<a name="uppgift-4"></a>
+<h2>Uppgift 4 (3 p)</h2>
+
+Med databasen i lösningsförslaget ovan är det enkelt.
+Skapa bara ett index på <b>Bryggningar.Sort</b>:
+
+<blockquote>
+<pre>CREATE INDEX Sortindex ON Bryggningar(Sort);
+</pre>
+</blockquote>
+
+Störst nytta har man av index när man kombinerar flera tabeller,
+och när man söker efter bestämda värden i en stor tabell,
+så detta index gör förmodligen inte så stor prestandaförbättring.
+
+<p>
+
+Dessutom innehåller databasen så lite data ("många tusen rader"),
+att det nog inte märks att det går snabbare, för en enskild fråga.
+
+
+
+<a name="uppgift-5"></a>
+</p><h2>Uppgift 5 (3 p)</h2>
+
+Fråga 1:
+
+<p>
+
+</p><table border="1" cellspacing="0" cellpadding="3">
+<tbody><tr><th>nummer</th> <th>färg</th></tr>
+<tr><td>1</td> <td>gul</td></tr>
+</tbody></table>
+
+<p>
+
+Fråga 2:
+
+</p><p>
+
+</p><table border="1" cellspacing="0" cellpadding="3">
+<tbody><tr><th>nummer</th> <th>färg</th></tr>
+<tr><td>1</td> <td>gul</td></tr>
+</tbody></table>
+
+<p>
+
+Fråga 3:
+
+</p><p>
+
+</p><table border="1" cellspacing="0" cellpadding="3">
+<tbody><tr><th>nummer</th> <th>färg</th></tr>
+<tr><td>1</td> <td>gul</td></tr>
+</tbody></table>
+
+<p>
+
+Fråga 4:
+
+</p><p>
+
+</p><table border="1" cellspacing="0" cellpadding="3">
+<tbody><tr><th>nummer</th> <th>färg</th></tr>
+<tr><td>1</td> <td>gul</td></tr>
+</tbody></table>
+
+<p>
+
+Fråga 5:
+
+</p><p>
+
+</p><table border="1" cellspacing="0" cellpadding="3">
+<tbody><tr><th>nummer</th> <th>färg</th></tr>
+<tr><td>1</td> <td>gul</td></tr>
+<tr><td>2</td> <td>gul</td></tr>
+</tbody></table>
+
+<p>
+
+Fråga 6:
+
+</p><p>
+
+</p><table border="1" cellspacing="0" cellpadding="3">
+<tbody><tr><th>nummer</th> <th>färg</th></tr>
+<tr><td>1</td> <td>gul</td></tr>
+<tr><td>2</td> <td>gul</td></tr>
+</tbody></table>
+
+<p>
+
+Fråga 7:
+
+</p><p>
+
+</p><table border="1" cellspacing="0" cellpadding="3">
+<tbody><tr><th>nummer</th> <th>färg</th></tr>
+<tr><td>1</td> <td>gul</td></tr>
+<tr><td>2</td> <td>gul</td></tr>
+</tbody></table>
+
+<p>
+
+Fråga 8:
+
+</p><p>
+
+</p><table border="1" cellspacing="0" cellpadding="3">
+<tbody><tr><th>nummer</th> <th>färg</th></tr>
+<tr><td>1</td> <td>gul</td></tr>
+<tr><td>2</td> <td>gul</td></tr>
+<tr><td>3</td> <td>gul</td></tr>
+</tbody></table>
+
+<p>
+
+Fråga 9:
+
+</p><p>
+
+</p><table border="1" cellspacing="0" cellpadding="3">
+<tbody><tr><th>nummer</th> <th>färg</th></tr>
+<tr><td>1</td> <td>gul</td></tr>
+<tr><td>2</td> <td>gul</td></tr>
+</tbody></table>
+
+<p>
+
+Fråga 10:
+
+</p><p>
+
+</p><table border="1" cellspacing="0" cellpadding="3">
+<tbody><tr><th>nummer</th> <th>färg</th></tr>
+<tr><td>1</td> <td>gul</td></tr>
+<tr><td>2</td> <td>gul</td></tr>
+</tbody></table>
+
+
+
+<a name="uppgift-6"></a>
+<h2>Uppgift 6 (3 p)</h2>
+
+Några av de vanligaste databashanterarna:
+
+<ul>
+
+<li>
+<b>Microsoft SQL Server</b>
+är en stor och avancerad databashanterare,
+som (i de flesta versionerna) kostar pengar.
+Till skillnad från de flesta andra databashanterare fungerar den bara på Windows
+(och, i en tillsvidare ganska oprövad version, på Linux).
+Kan hantera mycket stora datamängder.
+
+</li><li>
+<b>Microsoft Access</b>
+är en ganska liten och enkel databashanterare,
+men med ett avancerat grafisk gränssnitt.
+Kostar pengar.
+Till skillnad från de flesta andra databashanterare fungerar den bara på Windows.
+Har problem med att hantera stora datamängder.
+
+</li><li>
+<b>Oracle</b>
+är en stor och avancerad databashanterare,
+som (i de flesta versionerna) kostar pengar.
+Kan hantera mycket stora datamängder.
+
+</li><li>
+<b>SQLite</b>
+är en liten och enkel databashanterare,
+som är open source och gratis.
+
+</li><li>
+<b>Mimer</b>
+är inte så spridd som de andra,
+och det är fortfarande ett svenskt företag.
+Dess utmärkande egenskap är att den försöker följa SQL-standarden.
+
+</li><li>
+<b>MySQL</b>
+utvecklades från början i Sverige.
+Finns både som gratisversion med open source och i versioner som kostar pengar.
+Var från början ganska enkel, men har utvecklats till att innehålla mer funktionalitet.
+Kan hantera mycket stora datamängder.
+
+</li></ul>
+
+
+
+<a name="uppgift-7"></a>
+<h2>Uppgift 7 (3 p)</h2>
+
+B-träd är alltid balanserade,
+så alla lövnoder befinner sig på samma nivå.
+Binära träd finns både i versioner som balanseras automatiskt,
+och i helt obalanserade versioner.
+
+<p>
+
+Men den stora skillnaden är ordningen, dvs hur många underträd en nod maximalt kan ha.
+Medan ett binärt träd bara har plats för högst två underträd
+under varje nod ("binär" betyder ju två),
+kan ett B-träd ha plats för betydligt fler underträd, kanske flera hundra.
+Det gör att B-trädet blir mycket lägre än ett binärt träd,
+så man behöver besöka färre noder för att hitta de data man söker.
+Exempelvis innehåller ett binärt träd med en miljon noder minst tjugo nivåer,
+medan ett B-träd av ordningen 100 behöver ungefär fyra nivåer för en miljon noder.
+
+</p><p>
+
+Eftersom B-träd av hög ordning är så låga, jämfört med binära träd,
+behöver man besöka färre noder vid en sökning.
+Å andra sidan är det mer arbete att göra i varje nod, med fler jämförelser.
+I en datastruktur i primärminne kan det gå på ett ut.
+Men vanliga databaser är sekundärminnesbaserade,
+och data lagras på hårddisk eller SSD.
+Både från hårddiskar och SSD:er läser man data i ganska stora block,
+och en sådan läsning är mycket långsam jämfört med åtkomst av primärminnet.
+Man tjänar inget på att läsa en mindre datamängd än ett helt block.
+Eftersom arbetet i en nod sker när den väl är inläst till primärminnet,
+kan det ofta försummas jämfört med tiden att läsa från det långsamma sekundärminnet,
+och man vill bara minimera antalet läsningar från sekundärminnet.
+
+</p><p>
+
+Notera att sökning i ett B-träd av exempelvis ordning 100
+(med upp till 100 underträd under varje nod)
+har samma tidskomplexitet som sökning i ett balanserat binärt träd (som har ordning 2),
+nämligen <b>O(log n)</b>.
+Det är bara en konstant faktor som skiljer.
+(Jämför med att en algoritm som alltid tar 1 sekund och en som alltid tar 1000 år
+båda har tidskomplexiteten <b>O(1)</b>. Även där är det bara en konstant faktor som skiljer!)
+
+
+
+<a name="uppgift-8"></a>
+</p><h2>Uppgift 8 (3 p)</h2>
+
+Relationsdatabaser och frågespråket SQL är mängdorienterade,
+och arbetar med hela tabeller på en gång.
+Vanliga programmeringsspråk är värdeorienterade,
+och arbetar med ett värde i taget.
+Ska man gå igenom innehållet i en tabell i ett vanligt programmeringsspråk,
+måste man använda en loop
+(eller kanske en mappningsmekanism, som döljer loopen).
+
+<p>
+
+I databassammanhang är en cursor en sorts pekare
+som anger vilken rad i en tabell
+(antingen en lagrad tabell eller resultatet av en sökning),
+som man för tillfället befinner sig på,
+när man hanterar datat med ett vanligt programmeringsspråk.
+
+</p><p>
+
+Genom att stega fram cursorn rad för rad i en loop
+kan ett program arbeta sig igenom resultatet,
+ungefär som när man läser från en fil.
+
+</p><p>
+
+</p><hr>
+
+<font size="-1">
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Databasteknik:%20L%C3%B6sningar%20till%20tentamen%202018-05-28">thomas.padron-mccarthy@oru.se</a>),
+16 juni 2018
+</font>
+
+
+
+</body></html>

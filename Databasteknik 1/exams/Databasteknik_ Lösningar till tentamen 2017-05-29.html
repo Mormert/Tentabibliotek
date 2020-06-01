@@ -1,0 +1,606 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0095)http://basen.oru.se/kurser/dbciv/2019-2020-p4/tentor/tenta-2017-05-29/losningar-2017-05-29.html -->
+<html lang="sv"><script data-dapp-detection="">
+(function() {
+  let alreadyInsertedMetaTag = false
+
+  function __insertDappDetected() {
+    if (!alreadyInsertedMetaTag) {
+      const meta = document.createElement('meta')
+      meta.name = 'dapp-detected'
+      document.head.appendChild(meta)
+      alreadyInsertedMetaTag = true
+    }
+  }
+
+  if (window.hasOwnProperty('web3')) {
+    // Note a closure can't be used for this var because some sites like
+    // www.wnyc.org do a second script execution via eval for some reason.
+    window.__disableDappDetectionInsertion = true
+    // Likely oldWeb3 is undefined and it has a property only because
+    // we defined it. Some sites like wnyc.org are evaling all scripts
+    // that exist again, so this is protection against multiple calls.
+    if (window.web3 === undefined) {
+      return
+    }
+    __insertDappDetected()
+  } else {
+    var oldWeb3 = window.web3
+    Object.defineProperty(window, 'web3', {
+      configurable: true,
+      set: function (val) {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        oldWeb3 = val
+      },
+      get: function () {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        return oldWeb3
+      }
+    })
+  }
+})()</script><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title>Databasteknik: Lösningar till tentamen 2017-05-29</title>
+
+</head><body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+<h1><a href="http://basen.oru.se/kurser/dbciv/2019-2020-p4/index.html">Databasteknik</a>: Lösningar till tentamen 2017-05-29</h1>
+
+Observera att detta är förslag på lösningar.
+Det kan finnas andra lösningar som också är korrekta.
+Det kan hända att en del av lösningarna är mer omfattande än vad som krävs för full poäng på uppgiften,
+eller att de bara hänvisar till var man kan läsa svaren.
+Dessutom har det inträffat i världshistorien att lärare skrivit fel i lösningsförslagen.
+<i>Jag</i> har förstås aldrig gjort det, men andra.
+Är det verkligen någon som läser såna här inledande texter?
+Jag vet inte. Det kan vara så. Rabarber rabarber rabarber.
+Det har jag hört att statisterna får säga på filminspelningar
+när det ska vara bakgrundsorl från en restaurang eller liknande.
+Här nedan kommer lösningsförslagen till uppgifterna.
+
+
+
+<a name="uppgift-1"></a>
+<h2>Uppgift 1 (5 p)</h2>
+
+<img src="./Databasteknik_ Lösningar till tentamen 2017-05-29_files/er.png" alt="Ett ER-diagram" title="Ett ER-diagram">
+
+
+
+<a name="uppgift-2"></a>
+<h2>Uppgift 2 (6 p)</h2>
+
+Flygplanstyper(<u>ID</u>, <u>Tillverkare, Modell</u>)
+<br>
+Flygbolag(<u>ID</u>, <u>Namn</u>, Land)
+<br>
+Flygplatser(<u>ID</u>, <u>Namn</u>, <u>Kod</u>, Land)
+<br>
+Flygplan(<u>ID</u>, <u>Beteckning</u>, Typ, Ägare, Flygplats)
+<br>
+Varit(<u>ID</u>, <u>Flygplan, Flygplats</u>)
+
+<p>
+
+Primär- och kandidatnycklarna är understrukna.
+I alla tabellerna är <b>ID</b> primärnyckel,
+och utgörs av en databasintern nyckel för att underlätta arbetet.
+Vi kan också klara oss utan den.
+
+</p><p>
+
+Främmande nycklar:
+
+</p><p>
+
+Flygplan.Typ till Flygplanstyper.ID
+<br>
+Flygplan.Ägare till Flygbolag.ID
+<br>
+Flygplan.Flygplats till Flygplatser.ID
+<br>
+Varit.Flygplan till Flygplan.ID
+<br>
+Varit.Flygplats till Flygplats.ID
+
+</p><p>
+
+Tabeller med exempeldata
+(sammansatta kandidatnycklar visas inte korrekt,
+och ser ut som om de ingående kolumnerna var för sig är nycklar):
+  
+</p><p>
+
+</p><table border="1" cellspacing="0" cellpadding="3">
+<tbody><tr><th colspan="3">Flygplanstyper</th></tr>
+<tr><th><u>ID</u></th> <th><u>Tillverkare</u></th> <th>Modell</th></tr>
+
+<tr><td>          1 </td> <td>Airbus      </td> <td>A380</td></tr>
+<tr><td>          2 </td> <td>Airbus      </td> <td>A400M</td></tr>
+<tr><td>          3 </td> <td>Boeing      </td> <td>747</td></tr>
+
+</tbody></table>
+
+<p>
+
+</p><table border="1" cellspacing="0" cellpadding="3">
+<tbody><tr><th colspan="3">Flygbolag</th></tr>
+<tr><th><u>ID</u></th> <th><u>Namn</u></th> <th>Land</th></tr>
+
+<tr><td>          1 </td> <td>SAS        </td> <td>Sverige</td></tr>
+<tr><td>          2 </td> <td>United     </td> <td>USA</td></tr>
+<tr><td>          3 </td> <td>Air France </td> <td>Frankrike</td></tr>
+
+</tbody></table>
+
+<p>
+
+</p><table border="1" cellspacing="0" cellpadding="3">
+<tbody><tr><th colspan="4">Flygplatser</th></tr>
+<tr><th><u>ID</u></th> <th><u>Namn</u></th> <th><u>Kod</u></th> <th>Land</th></tr>
+
+<tr><td>          1 </td> <td>Arlanda    </td> <td>ARN        </td> <td>Sverige</td></tr>
+<tr><td>          2 </td> <td>Bromma     </td> <td>BMA        </td> <td>Sverige</td></tr>
+<tr><td>          3 </td> <td>Heathrow   </td> <td>LHR        </td> <td>UK</td></tr>
+
+</tbody></table>
+
+<p>
+
+</p><table border="1" cellspacing="0" cellpadding="3">
+<tbody><tr><th colspan="5">Flygplan</th></tr>
+<tr><th><u>ID</u></th> <th><u>Beteckning</u></th> <th>Typ</th> <th>Ägare</th> <th>Flygplats</th></tr>
+
+<tr><td>          1 </td> <td>SE-FGA               </td> <td>1           </td> <td>1           </td> <td>1</td></tr>
+<tr><td>          2 </td> <td>SE-FGB               </td> <td>1           </td> <td>2           </td> <td>1</td></tr>
+<tr><td>          3 </td> <td>SE-FGC               </td> <td>3           </td> <td>2           </td> <td>1</td></tr>
+<tr><td>          4 </td> <td>SE-FGD               </td> <td>3           </td> <td>2           </td> <td><b>null</b></td></tr>
+
+</tbody></table>
+
+<p>
+
+</p><table border="1" cellspacing="0" cellpadding="3">
+<tbody><tr><th colspan="3">Varit</th></tr>
+<tr><th><u>ID</u></th> <th><u>Flygplan</u></th> <th>Flygplats</th></tr>
+
+<tr><td>1           </td> <td>1           </td> <td>1</td></tr>
+<tr><td>2           </td> <td>1           </td> <td>2</td></tr>
+<tr><td>3           </td> <td>1           </td> <td>3</td></tr>
+<tr><td>4           </td> <td>2           </td> <td>1</td></tr>
+<tr><td>5           </td> <td>2           </td> <td>2</td></tr>
+
+</tbody></table>
+
+<p>
+
+
+
+</p><p>
+
+Här finns <b>create table</b>-kommandon och exempeldata,
+för att underlätta provkörningar:
+
+</p><blockquote>
+<pre>DROP TABLE Varit;
+DROP TABLE Flygplan;
+DROP TABLE Flygplatser;
+DROP TABLE Flygbolag;
+DROP TABLE Flygplanstyper;
+
+CREATE TABLE Flygplanstyper
+(ID INTEGER NOT NULL PRIMARY KEY,
+Tillverkare NVARCHAR(10) NOT NULL,
+Modell NVARCHAR(10) NOT NULL,
+UNIQUE (Tillverkare, Modell));
+
+CREATE TABLE Flygbolag
+(ID INTEGER NOT NULL PRIMARY KEY,
+Namn NVARCHAR(10) NOT NULL UNIQUE,
+Land NVARCHAR(10) NOT NULL);
+
+CREATE TABLE Flygplatser
+(ID INTEGER NOT NULL PRIMARY KEY,
+Namn NVARCHAR(10) NOT NULL UNIQUE,
+Kod NVARCHAR(10) NOT NULL UNIQUE,
+Land NVARCHAR(10) NOT NULL);
+
+CREATE TABLE Flygplan
+(ID INTEGER NOT NULL PRIMARY KEY,
+Beteckning NVARCHAR(10) NOT NULL UNIQUE,
+Typ INTEGER NOT NULL REFERENCES Flygplanstyper(ID),
+Ägare INTEGER NOT NULL REFERENCES Flygbolag(ID),
+Flygplats INTEGER NULL REFERENCES Flygplatser(ID));
+
+CREATE TABLE Varit
+(ID INTEGER NOT NULL PRIMARY KEY,
+Flygplan INTEGER NOT NULL REFERENCES Flygplan(ID),
+Flygplats INTEGER NOT NULL REFERENCES Flygplatser(ID),
+UNIQUE(Flygplan, Flygplats));
+
+INSERT INTO Flygplanstyper (ID, Tillverkare, Modell) VALUES (1, 'Airbus', 'A380');
+INSERT INTO Flygplanstyper (ID, Tillverkare, Modell) VALUES (2, 'Airbus', 'A400M');
+INSERT INTO Flygplanstyper (ID, Tillverkare, Modell) VALUES (3, 'Boeing', '747');
+
+INSERT INTO Flygbolag (ID, Namn, Land) VALUES (1, 'SAS', 'Sverige');
+INSERT INTO Flygbolag (ID, Namn, Land) VALUES (2, 'United', 'USA');
+INSERT INTO Flygbolag (ID, Namn, Land) VALUES (3, 'Air France', 'Frankrike');
+
+INSERT INTO Flygplatser (ID, Namn, Kod, Land) VALUES (1, 'Arlanda', 'ARN', 'Sverige');
+INSERT INTO Flygplatser (ID, Namn, Kod, Land) VALUES (2, 'Bromma', 'BMA', 'Sverige');
+INSERT INTO Flygplatser (ID, Namn, Kod, Land) VALUES (3, 'Heathrow', 'LHR', 'UK');
+
+INSERT INTO Flygplan (ID, Beteckning, Typ, Ägare, Flygplats) VALUES (1, 'SE-FGA', 1, 1, 1);
+INSERT INTO Flygplan (ID, Beteckning, Typ, Ägare, Flygplats) VALUES (2, 'SE-FGB', 1, 2, 1);
+INSERT INTO Flygplan (ID, Beteckning, Typ, Ägare, Flygplats) VALUES (3, 'SE-FGC', 3, 2, 1);
+INSERT INTO Flygplan (ID, Beteckning, Typ, Ägare, Flygplats) VALUES (4, 'SE-FGD', 3, 2, NULL);
+
+INSERT INTO Varit (ID, Flygplan, Flygplats) VALUES (1, 1, 1);
+INSERT INTO Varit (ID, Flygplan, Flygplats) VALUES (2, 1, 2);
+INSERT INTO Varit (ID, Flygplan, Flygplats) VALUES (3, 1, 3);
+INSERT INTO Varit (ID, Flygplan, Flygplats) VALUES (4, 2, 1);
+INSERT INTO Varit (ID, Flygplan, Flygplats) VALUES (5, 2, 2);
+
+SELECT * FROM Flygplanstyper;
+SELECT * FROM Flygbolag;
+SELECT * FROM Flygplatser;
+SELECT * FROM Flygplan;
+SELECT * FROM Varit;
+</pre>
+</blockquote>
+
+
+
+<a name="uppgift-3"></a>
+<h2>Uppgift 3 (10 p)</h2>
+
+Formulera följande frågor i SQL.
+Definiera gärna vyer om det underlättar, men skapa inte nya tabeller. 
+
+<p>
+
+  a) (1p)
+  Vad heter de flygplatser som har en kod som innehåller bokstaven <b>X</b>?
+
+</p><pre>SELECT namn FROM Flygplatser WHERE kod LIKE '%X%';
+</pre>
+
+<p>
+
+  b) (2p)
+  Vilka flygbolag från USA har just nu flygplan som befinner sig på Arlanda?
+
+</p><pre>SELECT DISTINCT Flygbolag.namn
+FROM Flygplan, Flygbolag, Flygplatser
+WHERE Flygplan.ägare = Flygbolag.ID
+AND Flygplan.flygplats = Flygplatser.ID
+AND Flygbolag.land = 'USA'
+AND Flygplatser.namn = 'Arlanda';
+</pre>
+
+<p>
+
+  c) (2p)
+  Vilka länder har flygplanen från flygbolaget <b>United</b> besökt?
+  (Man kan se det på vilka flygplatser de varit på.)
+
+</p><pre>SELECT DISTINCT Flygplatser.land
+FROM Flygbolag, Flygplan, Varit, Flygplatser
+WHERE Flygbolag.namn = 'United'
+AND Flygbolag.ID = Flygplan.ägare
+AND Flygplan.ID = Varit.flygplan
+AND Varit.flygplats = Flygplatser.ID;
+</pre>
+
+<p>
+
+  d) (2p)
+  Vad heter de flygbolag som inte har några flygplan?
+
+</p><pre>SELECT namn
+FROM Flygbolag
+WHERE NOT ID IN (SELECT ägare FROM Flygplan);
+</pre>
+
+<p>
+
+  e) (3p)
+  Vad heter det flygbolag som har flest flygplan?
+
+</p><pre>CREATE VIEW AntalFlygplan AS
+SELECT Flygbolag.namn AS Bolag, COUNT(*) AS Antal
+FROM Flygplan, Flygbolag
+WHERE Flygplan.ägare = Flygbolag.ID
+GROUP BY Flygbolag.namn;
+
+SELECT bolag
+FROM AntalFlygplan
+WHERE antal = (SELECT MAX(antal) FROM AntalFlygplan);
+</pre>
+
+
+
+<a name="uppgift-4"></a>
+<h2>Uppgift 4 (4 p)</h2>
+
+Databasen innehåller realistiska mängder data,
+vilket innebär 10-20 flygplanstillverkare,
+tusentals flygplatser
+och tiotusentals flygplan.
+SQL-frågorna i uppgift 3
+körs väldigt ofta
+(men kanske med andra konstanter, till exempel att man söker efter
+flygplatser med <b>Y</b> i flygplatskoden).
+De tar för lång tid att köra, och behöver snabbas upp.
+Vi märker att det inte finns några index alls i databasen,
+inte ens på nycklar.
+
+<p>
+
+a) Fråga a kan vara svår att få att gå snabbare genom att skapa index. Varför?
+
+</p><p>
+
+  Index på textsträngar kan normalt bara användas om man vet hela,
+  eller ett prefix (alltså inledning) av den sökta strängen,
+  inte en del mitt i.
+
+</p><p>
+
+b) Vilka index bör man skapa för att fråga b och c ska gå snabbare?
+
+</p><p>
+
+</p><pre>Flygbolag.ID
+Flygbolag.land
+Flygbolag.namn
+Flygplan.ID
+Flygplan.flygplats
+Flygplan.ägare
+Flygplatser.ID
+Flygplatser.namn
+Varit.flygplan
+Varit.flygplats
+</pre>
+
+<p>
+
+c) De flesta databashanterarna skapar automatiskt index på primärnycklar.
+Vilka anledningar finns det till att man gjort så?
+
+</p><p>
+
+</p><ul>
+<li>
+För att kunna kontrollera referensintegritet och nycklars unikhet
+utan att behöva läsa igenom hela tabellerna.
+Utan dessa index skulle insättningar och ändringar i databasen
+bli mycket långsamma.
+</li><li>
+Primärnycklar används ofta i sökningar,
+så ofta skulle man ändå skapat index på dem.
+</li><li>
+Primärnycklar är garanterade att ha unika värden,
+vilket ger dem maximalt hög selektivitet.
+Hög selektivitet är en bra egenskap för index.
+</li></ul>
+
+
+
+<a name="uppgift-5"></a>
+<h2>Uppgift 5 (5 p)</h2>
+
+a) Vilka fullständiga funktionella beroenden finns i tabellen?
+
+<p>
+
+</p><ul>
+<li>ID till Beteckning
+</li><li>ID till Tillverkare
+</li><li>ID till Modell
+</li><li>ID till Bolag
+</li><li>ID till Bolagsland
+</li><li>Beteckning till ID
+</li><li>Beteckning till Tillverkare
+</li><li>Beteckning till Modell
+</li><li>Beteckning till Bolag
+</li><li>Beteckning till Bolagsland
+</li><li>Bolag till Bolagsland
+</li></ul>
+
+<p>
+
+b) Vilken är den högsta normalform,
+av 1NF, 2NF, 3NF och BCNF, som tabellen uppfyller?
+
+</p><p>
+
+2NF.
+
+</p><p>
+
+c) Varför uppfyller tabellen inte den närmast högre normalformen?
+
+</p><p>
+
+I 3NF får det inte finnas några ffb mellan icke-nyckel-attribut,
+och i den här tabellen finns ett ffb mellan icke-nyckel-attributen
+<b>Bolag</b> och <b>Bolagsland</b>.
+
+</p><p>
+
+d) Beskriv något problem som finns i den här tabellen,
+och som man skulle slippa med en högre normalform.
+
+</p><p>
+
+</p><ul>
+<li>Redundans: För varje bolag måste landet som det bolaget finns i upprepas en gång för varje flygplan som bolaget äger.
+</li><li>Det går inte att lagra ett bolag som just nu inte har några flygplan.
+</li></ul>
+
+<p>
+
+<i>
+Kommentar: Det är alltså redundansen att det står
+<b>Sverige Sverige Sverige Sverige</b> i tabellen som man slipper
+om man normaliserar tabellen till tredje normalformen.
+Att det står
+<b>Saab Saab Saab Saab</b>,
+eller <b>SAS SAS SAS SAS</b>,
+eller <b>340 340 340</b>,
+eller <b>SE- SE- SE- SE-</b>
+är visserligen upprepningar, men inte redundant information,
+och det påverkas inte av normaliseringen.
+Ett svar som tar upp dessa upprepningar är fel.
+</i>
+
+
+
+<a name="uppgift-6"></a>
+</p><h2>Uppgift 6 (5 p)</h2>
+
+a) ACID-transaktion
+
+<p>
+
+En <b>transaktion</b> är en följd av operationer som hör ihop som en
+enhet. Transaktioner bör ha <b>ACID-egenskaperna</b>, dvs de ska vara
+atomära (A), konsistensbevarande (C), isolerade från varandra (I) och
+hållbara (D). De flesta databashanterare har stöd för att automatiskt
+ge transaktionerna dessa egenskaper.
+
+</p><p>
+
+b) B-träd
+
+</p><p>
+
+En lagringsstruktur som ofta används i diskbaserade databaser. Ett
+B-träd är <i>inte</i> samma sak som ett binärt träd, utan noderna
+brukar vara stora, med plats för pekare till många (hundratals)
+subträd under varje nod. Det finns olika teorier om vad B:et står för,
+men det kan vara "balanserat", eftersom B-träden automatiskt
+balanseras om vid insättningar och borttagningar. Eftersom träden både
+är av hög ordning och balanserade blir de låga, vilket gör att man
+inte behöver besöka så många noder för att hitta sina data. Ett B-träd
+kan snabbt hantera även stora datamängder, man kan söka efter
+intervall (exempelvis efter alla namn som börjar med "Berg"), och man
+kan snabbt få tillgång till posterna sorterade i ordning.
+
+</p><p>
+
+c) cursor
+
+</p><p>
+
+Används i lagrade procedurer och när SQL inbäddas i ett
+programmeringsspråk för att ange den aktuella raden i resultatet från
+en fråga.
+
+</p><p>
+
+d) DBA
+
+</p><p>
+
+Databasadministratör. En person eller en grupp av personer som är
+ansvariga för driften av ett databassystem.
+
+</p><p>
+
+e) ECA-regel
+
+</p><p>
+
+En regel i en aktiv databas. ECA står för Event-Condition-Action.
+Varje gång en viss händelse (event) inträffar,
+till exempel att en rad läggs till i en viss tabell,
+kommer detabashanteraren automatiskt att kontrollera ett villkor (condition),
+och om villkoret stämmer utförs en åtgärd (action).
+
+</p><p>
+
+Se även kurslitteraturen eller
+<a href="http://www.databasteknik.se/webbkursen/index.html">webbkursen</a>.
+
+
+
+<a name="uppgift-7"></a>
+</p><h2>Uppgift 7 (5 p)</h2>
+
+a)
+"Relationerna" i en relationsdatabas är kopplingarna
+mellan tabeller med främmande nycklar ("foreign keys").
+
+<p>
+
+Nej, det är själva tabellerna som kallas relationer.
+Det kommer från matematikens relationer,
+som är en generalisering av funktioner.
+
+</p><p>
+
+b)
+En databas är normalt lagrad på en hårddisk eller SSD.
+Databashanterare kan fungera på lite olika sätt,
+men det vanliga är att 
+databashanteraren läser in alla data till primärminnet när man startar den,
+och jobbar med dem där. När minnet är fullt, skrivs databasen tillbaka till disken.
+Därför är det viktigt att ha stabli strömförsörjning till datorn,
+så man inte blir av med alla sina data.
+
+</p><p>
+
+Nej, databasens data finns på disk.
+Databashanteraren hämtar in data till primärminnet när den ska arbeta med det,
+och skriver ändringarna till disken (ganska) direkt när de är gjorda.
+Tillsammans med loggfilen gör det att inga, eller mycket få,
+data försvinner vid ett strömavbrott.
+
+</p><p>
+
+Däremot används både buffring och cachning,
+som använder primärminnet som mellanlagring.
+Det finns också primärminnesdatabaser,
+som lagrar alla sina data i primärminnet,
+men traditionella databaser är diskbaserade.
+
+</p><p>
+
+c)
+När databashanteraren kör en SQL-fråga,
+söker den i tabellerna i den ordning som de står i frågan.
+Till exempel kommer en fråga som <b>select A, B, C from X, Y where X.D = Y.E</b>
+att börja med tabell <b>X</b>.
+Olika ordningar kan ge mycket olika prestanda,
+och därför är det viktigt att skriva tavellerna i en lämplig ordning
+när man skriver SQL-frågor.
+
+</p><p>
+
+Nej, SQL-frågan körs inte direkt som den står,
+som med ett program skrivet i ett vanligt programmeringsspråk som C eller Java,
+utan SQL-frågan måste först översättas till en så kallad exekveringsplan.
+Då <i>optimeras</i> frågan av en särskild <i>frågeoptimerare</i>,
+som väljer en "billig", dvs snabb, exekveringsplan.
+Två SQL-frågor som är skrivna på olika sätt,
+men som är logiskt ekvivalenta och ska ge samma svar,
+kommer (om allt fungerar som det ska) att översättas till samma exekveringsplan.
+
+</p><p>
+
+
+</p><hr>
+
+<font size="-1">
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Databasteknik:%20L%C3%B6sningar%20till%20tentamen%202017-05-29">thomas.padron-mccarthy@oru.se</a>),
+14 juni 2017
+</font>
+
+
+
+</body></html>

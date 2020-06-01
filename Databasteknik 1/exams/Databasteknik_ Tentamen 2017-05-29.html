@@ -1,0 +1,423 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//SV" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0091)http://basen.oru.se/kurser/dbciv/2019-2020-p4/tentor/tenta-2017-05-29/tenta-2017-05-29.html -->
+<html lang="sv"><script data-dapp-detection="">
+(function() {
+  let alreadyInsertedMetaTag = false
+
+  function __insertDappDetected() {
+    if (!alreadyInsertedMetaTag) {
+      const meta = document.createElement('meta')
+      meta.name = 'dapp-detected'
+      document.head.appendChild(meta)
+      alreadyInsertedMetaTag = true
+    }
+  }
+
+  if (window.hasOwnProperty('web3')) {
+    // Note a closure can't be used for this var because some sites like
+    // www.wnyc.org do a second script execution via eval for some reason.
+    window.__disableDappDetectionInsertion = true
+    // Likely oldWeb3 is undefined and it has a property only because
+    // we defined it. Some sites like wnyc.org are evaling all scripts
+    // that exist again, so this is protection against multiple calls.
+    if (window.web3 === undefined) {
+      return
+    }
+    __insertDappDetected()
+  } else {
+    var oldWeb3 = window.web3
+    Object.defineProperty(window, 'web3', {
+      configurable: true,
+      set: function (val) {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        oldWeb3 = val
+      },
+      get: function () {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        return oldWeb3
+      }
+    })
+  }
+})()</script><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title>Databasteknik: Tentamen 2017-05-29</title>
+<style type="text/css">
+     P.breakhere {page-break-before: always}
+</style>
+</head>
+
+<body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+Örebro universitet
+<br>
+Institutionen för naturvetenskap och teknik
+<br>
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Databasteknik:%20Tentamen%202017-05-29">thomas.padron-mccarthy@oru.se</a>)
+
+<pre>
+
+
+</pre>
+<center>
+<font size="+2">Tentamen i</font>
+<p>
+<font size="+4">Databasteknik för civilingenjörer</font>
+</p><p>
+måndag 29 maj 2017
+</p><p>
+<font size="-1">
+Gäller som tentamen för:
+<br>
+DT504G Databasteknik för civilingenjörer, provkod 0100
+</font>
+</p></center>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+</p><table>
+<tbody><tr><td valign="top">
+<b>Hjälpmedel:</b>
+</td><td valign="top">
+Ordbok för översättning.
+</td></tr>
+<tr><td valign="top">
+<b>Poängkrav:</b>
+</td><td valign="top">
+Maximal poäng är 40.
+För godkänt betyg krävs 25 poäng,
+varav minst fyra poäng på uppgift 1 och minst fem poäng på uppgift 2.
+För den som följt kursen våren 2017
+ger varje i tid inlämnad inlämningsuppgift en extra poäng.
+Den som <i>inte</i> gått kursen våren 2017 får dessa (fem) extrapoäng ändå.
+</td></tr>
+<tr><td valign="top">
+<b>Resultat:</b>
+</td><td valign="top">
+Meddelas på kursens hemsida eller via e-post senast måndag 19 juni 2017.
+</td></tr>
+<tr><td valign="top">
+<b>Återlämning av tentor:</b>
+</td><td valign="top">
+Elektroniskt via Studentforum.
+</td></tr>
+<tr><td valign="top">
+<b>Examinator och jourhavande:</b>
+</td><td valign="top">
+Thomas Padron-McCarthy, telefon 070 - 73 47 013.
+</td></tr>
+</tbody></table>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+<font size="-1">
+</font></p><ul><font size="-1">
+
+<li>
+Skriv tydligt och klart. Lösningar som inte går att läsa kan
+naturligtvis inte ge några poäng. Oklara formuleringar kommer att
+misstolkas.
+
+</li><li>
+Skriv den personliga tentamenskoden på varje inlämnat blad.
+Skriv <i>inte</i> namn eller personnummer på bladen.
+
+</li><li>
+Skriv bara på en sida av papperet.
+Använd inte röd skrift.
+
+</li><li>
+Antaganden utöver de som står i uppgifterna måste anges. Gjorda
+antaganden får inte förändra den givna uppgiften.
+
+</li><li>
+Skriv gärna förklaringar om hur du tänkt.
+Även ett svar som är fel kan ge poäng,
+om det finns med en förklaring som visar att huvudtankarna var rätt.
+</li></font></ul><font size="-1">
+</font>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+</p><center>LYCKA TILL!</center>
+
+
+
+<p class="breakhere">
+
+
+
+<a name="scenario"></a>
+</p><h2>Scenario till uppgifterna</h2>
+
+Vi ska göra en databas över flygplan.
+Som illustration visar vi Airbus A380,
+som är världens största passagerarflygplan.
+Beroende på vilken inredning man valt, kan det ha plats för upp till 853 passagerare.
+
+<p>
+
+<img src="./Databasteknik_ Tentamen 2017-05-29_files/Airbus_A380_on_MAKS_2011.jpg" alt="Airbus A380. Av: Roman Zelentsov (Rulexip). Licens: Creative Commons Attribution-Share Alike 3.0 Unported." title="Airbus A380. Av: Roman Zelentsov (Rulexip). Licens: Creative Commons Attribution-Share Alike 3.0 Unported." width="578" height="385">
+<br>
+<font size="-2"><i>
+Airbus A380. Av: Roman Zelentsov (Rulexip). Licens: Creative Commons Attribution-Share Alike 3.0 Unported.
+</i></font>
+
+</p><p>
+
+I databasen ska vi lagra följande:
+
+</p><ul>
+
+<li>
+  <b>Flygplanstyper.</b>
+  Varje flygplanstyp har ett unikt namn,
+  och det namnet består av namnet på tillverkaren, till exempel <b>Airbus</b>,
+  och ett modellnamn, till exempel <b>A380</b>.
+
+</li><li>
+  <b>Flygbolag.</b>
+  Varje flygbolag har ett unikt namn, till exempel <b>SAS</b>, och finns i ett visst land, till exempel <b>Sverige</b>.
+
+</li><li>
+  <b>Flygplan.</b>
+  Det här är de enskilda flygplanen.
+  Varje flygplan är av en viss flygplanstyp, och har en unik registreringsbeteckning, till exempel <b>SE-KSG</b>.
+  Varje flygplan ägs också av ett visst flygbolag.
+  En del av flygplanen står just nu på marken, och varje sådant flygplan befinner sig på en viss flygplats.
+
+</li><li>
+  <b>Flygplatser.</b>
+  Varje flygplats har ett unikt namn, till exempel <b>Arlanda</b>, och finns i ett visst land, till exempel <b>Sverige</b>.
+  Varje flygplats har också en unik kod, till exempel <b>ARN</b>.
+
+</li><li>
+  Förutom att vi vill lagra vilken flygplats varje (parkerat) flygplan just nu befinner sig på,
+  vill vi lagra <b>alla</b> flygplatser som respektive flygplan <b>har varit på</b>.
+  Det räcker med att hålla reda på <i>att</i> det varit där, till exempel att flygplanet <b>SE-KSG</b>
+  har varit på <b>Arlanda</b>, så vi bryr oss inte om hur många gånger, eller när.
+
+</li></ul>
+
+
+
+<p class="breakhere">
+
+
+
+<a name="uppgift-1"></a>
+</p><h2>Uppgift 1 (5 p)</h2>
+
+Rita ett ER- eller EER-diagram för den beskrivna databasen.
+Använd informationen i scenariot ovan, men tänk också på att det ska gå att svara på frågorna i uppgift 3 nedan.
+
+<p>
+
+ER- och EER-diagram kan ritas på flera olika sätt.
+Om du använder en annan notation än kursboken, måste du förklara den notation som du använder.
+
+
+
+<a name="uppgift-2"></a>
+</p><h2>Uppgift 2 (6 p)</h2>
+
+Implementera den beskrivna databasen i relationsmodellen, dvs
+översätt ER-diagrammet till tabeller.
+
+<p>
+
+Du behöver inte skriva <b>create table</b>-kommandon i SQL,
+men du ska ange vilka relationer som finns och vilka attribut varje relation innehåller.
+Ange också alla kandidatnycklar, vilken av dessa som är primärnyckel,
+samt vilka referensattribut som finns och vad de refererar till.
+
+</p><p>
+
+Implementationen ska vara bra.
+
+
+
+<a name="uppgift-3"></a>
+</p><h2>Uppgift 3 (10 p)</h2>
+
+Formulera följande frågor i SQL.
+Definiera gärna vyer om det underlättar, men skapa inte nya tabeller. 
+
+<p>
+
+  a) (1p)
+  Vad heter de flygplatser som har en kod som innehåller bokstaven <b>X</b>?
+
+</p><p>
+
+  b) (2p)
+  Vilka flygbolag från USA har just nu flygplan som befinner sig på Arlanda?
+
+</p><p>
+
+  c) (2p)
+  Vilka länder har flygplanen från flygbolaget <b>United</b> besökt?
+  (Man kan se det på vilka flygplatser de varit på.)
+
+</p><p>
+
+  d) (2p)
+  Vad heter de flygbolag som inte har några flygplan?
+
+</p><p>
+
+  e) (3p)
+  Vad heter det flygbolag som har flest flygplan?
+
+
+
+</p><p class="breakhere">
+
+
+
+<a name="uppgift-4"></a>
+</p><h2>Uppgift 4 (4 p)</h2>
+
+Databasen innehåller realistiska mängder data,
+vilket innebär 10-20 flygplanstillverkare,
+tusentals flygplatser
+och tiotusentals flygplan.
+SQL-frågorna a, b och c i uppgift 3
+körs väldigt ofta
+(men kanske med andra konstanter, till exempel att man söker efter
+flygplatser med <b>Y</b> i flygplatskoden).
+De tar för lång tid att köra, och behöver snabbas upp.
+Vi märker att det inte finns några index alls i databasen,
+inte ens på nycklar.
+
+<p>
+
+a) Fråga a kan vara svår att få att gå snabbare genom att skapa index. Varför?
+
+</p><p>
+
+b) Vilka index bör man skapa för att fråga b och c ska gå snabbare?
+
+</p><p>
+
+c) De flesta databashanterarna skapar automatiskt index på primärnycklar.
+Vilka anledningar finns det till att man gjort så?
+
+
+
+<a name="uppgift-5"></a>
+</p><h2>Uppgift 5 (5 p)</h2>
+
+I uppgift 2, när man ska skapa tabeller,
+står det att implementationen ska vara bra. 
+Här är ett försök att skapa en av tabellerna,
+men tyvärr blev det inte så bra.
+Tabellen är inte så väl normaliserad som man helst skulle vilja.
+
+<p>
+
+</p><table border="1" cellspacing="0" cellpadding="3">
+<tbody><tr><th colspan="6">Flygplan</th></tr>
+<tr><th><u>ID</u></th> <th><u>Beteckning</u></th> <th>Tillverkare</th> <th>Modell</th> <th>Bolag</th> <th>Bolagsland</th></tr>
+<tr><td>1</td> <td>N26906</td> <td>Boeing</td> <td>787</td> <td>United</td> <td>USA</td></tr>
+<tr><td>2</td> <td>N26907</td> <td>Airbus</td> <td>A380</td> <td>United</td> <td>USA</td></tr>
+<tr><td>3</td> <td>SE-KSG</td> <td>Saab</td> <td>340</td> <td>SAS</td> <td>Sverige</td></tr>
+<tr><td>4</td> <td>SE-AXA</td> <td>Saab</td> <td>340</td> <td>SAS</td> <td>Sverige</td></tr>
+<tr><td>5</td> <td>SE-TYH</td> <td>Saab</td> <td>340</td> <td>SAS</td> <td>Sverige</td></tr>
+<tr><td>6</td> <td>SE-KOD</td> <td>Saab</td> <td>39</td> <td>SAS</td> <td>Sverige</td></tr>
+</tbody></table>
+
+<p>
+
+Kolumnen <b>Beteckning</b> är den unika registreringsbeteckningen från scenariot.
+<b>ID</b> är en extra nyckel vi skapat för att underlätta arbetet med databasen.
+
+</p><p>
+
+a) Vilka fullständiga funktionella beroenden finns i tabellen?
+<br>
+b) Vilken är den högsta normalform,
+av 1NF, 2NF, 3NF och BCNF, som tabellen uppfyller?
+<br>
+c) Varför uppfyller tabellen inte den närmast högre normalformen?
+<br>
+d) Beskriv något problem som finns i den här tabellen,
+och som man skulle slippa med en högre normalform.
+
+
+
+</p><p class="breakhere">
+
+
+
+<a name="uppgift-6"></a>
+</p><h2>Uppgift 6 (5 p)</h2>
+
+Förklara kort vad följande termer från databasområdet betyder!
+Skriv helst inte mer än några få meningar om varje term.
+
+<p>
+
+a) ACID-transaktion
+<br>
+b) B-träd
+<br>
+c) cursor
+<br>
+d) DBA
+<br>
+e) ECA-regel
+
+
+
+<a name="uppgift-7"></a>
+</p><h2>Uppgift 7 (5 p)</h2>
+
+Här kommer tre påståenden om databasteknik som alla är fel.
+Förklara hur det egentligen är!
+
+<p>
+
+a)
+"Relationerna" i en relationsdatabas är kopplingarna
+mellan tabeller med främmande nycklar ("foreign keys").
+
+</p><p>
+
+b)
+En databas är normalt lagrad på en hårddisk eller SSD.
+Databashanterare kan fungera på lite olika sätt,
+men det vanliga är att 
+databashanteraren läser in alla data till primärminnet när man startar den,
+och jobbar med dem där. När minnet är fullt, skrivs databasen tillbaka till disken.
+Därför är det viktigt att ha stabli strömförsörjning till datorn,
+så man inte blir av med alla sina data.
+
+</p><p>
+
+c)
+När databashanteraren kör en SQL-fråga,
+söker den i tabellerna i den ordning som de står i frågan.
+Till exempel kommer en fråga som <b>select A, B, C from X, Y where X.D = Y.E</b>
+att börja med tabell <b>X</b>.
+Olika ordningar kan ge mycket olika prestanda,
+och därför är det viktigt att skriva tavellerna i en lämplig ordning
+när man skriver SQL-frågor.
+
+
+
+</p></body></html>

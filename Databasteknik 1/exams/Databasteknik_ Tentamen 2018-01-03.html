@@ -1,0 +1,400 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0091)http://basen.oru.se/kurser/dbciv/2019-2020-p4/tentor/tenta-2018-01-03/tenta-2018-01-03.html -->
+<html lang="sv"><script data-dapp-detection="">
+(function() {
+  let alreadyInsertedMetaTag = false
+
+  function __insertDappDetected() {
+    if (!alreadyInsertedMetaTag) {
+      const meta = document.createElement('meta')
+      meta.name = 'dapp-detected'
+      document.head.appendChild(meta)
+      alreadyInsertedMetaTag = true
+    }
+  }
+
+  if (window.hasOwnProperty('web3')) {
+    // Note a closure can't be used for this var because some sites like
+    // www.wnyc.org do a second script execution via eval for some reason.
+    window.__disableDappDetectionInsertion = true
+    // Likely oldWeb3 is undefined and it has a property only because
+    // we defined it. Some sites like wnyc.org are evaling all scripts
+    // that exist again, so this is protection against multiple calls.
+    if (window.web3 === undefined) {
+      return
+    }
+    __insertDappDetected()
+  } else {
+    var oldWeb3 = window.web3
+    Object.defineProperty(window, 'web3', {
+      configurable: true,
+      set: function (val) {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        oldWeb3 = val
+      },
+      get: function () {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        return oldWeb3
+      }
+    })
+  }
+})()</script><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title>Databasteknik: Tentamen 2018-01-03</title>
+<style type="text/css">
+     P.breakhere {page-break-before: always}
+</style>
+</head>
+
+<body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+Örebro universitet
+<br>
+Institutionen för naturvetenskap och teknik
+<br>
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Databasteknik:%20Tentamen%202018-01-03">thomas.padron-mccarthy@oru.se</a>)
+
+<pre>
+
+
+</pre>
+<center>
+<font size="+2">Tentamen i</font>
+<p>
+<font size="+4">Databasteknik för civilingenjörer</font>
+</p><p>
+onsdag 3 januari 2018
+</p><p>
+<font size="-1">
+Gäller som tentamen för:
+<br>
+DT504G Databasteknik för civilingenjörer, provkod 0100
+</font>
+</p></center>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+</p><table>
+<tbody><tr><td valign="top">
+<b>Hjälpmedel:</b>
+</td><td valign="top">
+Ordbok för översättning.
+</td></tr>
+<tr><td valign="top">
+<b>Poängkrav:</b>
+</td><td valign="top">
+Maximal poäng är 34.
+För godkänt betyg krävs 19 poäng,
+varav minst fyra poäng på uppgift 1 och minst fyra poäng på uppgift 2.
+<!--
+För den som följt kursen våren 2018
+ger varje i tid inlämnad inlämningsuppgift en extra poäng.
+Den som <i>inte</i> gått kursen våren 2018 får dessa (fem) extrapoäng ändå.
+-->
+</td></tr>
+<tr><td valign="top">
+<b>Resultat:</b>
+</td><td valign="top">
+Meddelas på kursens hemsida eller via e-post senast onsdag 24 januari 2018.
+</td></tr>
+<tr><td valign="top">
+<b>Återlämning av tentor:</b>
+</td><td valign="top">
+Elektroniskt via Studentforum.
+</td></tr>
+<tr><td valign="top">
+<b>Examinator och jourhavande:</b>
+</td><td valign="top">
+Thomas Padron-McCarthy, telefon 070 - 73 47 013.
+</td></tr>
+</tbody></table>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+<font size="-1">
+</font></p><ul><font size="-1">
+
+<li>
+Skriv tydligt och klart. Lösningar som inte går att läsa kan
+naturligtvis inte ge några poäng. Oklara formuleringar kommer att
+misstolkas.
+
+</li><li>
+Skriv den personliga tentamenskoden på varje inlämnat blad.
+Skriv <i>inte</i> namn eller personnummer på bladen.
+
+</li><li>
+Skriv bara på en sida av papperet.
+Använd inte röd skrift.
+
+</li><li>
+Antaganden utöver de som står i uppgifterna måste anges. Gjorda
+antaganden får inte förändra den givna uppgiften.
+
+</li><li>
+Skriv gärna förklaringar om hur du tänkt.
+Även ett svar som är fel kan ge poäng,
+om det finns med en förklaring som visar att huvudtankarna var rätt.
+</li></font></ul><font size="-1">
+</font>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+</p><center>LYCKA TILL!</center>
+
+
+
+<p class="breakhere">
+
+
+
+<a name="scenario"></a>
+</p><h2>Scenario till uppgifterna</h2>
+
+
+<center>
+<img src="./Databasteknik_ Tentamen 2018-01-03_files/fbi.png" width="397" height="409" alt="FBI:s sigill" title="FBI:s sigill">
+</center>
+    
+<p>
+
+Som vi vet var det Donald Trump som vann presidentvalet i USA
+förra året. Han besegrade Hillary Clinton.
+
+</p><p>
+
+Media, och anhängare till Hillary Clinton, talar mycket om att
+det förekommit hemligt samarbete mellan Ryssland och
+personer som deltog i Donald Trumps valkampanj.
+Anhängare till Donald Trump talar hellre om samarbetet mellan
+Ryssland och personer som deltog i Hillary Clintons valkampanj.
+
+</p><p>
+  
+Nu ska den amerikanska federala polisen, FBI, försöka utreda alltihop.
+FBI behöver förstås en databas. Det som ska lagras i databasen
+är <b>personer</b>, vilka personer som <b>arbetar</b> för andra personer,
+vilka <b>möten</b> som skett,
+och vilka personer som <b>deltog</b> på de olika mötena.
+
+</p><p>
+
+Det man behöver hålla reda på är, mer detaljerat, följande:
+
+</p><ul>
+
+<li>
+<b>Personer.</b>
+Varje person har ett namn och ett unikt nummer.
+
+</li><li>
+<b>Vem som arbetar för vem.</b>
+Personer i databasen kan arbeta för andra personer.
+Varje person kan arbeta för flera olika personer,
+och en och samma person kan ha flera personer
+som arbetar för honom eller henne.
+
+</li><li>
+<b>Möten.</b>
+Varje möte har ett unikt nummer,
+och det skedde ett visst datum och på en viss plats.
+
+</li><li>
+<b>Vem som deltog på varje möte.</b> 
+En och samma person kan ha deltagit på flera möten.
+Det är normalt flera personer på varje möte.
+
+</li></ul>
+
+
+
+<p class="breakhere">
+
+
+
+<a name="uppgift-1"></a>
+</p><h2>Uppgift 1 (5 p)</h2>
+
+Rita ett ER- eller EER-diagram för den beskrivna databasen.
+Använd informationen i scenariot ovan,
+men tänk också på att det ska gå att svara på frågorna i uppgift 3 nedan.
+
+<p>
+
+ER- och EER-diagram kan ritas på flera olika sätt.
+Om du använder en annan notation än kursboken, måste du förklara den notation som du använder.
+
+
+
+<a name="uppgift-2"></a>
+</p><h2>Uppgift 2 (5 p)</h2>
+
+Implementera den beskrivna databasen i relationsmodellen, dvs
+översätt ER-diagrammet till tabeller.
+
+<p>
+
+Du behöver inte skriva <b>create table</b>-kommandon i SQL,
+men du ska ange vilka relationer som finns och vilka attribut varje relation innehåller.
+Ange också alla kandidatnycklar, vilken av dessa som är primärnyckel,
+samt vilka referensattribut som finns och vad de refererar till.
+
+</p><p>
+
+Implementationen ska vara bra.
+
+
+
+<a name="uppgift-3"></a>
+</p><h2>Uppgift 3 (10 p)</h2>
+
+Formulera följande frågor i SQL.
+Definiera gärna vyer om det underlättar, men skapa inte nya tabeller.
+
+<p>
+
+a) (1p)
+Vilket nummer har personen som heter <b>Hillary Clinton</b>?
+
+</p><p>
+  
+b) (1p)
+Vilka nummer har <b>Hillary Clinton</b> och <b>Donald Trump</b>?
+(Det ska bara vara en fråga, inte två olika.)
+
+</p><p>
+  
+c) (1p)
+Vilka personer har namn som börjar på <b>Vladimir</b>?
+Vi vill veta de personernas nummer och namn.
+
+</p><p>
+
+d) (2p)
+Vad heter de personer som arbetar direkt för <b>Donald Trump</b>?
+
+</p><p>
+
+e) (2p)
+Vad heter de personer som aldrig varit på några möten?
+
+</p><p>
+
+f) (3p)
+Vad heter de personer som arbetar för minst två andra personer?
+
+
+
+</p><p class="breakhere">
+
+
+
+<a name="uppgift-4"></a>
+</p><h2>Uppgift 4 (4 p)</h2>
+
+Sökningen i uppgift 3d ovan,
+om vilka som arbetar direkt för <b>Donald Trump</b>,
+körs väldigt ofta,
+men kanske med andra konstanter, till exempel att man söker efter
+dem som arbetar för
+<b>Vladimir Putin</b> i stället för i <b>Donald Trump</b>.
+Den tar för lång tid att köra, och vi vill skapa index för att snabba upp den.
+Från början finns det inga index alls i databasen,
+inte ens på primärnycklar.
+Det finns många tusen personer,
+och de har haft många tusen möten.
+
+<p>
+
+a)
+Ange vilka index man bör skapa
+för att den frågan ska gå snabbare att köra.
+
+</p><p>
+
+b)
+Ange ett index som <i>inte</i> skulle göra den frågan snabbare,
+och förklara varför det inte förbättrar tiden.
+
+
+
+<a name="uppgift-5"></a>
+</p><h2>Uppgift 5 (5 p)</h2>
+
+Här är en tabell med personer.
+Varje person har ett unikt ID-nummer,
+ett namn,
+en nationalitet,
+och ett antal olika telefonnummer som man kan nå dem på.
+
+<p>
+
+</p><table border="1" cellspacing="0" cellpadding="3">
+<tbody><tr><th colspan="6">Personer</th></tr>
+<tr><th><u>ID</u></th> <th>Namn</th> <th>Nationalitet</th> <th>Telefon</th></tr>
+<tr><td>1</td> <td>Anna Andersson</td> <td>Sverige</td> <td>019-94639,0158-20270,070-7347013</td></tr>
+<tr><td>2</td> <td>Bertil Boström</td> <td>Sverige</td> <td>0158-20340</td></tr>
+<tr><td>3</td> <td>Cecilia C Carlsson</td> <td>Sverige</td> <td>08-222000,019-94639</td></tr>
+<tr><td>4</td> <td>Cecilia C Carlsson</td> <td>Sverige</td> <td>047-131000,0158-20340</td></tr>
+<tr><td>5</td> <td>Donald Duck</td> <td>USA</td> <td><b>null</b></td></tr>
+
+</tbody></table>
+
+<p>
+
+a) Vilka fullständiga funktionella beroenden finns i tabellen?
+<br>
+b) Vilken är den högsta normalform,
+av 1NF, 2NF, 3NF och BCNF, eller ingen av dessa, som tabellen uppfyller?
+<br>
+c) Varför uppfyller tabellen inte den närmast högre normalformen?
+<br>
+d) Beskriv något problem som finns i den här tabellen,
+och som man skulle slippa med en högre normalform.
+
+
+
+</p><p class="breakhere">
+
+
+
+<a name="uppgift-6"></a>
+</p><h2>Uppgift 6 (5 p)</h2>
+
+Förklara kort vad följande termer från databasområdet betyder!
+Skriv helst inte mer än några få meningar om varje term.
+
+<p>
+
+a) Trigger
+<br>
+b) Transaktion
+<br>
+c) Tre-schema-arkitekturen
+<br>
+d) Lagrad procedur
+<br>
+e) Cursor
+
+</p><p>
+
+</p><hr>
+
+
+
+</body></html>
