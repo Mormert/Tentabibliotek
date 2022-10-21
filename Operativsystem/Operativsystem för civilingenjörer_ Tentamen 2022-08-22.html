@@ -1,0 +1,420 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0077)http://basen.oru.se/kurser/os/2021-2022-p4/tentor/tenta-2022-08-22/index.html -->
+<html lang="sv"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title>Operativsystem för civilingenjörer: Tentamen 2022-08-22</title>
+<style type="text/css">
+     P.breakhere {page-break-before: always}
+</style>
+</head>
+
+<body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+Örebro universitet
+<br>
+Institutionen för naturvetenskap och teknik
+<br>
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Operativsystem%20f%C3%B6r%20civilingenj%C3%B6rer:%20Tentamen%202022-08-22">thomas.padron-mccarthy@oru.se</a>)
+
+<pre>
+
+
+</pre>
+<center>
+<font size="+2">Tentamen i</font>
+<p>
+<font size="+4">Operativsystem</font>
+<font size="+4">för civilingenjörer</font>  
+</p><p>
+måndag 22 augusti 2022
+</p><p>
+<font size="-1">
+Gäller som tentamen för:
+<br>
+DT513G Operativsystem för civilingenjörer, provkod A001
+</font>
+</p></center>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+</p><table>
+<tbody><tr><td valign="top">
+<b>Hjälpmedel:</b>
+</td><td valign="top">
+Ordbok för översättning.
+</td></tr>
+<tr><td valign="top">
+<b>Poängkrav:</b>
+</td><td valign="top">
+Maximal poäng är 32.
+För godkänt betyg krävs 17 poäng.
+</td></tr>
+<tr><td valign="top">
+<b>Resultat:</b>
+</td><td valign="top">
+Meddelas senast 15 arbetsdagar efter tentamensdatum.
+</td></tr>
+<tr><td valign="top">
+<b>Återlämning av tentor:</b>
+</td><td valign="top">
+Elektroniskt via webbportalen Studenttjänster.
+</td></tr>
+<tr><td valign="top">
+<b>Examinator och jourhavande:</b>
+</td><td valign="top">
+Thomas Padron-McCarthy, telefon 070 - 73 47 013.
+</td></tr>
+</tbody></table>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+<font size="-1">
+</font></p><ul><font size="-1">
+
+<li>
+Skriv tydligt och klart. Lösningar som inte går att läsa kan
+naturligtvis inte ge några poäng.
+Oklara och tvetydiga formuleringar kommer att misstolkas.
+
+</li><li>
+Skriv den personliga tentamenskoden på varje inlämnat blad.
+Skriv <i>inte</i> namn eller personnummer på bladen.
+
+</li><li>
+Skriv bara på en sida av papperet.
+Använd inte röd skrift.
+
+</li><li>
+Antaganden utöver de som står i uppgifterna måste anges. Gjorda
+antaganden får inte förändra den givna uppgiften.
+
+</li><li>
+Skriv gärna förklaringar om hur du tänkt.
+Även ett svar som är fel kan ge poäng,
+om det finns med en förklaring som visar att huvudtankarna var rätt.
+</li></font></ul><font size="-1">
+</font>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+</p><pre>
+</pre>
+
+<center>LYCKA TILL!</center>
+
+
+
+<p class="breakhere">
+
+
+
+</p><h2>Formelsamling</h2>
+
+<table border="1" cellspacing="0" cellpadding="3">
+<tbody><tr><td>2<sup>0</sup> = 1</td> <td>2<sup>24</sup> = 16777216</td></tr>
+<tr><td>2<sup>1</sup> = 2</td> <td>2<sup>25</sup> = 33554432</td></tr>
+<tr><td>2<sup>2</sup> = 4</td> <td>2<sup>26</sup> = 67108864</td></tr>
+<tr><td>2<sup>3</sup> = 8</td> <td>2<sup>27</sup> = 134217728</td></tr>
+<tr><td>2<sup>4</sup> = 16</td> <td>2<sup>28</sup> = 268435456</td></tr>
+<tr><td>2<sup>5</sup> = 32</td> <td>2<sup>29</sup> = 536870912</td></tr>
+<tr><td>2<sup>6</sup> = 64</td> <td>2<sup>30</sup> = 1073741824</td></tr>
+<tr><td>2<sup>7</sup> = 128</td> <td>2<sup>31</sup> = 2147483648</td></tr>
+<tr><td>2<sup>8</sup> = 256</td> <td>2<sup>32</sup> = 4294967296</td></tr>
+<tr><td>2<sup>9</sup> = 512</td> <td>2<sup>33</sup> = 8589934592</td></tr>
+<tr><td>2<sup>10</sup> = 1024</td> <td>2<sup>34</sup> = 17179869184</td></tr>
+<tr><td>2<sup>11</sup> = 2048</td> <td>2<sup>35</sup> = 34359738368</td></tr>
+<tr><td>2<sup>12</sup> = 4096</td> <td>2<sup>36</sup> = 68719476736</td></tr>
+<tr><td>2<sup>13</sup> = 8192</td> <td>2<sup>37</sup> = 137438953472</td></tr>
+<tr><td>2<sup>14</sup> = 16384</td> <td>2<sup>38</sup> = 274877906944</td></tr>
+<tr><td>2<sup>15</sup> = 32768</td> <td>2<sup>39</sup> = 549755813888</td></tr>
+<tr><td>2<sup>16</sup> = 65536</td> <td>2<sup>40</sup> = 1099511627776</td></tr>
+<tr><td>2<sup>17</sup> = 131072</td> <td>2<sup>41</sup> = 2199023255552</td></tr>
+<tr><td>2<sup>18</sup> = 262144</td> <td>2<sup>42</sup> = 4398046511104</td></tr>
+<tr><td>2<sup>19</sup> = 524288</td> <td>2<sup>43</sup> = 8796093022208</td></tr>
+<tr><td>2<sup>20</sup> = 1048576</td> <td>2<sup>44</sup> = 17592186044416</td></tr>
+<tr><td>2<sup>21</sup> = 2097152</td> <td>2<sup>45</sup> = 35184372088832</td></tr>
+<tr><td>2<sup>22</sup> = 4194304</td> <td>2<sup>46</sup> = 70368744177664</td></tr>
+<tr><td>2<sup>23</sup> = 8388608</td> <td>2<sup>47</sup> = 140737488355328</td></tr>
+</tbody></table>
+
+<p>
+
+2<sup>x</sup> * 2<sup>y</sup> = 2<sup>x+y</sup>
+<br>
+2<sup>x</sup> / 2<sup>y</sup> = 2<sup>x-y</sup>
+
+
+
+</p><p class="breakhere">
+
+
+
+<a name="uppgift-1"></a>
+</p><h2>Uppgift 1 (3 p)</h2>
+
+Det här är datorn ENIAC (foto av U. S. Army):
+
+<p>
+
+<img src="./Operativsystem för civilingenjörer_ Tentamen 2022-08-22_files/eniac.jpg" alt="Datorn ENIAC. U. S. Army Photo." title="Datorn ENIAC. U. S. Army Photo." width="335" height="201">
+
+</p><p>
+
+ENIAC var en av världens första datorer.
+Den var byggd av radiorör och reläer och vägde över 20 ton.
+Så tidiga datorer var förstås mycket begränsade jämfört med moderna datorer.
+Det var många saker de inte kunde göra eftersom de saknade hårdvara för det.
+Till exempel kunde ENIAC inte visa grafik, för den hade ingen skärm.
+Tidiga datorer hade heller inget operativsystem.
+
+</p><p>
+
+Nämn något som dessa tidiga datorer inte kunde göra, just för att de saknade operativsystem,
+och förklara varför avsaknaden av ett OS hindrade dem från att göra det.
+
+
+
+<a name="uppgift-2"></a>
+</p><h2>Uppgift 2 (2 p)</h2>
+
+Vi skriver ett C-program för Linux
+som öppnar filen <b>foo.bin</b> med systemanropet <b>open</b>,
+därefter skriver ganska mycket data med ett antal <b>write</b>-systemanrop,
+och till slut stänger filen med systemanropet <b>close</b>.
+
+<p>
+
+En gång när vi provkör programmet märker vi att det tar knappt någon tid alls att göra <b>open</b>,
+det tar ungefär en sekund att göra alla <b>write</b>-anropen,
+men <b>close</b>-anropet tar hela tio sekunder.
+Man tycker att det är skrivningarna, med <b>write</b>, som borde ta längst tid,
+medan <b>close</b> bara är en mindre administrativ operation som markerar att filen inte längre är öppen.
+
+</p><p>
+
+Förklara vad det är som händer, och varför <b>close</b>-anropet tar så lång tid!
+
+
+
+</p><p class="breakhere">
+
+
+
+<a name="uppgift-3"></a>
+</p><h2>Uppgift 3 (11 p)</h2>
+
+Här är ett C-program som använder både <b>fork</b> och <b>pthread_create</b>:
+
+<p>
+
+</p><table border="1" cellspacing="0" cellpadding="3"><tbody><tr><td bgcolor="#ccffcc">
+<pre>// forkthread.c
+
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;pthread.h&gt;
+
+volatile int data = 0;
+
+static void *thread_body(void *arg) {
+    for (int i = 0; i &lt; 1000; i++) {
+        ++data;
+    }
+    return NULL;
+} // thread_body
+
+void start_threads(int nr_threads) {
+    pthread_t threads[nr_threads];
+
+    for (int i = 0; i &lt; nr_threads; ++i) {
+        if (pthread_create(&amp;threads[i], NULL, thread_body, NULL) != 0) {
+            printf("Error: Couldn't create thread %d.\n", i);
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    for (int i = 0; i &lt; nr_threads; ++i) {
+        if (pthread_join(threads[i], NULL) != 0) {
+            printf("Error: Couldn't join thread %d.\n", i);
+            exit(EXIT_FAILURE);
+        }
+    }
+} // start_threads
+
+int main(void) {
+    if (fork() == 0) {
+        start_threads(5);
+    }
+    else {
+        start_threads(7);
+    }
+
+    printf("All threads have finished.\n");
+    printf("Result: data = %d\n", data);
+
+    return EXIT_SUCCESS;
+} // main
+</pre>
+</td></tr></tbody></table>
+
+
+
+<p class="breakhere">
+
+
+
+Utskrifter från två olika provkörningar av programmet:
+
+</p><p>
+
+</p><table border="1" cellspacing="0" cellpadding="3"><tbody><tr><td bgcolor="#ccffcc">
+<pre>All threads have finished.
+Result: data = 6154
+All threads have finished.
+Result: data = 4064
+</pre>
+</td></tr></tbody></table>
+
+<p>
+
+</p><table border="1" cellspacing="0" cellpadding="3"><tbody><tr><td bgcolor="#ccffcc">
+<pre>All threads have finished.
+All threads have finished.
+Result: data = 6081
+Result: data = 4000
+</pre>
+</td></tr></tbody></table>
+
+<p>
+
+a) Vad är skillnaden mellan <b>fork</b> och <b>pthread_create</b>?
+
+</p><p>
+
+b) Hur kan man få två olika värden på variabeln <b>data</b> i en och samma provkörning?
+Det finns väl bara en enda <b>data</b>-variabel i programmet?
+Förklara!
+
+</p><p>
+
+c) Förklara varför siffrorna blev olika i de två provkörningarna!
+
+</p><p>
+
+d) Förklara varför ordningen på raderna blev olika i de två provkörningarna!
+
+</p><p>
+
+e) Den billigaste processor som just nu finns i lager hos vår lokala datorbutik Multitech Data är
+<b>Intel Celeron G5925 3,6 GHz</b>,
+som kostar 548 kronor.
+Den har två kärnor, utan hyperthreading, så den kan köra två trådar parallellt.
+Kommer det att bli några problem när vi kör programmet på den processorn?
+Förklara!
+
+</p><p>
+
+f) Om vi vill att programmet ska ge samma svar vid varje körning
+kan vi använda mutex-lås av datatypen <b>pthread_mutex_t</b> och funktionerna
+<b>pthread_mutex_lock</b> respektive <b>pthread_mutex_unlock</b>.
+Men det löser bara en av olikheterna i deluppgift c (siffrorna) och d (ordningen på raderna).
+Vilken? Varför? Förklara!
+
+
+
+</p><p class="breakhere">
+
+
+
+<a name="uppgift-4"></a>
+</p><h2>Uppgift 4 (5 p)</h2>
+
+På en Linux-dator kan man starta program genom att ge kommandon,
+till exempel de följande. Ange för vart och ett av dessa program
+om det är ett systemprogram, ett applikationsprogram eller en del av operativsystemkärnan.
+Om det inte är uppenbart hur ett program ska klassificeras, diskutera svaret!
+
+<p>
+
+a) <b>cp</b> (kopierar filer och filkataloger, "mappar")
+<br>
+b) <b>forkthread</b> (programmet i uppgiften ovan)
+<br>
+c) <b>gimp</b> (ett program för redigering av bilder)
+<br>
+d) <b>ls</b> (listar innehållet i en filkatalog)
+<br>
+e) <b>rm</b> (tar bort filer och filkataloger)
+
+
+
+<a name="uppgift-5"></a>
+</p><h2>Uppgift 5 (7 p)</h2>
+
+Vi har en byteadresserad dator som arbetar med virtuellt minne,
+där virtuella adresser består av 30 bitar
+och fysiska adresser består av 22 bitar.
+Sidstorleken ("page size") är 4096 byte.
+
+<p>
+
+a) Hur stor är den virtuella adressrymden?
+
+</p><p>
+
+b) Hur många minnessidor är den virtuella minnesrymden indelad i?
+
+</p><p>
+
+c) Hur mycket fysiskt minne kan man ha i datorn?
+
+</p><p>
+
+d) Hur många frames ("ramar", dvs platser för minnessidor) kan man ha i datorn?
+
+</p><p>
+
+e) Hur stor (dvs hur många byte) är en frame?
+
+</p><p>
+
+f) Om vi antar att virtuell minnesadress 1 är lagrad i fysisk minnesadress 4097,
+var är virtuell minnesadress 100 lagrad? (Alla adresserna anges här med decimala siffror.)
+Visa hur översättningen görs.
+
+
+
+<a name="uppgift-6"></a>
+</p><h2>Uppgift 6 (4 p)</h2>
+
+För schemaläggningen ("schedulering") av processer används flera olika köer där processerna placeras.
+
+<p>
+
+a) Förklara vilka det är, och vad man har varje kö till!
+
+</p><p>
+
+b) Var finns dessa köer?
+
+</p><p>
+
+</p><hr noshade="">
+
+
+
+</body></html>

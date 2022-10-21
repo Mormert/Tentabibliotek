@@ -1,0 +1,401 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0077)http://basen.oru.se/kurser/os/2021-2022-p4/tentor/tenta-2022-05-30/index.html -->
+<html lang="sv"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title>Operativsystem för civilingenjörer: Tentamen 2022-05-30</title>
+<style type="text/css">
+     P.breakhere {page-break-before: always}
+</style>
+</head>
+
+<body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+Örebro universitet
+<br>
+Institutionen för naturvetenskap och teknik
+<br>
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Operativsystem%20f%C3%B6r%20civilingenj%C3%B6rer:%20Tentamen%202022-05-30">thomas.padron-mccarthy@oru.se</a>)
+
+<pre>
+
+
+</pre>
+<center>
+<font size="+2">Tentamen i</font>
+<p>
+<font size="+4">Operativsystem</font>
+<font size="+4">för civilingenjörer</font>  
+</p><p>
+måndag 30 maj 2022
+</p><p>
+<font size="-1">
+Gäller som tentamen för:
+<br>
+DT513G Operativsystem för civilingenjörer, provkod A001
+</font>
+</p></center>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+</p><table>
+<tbody><tr><td valign="top">
+<b>Hjälpmedel:</b>
+</td><td valign="top">
+Ordbok för översättning.
+</td></tr>
+<tr><td valign="top">
+<b>Poängkrav:</b>
+</td><td valign="top">
+Maximal poäng är 30.
+För godkänt betyg krävs 16 poäng.
+</td></tr>
+<tr><td valign="top">
+<b>Resultat:</b>
+</td><td valign="top">
+Meddelas senast 15 arbetsdagar efter tentamensdatum.
+</td></tr>
+<tr><td valign="top">
+<b>Återlämning av tentor:</b>
+</td><td valign="top">
+Elektroniskt via webbportalen Studenttjänster.
+</td></tr>
+<tr><td valign="top">
+<b>Examinator och jourhavande:</b>
+</td><td valign="top">
+Thomas Padron-McCarthy, telefon 070 - 73 47 013.
+</td></tr>
+</tbody></table>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+<font size="-1">
+</font></p><ul><font size="-1">
+
+<li>
+Skriv tydligt och klart. Lösningar som inte går att läsa kan
+naturligtvis inte ge några poäng.
+Oklara och tvetydiga formuleringar kommer att misstolkas.
+
+</li><li>
+Skriv den personliga tentamenskoden på varje inlämnat blad.
+Skriv <i>inte</i> namn eller personnummer på bladen.
+
+</li><li>
+Skriv bara på en sida av papperet.
+Använd inte röd skrift.
+
+</li><li>
+Antaganden utöver de som står i uppgifterna måste anges. Gjorda
+antaganden får inte förändra den givna uppgiften.
+
+</li><li>
+Skriv gärna förklaringar om hur du tänkt.
+Även ett svar som är fel kan ge poäng,
+om det finns med en förklaring som visar att huvudtankarna var rätt.
+</li></font></ul><font size="-1">
+</font>
+
+<p>
+
+</p><hr noshade="">
+
+<p>
+
+</p><pre>
+</pre>
+
+<center>LYCKA TILL!</center>
+
+
+
+<p class="breakhere">
+
+
+
+</p><h2>Formelsamling</h2>
+
+<table border="1" cellspacing="0" cellpadding="3">
+<tbody><tr><td>2<sup>0</sup> = 1</td> <td>2<sup>24</sup> = 16777216</td></tr>
+<tr><td>2<sup>1</sup> = 2</td> <td>2<sup>25</sup> = 33554432</td></tr>
+<tr><td>2<sup>2</sup> = 4</td> <td>2<sup>26</sup> = 67108864</td></tr>
+<tr><td>2<sup>3</sup> = 8</td> <td>2<sup>27</sup> = 134217728</td></tr>
+<tr><td>2<sup>4</sup> = 16</td> <td>2<sup>28</sup> = 268435456</td></tr>
+<tr><td>2<sup>5</sup> = 32</td> <td>2<sup>29</sup> = 536870912</td></tr>
+<tr><td>2<sup>6</sup> = 64</td> <td>2<sup>30</sup> = 1073741824</td></tr>
+<tr><td>2<sup>7</sup> = 128</td> <td>2<sup>31</sup> = 2147483648</td></tr>
+<tr><td>2<sup>8</sup> = 256</td> <td>2<sup>32</sup> = 4294967296</td></tr>
+<tr><td>2<sup>9</sup> = 512</td> <td>2<sup>33</sup> = 8589934592</td></tr>
+<tr><td>2<sup>10</sup> = 1024</td> <td>2<sup>34</sup> = 17179869184</td></tr>
+<tr><td>2<sup>11</sup> = 2048</td> <td>2<sup>35</sup> = 34359738368</td></tr>
+<tr><td>2<sup>12</sup> = 4096</td> <td>2<sup>36</sup> = 68719476736</td></tr>
+<tr><td>2<sup>13</sup> = 8192</td> <td>2<sup>37</sup> = 137438953472</td></tr>
+<tr><td>2<sup>14</sup> = 16384</td> <td>2<sup>38</sup> = 274877906944</td></tr>
+<tr><td>2<sup>15</sup> = 32768</td> <td>2<sup>39</sup> = 549755813888</td></tr>
+<tr><td>2<sup>16</sup> = 65536</td> <td>2<sup>40</sup> = 1099511627776</td></tr>
+<tr><td>2<sup>17</sup> = 131072</td> <td>2<sup>41</sup> = 2199023255552</td></tr>
+<tr><td>2<sup>18</sup> = 262144</td> <td>2<sup>42</sup> = 4398046511104</td></tr>
+<tr><td>2<sup>19</sup> = 524288</td> <td>2<sup>43</sup> = 8796093022208</td></tr>
+<tr><td>2<sup>20</sup> = 1048576</td> <td>2<sup>44</sup> = 17592186044416</td></tr>
+<tr><td>2<sup>21</sup> = 2097152</td> <td>2<sup>45</sup> = 35184372088832</td></tr>
+<tr><td>2<sup>22</sup> = 4194304</td> <td>2<sup>46</sup> = 70368744177664</td></tr>
+<tr><td>2<sup>23</sup> = 8388608</td> <td>2<sup>47</sup> = 140737488355328</td></tr>
+</tbody></table>
+
+<p>
+
+2<sup>x</sup> * 2<sup>y</sup> = 2<sup>x+y</sup>
+
+
+
+</p><p class="breakhere">
+
+
+
+<a name="uppgift-1"></a>
+</p><h2>Uppgift 1 (7 p)</h2>
+
+a) Vad är det för skillnad på operativsystemkärnan och ett systemprogram?
+Ange några olika saker som skiljer dem åt!
+
+<p>
+
+b) Vad är det för skillnad på operativsystemkärnan och en hypervisor?
+
+</p><p>
+
+c) Vad är det för skillnad på en process och en tråd?
+Ange de viktigaste skillnaderna!
+
+</p><p>
+
+d) En mikrokärna är förstås mindre än andra typer av kärnor.
+Vad är det man har tagit bort, och var har man gjort av det?
+
+
+
+<a name="uppgift-2"></a>
+</p><h2>Uppgift 2 (3 p)</h2>
+
+Min skrivbordsdator har en 8-kärnig processor, med hyperthreading.
+Den kan köra flera program samtidigt,
+till exempel både webbläsaren och en snygg klocka som visar tiden och piper varje timme.
+
+<p>
+
+Min första egna dator hade bara en enkärnig processor, och ingen hyperthreading,
+men den kunde fortfarande köra flera program samtidigt.
+(Även om klockan hade färre pixlar och inte var lika snygg.)
+Förklara hur operativsystemet kan åstadkomma det på en enkärnig processor!
+
+
+
+<a name="uppgift-3"></a>
+</p><h2>Uppgift 3 (5 p)</h2>
+
+Här är ett C-program:
+
+<p>
+
+</p><table border="1" cellspacing="0" cellpadding="3"><tbody><tr><td bgcolor="#ccffcc">
+<pre>#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+
+int x = 1;
+
+int main(void) {
+    int y = 1;
+    if (fork() == 0) {
+        x = x + 1;
+        y = y + 1;
+        printf("Ett! x = %d, y = %d!\n", x, y);
+    }
+    else {
+        x = x + 1;
+        y = y + 1;
+        printf("Två! x = %d, y = %d!\n", x, y);
+    }
+    fork();
+    x = x + 1;
+    y = y + 1;
+    printf("Tre! x = %d, y = %d!\n", x, y);
+}
+</pre>
+</td></tr></tbody></table>
+
+<p>
+
+a) Vad skrivs ut när programmet körs?
+
+</p><p>
+
+b) Om man kör programmet flera gånger kan utskrifterna bli olika mellan gångerna.
+Förklara varför!
+
+
+
+<a name="uppgift-4"></a>
+</p><h2>Uppgift 4 (5 p)</h2>
+
+Här är ett C-program.
+Det startar 1000 trådar.
+Varje tråd ökar variabeln <b>data</b> en miljon gånger.
+
+<p>
+
+</p><table border="1" cellspacing="0" cellpadding="3"><tbody><tr><td bgcolor="#ccffcc">
+<pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;pthread.h&gt;
+
+volatile int data = 0;
+pthread_mutex_t lock;
+
+static void *thread_body(void *arg) {
+    for (int i = 0; i &lt; 1000000; i++) {
+        pthread_mutex_lock(&amp;lock);
+        ++data;
+        pthread_mutex_unlock(&amp;lock);
+    }
+    return NULL;
+} // thread_body
+
+int main(void) {
+    pthread_t threads[1000];
+    pthread_mutex_init(&amp;lock, NULL);
+
+    printf("Starting the threads...\n");
+
+    for (int i = 0; i &lt; 1000; ++i) {
+        if (pthread_create(&amp;threads[i], NULL, thread_body, (void*)i) != 0) {
+            printf("Error: Couldn't create thread %d.\n", i);
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    printf("Waiting for the threads to finish...\n");
+
+    for (int i = 0; i &lt; 1000; ++i) {
+        if (pthread_join(threads[i], NULL) != 0) {
+            printf("Error: Couldn't join thread %d.\n", i);
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    printf("All threads have finished.\n");
+    printf("Result: data = %d\n", data);
+
+    return EXIT_SUCCESS;
+} // main
+</pre>
+</td></tr></tbody></table>
+
+<p>
+
+Utskrifter från när vi kör programmet:
+
+</p><p>
+
+</p><table border="1" cellspacing="0" cellpadding="3"><tbody><tr><td bgcolor="#ccffcc">
+<pre>Starting the threads...
+Waiting for the threads to finish...
+All threads have finished.
+Result: data = 1000000000
+</pre>
+</td></tr></tbody></table>
+
+<p>
+
+a) Kan vi få deadlock i programmet?
+
+</p><p>
+
+b) Vi tar bort anropen till <b>pthread_mutex_lock</b> och <b>pthread_mutex_unlock</b>.
+Vad händer nu när vi kör programmet?
+Blir utskriften annorlunda?
+
+</p><p>
+
+c) Kan vi få deadlock när vi tagit bort <b>pthread_mutex_lock</b> och <b>pthread_mutex_unlock</b>?
+
+</p><p>
+
+d) Min dator har en 8-kärnig processor med hyperthreading, så den kan köra 16 trådar parallellt.
+Men här kör vi 1000 trådar samtidigt! Hur är det möjligt? Förklara!
+
+
+
+<a name="uppgift-5"></a>
+</p><h2>Uppgift 5 (7 p)</h2>
+
+Vi har en byteadresserad dator som arbetar med minnesadresser på 14 bitar,
+både för virtuella och fysiska adresser.
+Av de 14 bitarna används 10 för offset inom minnessidan.
+
+<p>
+
+a) Hur stor är den virtuella adressrymden?
+
+</p><p>
+
+b) Hur stor (dvs hur många byte) är en minnessida ("page")?
+
+</p><p>
+
+c) Hur många minnessidor är den virtuella minnesrymden indelad i?
+
+</p><p>
+
+d) Hur mycket fysiskt minne kan man ha i datorn?
+
+</p><p>
+
+e) Hur många frames (dvs platser för minnessidor) kan man ha i datorn?
+
+</p><p>
+
+f) Vi tittar i sidtabellen ("page table") för en process, och ser att virtuell minnessida 2
+är lagrad i fysisk frame 1. (Båda numreras med början på noll.)
+Vilken fysisk adress är den virtuella minnesadressen 2050 lagrad på?
+Visa hur översättningen görs.
+
+
+
+</p><p class="breakhere">
+
+
+
+<a name="uppgift-6"></a>
+</p><h2>Uppgift 6 (3 p)</h2>
+
+När man installerar applikationsprogram ("appar") på en mobiltelefon,
+brukar man kunna ange för varje sådant program vad det får och inte får göra,
+till exempel om det får göra uppkopplingar via Internet.
+
+<p>
+
+På en vanlig Linux-dator (en server, eller en stationär eller bärbar dator)
+kan man normalt inte göra det,
+utan alla applikationsprogram som man installerar
+får alla rättigheter som den användare som kör dem har,
+och det går inte (särskilt lätt) att begränsa detta.
+
+</p><p>
+
+Varför är det gjort så?
+  
+</p><p>
+
+</p><hr noshade="">
+
+
+
+</body></html>

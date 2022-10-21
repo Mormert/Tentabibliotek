@@ -1,0 +1,539 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0081)http://basen.oru.se/kurser/os/2021-2022-p4/tentor/tenta-2022-05-30/losningar.html -->
+<html lang="sv"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title>Operativsystem: Lösningar till tentamen 2022-05-30</title>
+
+</head><body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+<h1><a href="http://basen.oru.se/kurser/os/2021-2022-p4/index.html">Operativsystem</a>: Lösningar till tentamen 2022-05-30</h1>
+
+Observera att detta är förslag på lösningar.
+Det kan finnas andra lösningar som också är korrekta.
+Det kan hända att en del av lösningarna är mer omfattande än vad som krävs för full poäng på uppgiften,
+eller att de bara hänvisar till var man kan läsa svaren.
+Dessutom har det inträffat i världshistorien att lärare skrivit fel i lösningsförslagen.
+<i>Jag</i> har förstås aldrig gjort det, men andra.
+Är det verkligen någon som läser såna här inledande texter?
+Kanske skummar de början och hoppar över resten.
+Jag vet inte. Det kan vara så. Rabarber rabarber rabarber.
+Det har jag hört att statisterna får säga på filminspelningar
+när det ska vara bakgrundssorl från en restaurang eller liknande.
+Här nedan kommer lösningsförslagen till uppgifterna.
+
+
+
+<a name="uppgift-1"></a>
+<h2>Uppgift 1 (7 p)</h2>
+
+a) Vad är det för skillnad på operativsystemkärnan och ett systemprogram?
+Ange några olika saker som skiljer dem åt!
+
+<p>
+
+<b>Svar:</b>
+
+</p><p>
+
+Operativsystemkärnan är den del av operativsystemet
+som sköter om det viktigaste och mest centrala i en dator,
+som kontakten med hårdvaran, eller schemaläggning ("schedulering") och annan hantering av processer.
+På moderna, vanliga processorer körs operativsystemkärnan med särskilda privilegier,
+bland annat så att den kan utföra maskininstruktioner som vanliga program inte kan.
+
+</p><p>
+
+Ett systemprogram är ett vanligt program som utför delar av operativsystemets arbete.
+Det har inte samma privilegier som operativsystemkärnan har,
+och måste gå via systemanrop för att komma åt datorns resurser, på samma sätt som vanliga program.
+Om ett systemprogram kraschar kan man starta om det,
+men om operativsystemkärnan kraschar kan datorn förmodligen inte köra vidare.
+Ett exempel på ett systemprogram i Linux är skalet ("shell"),
+och som vi sett i kursen är det ett vanligt program, som man själv kan skriva en ny variant av.
+
+</p><p>
+
+b) Vad är det för skillnad på operativsystemkärnan och en hypervisor?
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+En hypervisor hanterar och kör virtuella maskiner.
+Man kan se den som lagret nedanför (närmare hårdvaran) än gästoperativsystemen i de virtuella maskinerna.
+Hypervisorn kan vara ett program som körs under ett operativsystem
+(hypervisor typ 2),
+eller den kan köras direkt på datorn, så att den ersätter operativsystemet
+(hypervisor typ 1).
+En hypervisor är inte en operativsystemkärna eller ett operativsystem,
+men en hypervisor typ 1 är en ersättning för ett operativsystem,
+men med den mer specialiserade uppgiften att hantera och köra virtuella maskiner.
+
+</p><p>
+
+c) Vad är det för skillnad på en process och en tråd?
+Ange de viktigaste skillnaderna!
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+En process har en minnesrymd, medan flera trådar kan dela på samma minnesrymd.
+Trådar kan vara userspacetrådar, som operativsystemkärnan inte vet om,
+men det kan inte processer.
+Allmänt kan man säga att trådar är mer "lättviktiga" än processer,
+i betydelsen att de går snabbare att skapa, ta bort och växla mellan,
+och att de tar mindre minne och andra resurser.
+Trådar och processer kan schemaläggas med samma algoritmer,
+men det går fortare att växla mellan två trådar i samma process
+än mellan två processer.
+
+</p><p>
+
+d) En mikrokärna är förstås mindre än andra typer av kärnor.
+Vad är det man har tagit bort, och var har man gjort av det?
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+Man har tagit bort allt utom det som absolut måste vara i kärnan,
+som minneshantering och skapande, schedulering och annan hantering av processer.
+Allt annat, som hantering av filsystem och av användargränssnittet
+finns i form av vanliga användarprocesser, med eget minnesutrymme,
+som kommunicerar med kärnan.
+
+
+
+<a name="uppgift-2"></a>
+</p><h2>Uppgift 2 (3 p)</h2>
+
+Min skrivbordsdator har en 8-kärnig processor, med hyperthreading.
+Den kan köra flera program samtidigt,
+till exempel både webbläsaren och en snygg klocka som visar tiden och piper varje timme.
+
+<p>
+
+Min första egna dator hade bara en enkärnig processor, och ingen hyperthreading,
+men den kunde fortfarande köra flera program samtidigt.
+(Även om klockan hade färre pixlar och inte var lika snygg.)
+Förklara hur operativsystemet kan åstadkomma det på en enkärnig processor!
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+Även om den gamla datorn inte hade någon parallellitet mellan olika processer,
+så hade den vad som brukar kallas samtidighet,
+nämligen att flera processer var startade och igång,
+och operativsystemet växlade mellan dem, även om bara en i taget kördes vid varje enskild tidpunkt.
+Genom att växla snabbt mellan dem
+ser det ut för användaren som om de körs parallellt.
+Med preemptive multitasking (på svenska "tidsdelad multikörning")
+behöver programmen inte skrivas på något särskilt sätt,
+utan när det är någon annans tur att köra
+avbryter operativsystemet den körande processen och sparar undan de data som behövs för att senare återstarta den.
+
+
+
+<a name="uppgift-3"></a>
+</p><h2>Uppgift 3 (5 p)</h2>
+
+Här är ett C-program:
+
+<p>
+
+</p><table border="1" cellspacing="0" cellpadding="3"><tbody><tr><td bgcolor="#ccffcc">
+<pre>#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+
+int x = 1;
+
+int main(void) {
+    int y = 1;
+    if (fork() == 0) {
+        x = x + 1;
+        y = y + 1;
+        printf("Ett! x = %d, y = %d!\n", x, y);
+    }
+    else {
+        x = x + 1;
+        y = y + 1;
+        printf("Två! x = %d, y = %d!\n", x, y);
+    }
+    fork();
+    x = x + 1;
+    y = y + 1;
+    printf("Tre! x = %d, y = %d!\n", x, y);
+}
+</pre>
+</td></tr></tbody></table>
+
+<p>
+
+a) Vad skrivs ut när programmet körs?
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+</p><table border="1" cellspacing="0" cellpadding="3"><tbody><tr><td bgcolor="#ccffcc">
+<pre>Ett! x = 2, y = 2!
+Två! x = 2, y = 2!
+Tre! x = 3, y = 3!
+Tre! x = 3, y = 3!
+Tre! x = 3, y = 3!
+Tre! x = 3, y = 3!
+</pre>
+</td></tr></tbody></table>
+
+<p>
+
+(Raderna kan komma i en delvis annan ordning.)
+
+</p><p>
+
+b) Om man kör programmet flera gånger kan utskrifterna bli olika mellan gångerna.
+Förklara varför!
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+Med <b>fork</b>-anropen i programmet skapas nya processer.
+Processerna schemaläggs sen av operativsystemet,
+och som vanligt påverkas schemaläggningen av vilka processorkärnor som finns och vilka andra processer som körs.
+I det här fallet har vi ingen synkronisering mellan processerna
+(mer än att de startas av <b>fork</b>),
+och exakt hur de kommer att köras kan därför variera.
+
+
+
+<a name="uppgift-4"></a>
+</p><h2>Uppgift 4 (5 p)</h2>
+
+Här är ett C-program.
+Det startar 1000 trådar.
+Varje tråd ökar variabeln <b>data</b> en miljon gånger.
+
+<p>
+
+</p><table border="1" cellspacing="0" cellpadding="3"><tbody><tr><td bgcolor="#ccffcc">
+<pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;pthread.h&gt;
+
+volatile int data = 0;
+pthread_mutex_t lock;
+
+static void *thread_body(void *arg) {
+    for (int i = 0; i &lt; 1000000; i++) {
+        pthread_mutex_lock(&amp;lock);
+        ++data;
+        pthread_mutex_unlock(&amp;lock);
+    }
+    return NULL;
+} // thread_body
+
+int main(void) {
+    pthread_t threads[1000];
+    pthread_mutex_init(&amp;lock, NULL);
+
+    printf("Starting the threads...\n");
+
+    for (int i = 0; i &lt; 1000; ++i) {
+        if (pthread_create(&amp;threads[i], NULL, thread_body, (void*)i) != 0) {
+            printf("Error: Couldn't create thread %d.\n", i);
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    printf("Waiting for the threads to finish...\n");
+
+    for (int i = 0; i &lt; 1000; ++i) {
+        if (pthread_join(threads[i], NULL) != 0) {
+            printf("Error: Couldn't join thread %d.\n", i);
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    printf("All threads have finished.\n");
+    printf("Result: data = %d\n", data);
+
+    return EXIT_SUCCESS;
+} // main
+</pre>
+</td></tr></tbody></table>
+
+<p>
+
+Utskrifter från när vi kör programmet:
+
+</p><p>
+
+</p><table border="1" cellspacing="0" cellpadding="3"><tbody><tr><td bgcolor="#ccffcc">
+<pre>Starting the threads...
+Waiting for the threads to finish...
+All threads have finished.
+Result: data = 1000000000
+</pre>
+</td></tr></tbody></table>
+
+<p>
+
+a) Kan vi få deadlock i programmet?
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+Nej. Deadlock innebär att två eller flera processer som har olika lås (eller andra resurser)
+väntar på varandra, i en cykel.
+I det här programmet finns det bara ett enda lås,
+och därför kan man aldrig få en cykel med processer som har olika lås och som väntar på varandra.
+
+
+</p><p>
+
+b) Vi tar bort anropen till <b>pthread_mutex_lock</b> och <b>pthread_mutex_unlock</b>.
+Vad händer nu när vi kör programmet?
+Blir utskriften annorlunda?
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+Programmet går förmodligen mycket snabbare att köra,
+dels förstås eftersom det är två miljarder låsanrop som det inte behöver göra,
+men dels också eftersom trådarna inte behöver vänta på varandra.
+Med största sannolikhet blir variabelns värde inte längre 1000000000, utan antagligen något tal som är mycket mindre.
+
+</p><p>
+
+c) Kan vi få deadlock när vi tagit bort <b>pthread_mutex_lock</b> och <b>pthread_mutex_unlock</b>?
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+Nej, hur skulle det gå till?
+Ingen tråd väntar på något lås.
+
+</p><p>
+
+d) Min dator har en 8-kärnig processor med hyperthreading, så den kan köra 16 trådar parallellt.
+Men här kör vi 1000 trådar samtidigt! Hur är det möjligt? Förklara!
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+Det är av samma anledning som i svaret på fråga 2 ovan,
+nämligen att datorn växlar snabbt mellan att köra de olika trådarna.
+Trådarna startas, och ligger i någon form av kö som väntar på att få köra,
+och operativsystemet lägger ut dem på de olika processorkärnorna så de får köra en stund.
+Då och då (vilket betyder många gånger per sekund)
+byter operativsystemet vilken tråd som kör på respektive kärna.
+
+</p><p>
+
+Om vi använder userspace-trådar kan det också vara så att det inte är kärnan som byter mellan trådarna,
+utan att det är trådpaketet som gör det, till exempel vid ett låsanrop.
+
+</p><p>
+
+Observera att det <i>inte</i> är så att vi bara kan ha 16 kernel threads på en processor som
+kan köra 16 trådar parallellt. Det är inte det som kernel thread betyder.
+En kernel thread är bara en tråd som kärnan känner till och därför kan schemalägga,
+på liknande sätt som den känner till och kan schemalägga en process.
+Det kan mycket väl vara så att det skapas 1000 kernel threads i det här programmet.
+Det fungerar så på Linux, men inte på alla operativsystem.
+
+</p><p>
+
+Observera också att det <i>inte</i> är så att den först kör klart en tråd, eller sexton, innan den börjar på nästa,
+utan den byter mellan de 1000 trådarna hela tiden,
+med upp till 16 som körs parallellt.
+
+
+
+<a name="uppgift-5"></a>
+</p><h2>Uppgift 5 (7 p)</h2>
+
+Vi har en byteadresserad dator som arbetar med minnesadresser på 14 bitar,
+både för virtuella och fysiska adresser.
+Av de 14 bitarna används 10 för offset inom minnessidan.
+
+<p>
+
+a) Hur stor är den virtuella adressrymden?
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+2<sup>14</sup>, dvs 16384 adresser.
+
+</p><p>
+
+b) Hur stor (dvs hur många byte) är en minnessida ("page")?
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+2<sup>10</sup>, dvs 1024 byte.
+
+</p><p>
+
+c) Hur många minnessidor är den virtuella minnesrymden indelad i?
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+2<sup>14-10</sup>, dvs 2<sup>4</sup>, dvs 16 minnessidor.
+
+</p><p>
+
+d) Hur mycket fysiskt minne kan man ha i datorn?
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+2<sup>14</sup>, dvs 16384 byte.
+(Det <i>kan</i> vara mindre, om datorn har färre minnesplatser eller en adressbuss med färre bitar,
+eller mer om man på något vis kan växla mellan olika minnesbankar som använder samma adresser.)
+
+</p><p>
+
+e) Hur många frames (dvs platser för minnessidor) kan man ha i datorn?
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+2<sup>14-10</sup>, dvs 2<sup>4</sup>, dvs 16 frames.
+
+</p><p>
+
+f) Vi tittar i sidtabellen ("page table") för en process, och ser att virtuell minnessida 2
+är lagrad i fysisk frame 1. (Båda numreras med början på noll.)
+Vilken fysisk adress är den virtuella minnesadressen 2050 lagrad på?
+Visa hur översättningen görs.
+
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+Den fysiska adressen är <b>1026</b>.
+Vi ser att minnesadressen 2050 är 2*1024 + 2, dvs den har offset 2 på minnessida 2.
+Minnessida 2 var lagrad i fysisk frame 1. Frame 1 börjar på fysisk adress 1*1024,
+så den fysiska adressen blir 1*1024 + 2.
+
+
+
+</p><p class="breakhere">
+
+
+
+<a name="uppgift-6"></a>
+</p><h2>Uppgift 6 (3 p)</h2>
+
+När man installerar applikationsprogram ("appar") på en mobiltelefon,
+brukar man kunna ange för varje sådant program vad det får och inte får göra,
+till exempel om det får göra uppkopplingar via Internet.
+
+<p>
+
+På en vanlig Linux-dator (en server, eller en stationär eller bärbar dator)
+kan man normalt inte göra det,
+utan alla applikationsprogram som man installerar
+får alla rättigheter som den användare som kör dem har,
+och det går inte (särskilt lätt) att begränsa detta.
+
+</p><p>
+
+Varför är det gjort så?
+  
+</p><p>
+
+<b>Svar:</b>
+
+</p><p>
+
+Det beror på att Linux-datorerna och mobiltelefonerna har olika hotmodeller,
+dvs de hot man försöker skydda mot.
+
+</p><p>
+
+Linux är baserat på Unix i hur det fungerar, även om källkoden är helt egen.
+Unix skapades på 1970-talet, och mycket av säkerhetsmekanismerna
+har funnits med sedan då.
+På den tiden hade man flera användare som delade på en dator,
+och den datorn sköttes av en systemadministratör.
+Systemadministratören installerade program,
+som levererades av leverantörer som IBM eller Oracle.
+Man litade både på systemadministratören och programleverantörerna,
+och i stället var det användarna som var hotet.
+Systemet måste skyddas från användarna, och användarna måste skyddas från varandra.
+
+</p><p>
+
+En mobiltelefon har bara en användare,
+och här är det de program som man installer som är hoten.
+Man laddar ner dem från någon form av butik eller från andra platser
+som man ofta inte har någon anledning att lita på,
+och det är också känt att de ibland innehåller skadlig kod av olika slag.
+
+</p><p>
+
+(Här bör man kanske påpeka att även i Linux har man på senare tid
+utvecklat tekniker för att isolera applikationerna, så de inte lika lätt kan orsaka skada.)
+
+</p><p>
+
+</p><hr>
+
+<font size="-1">
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Operativsystem:%20L%C3%B6sningar%20till%20tentamen%202022-05-30">thomas.padron-mccarthy@oru.se</a>),
+9 juni 2022
+</font>
+
+
+
+</body></html>
