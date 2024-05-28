@@ -1,0 +1,90 @@
+Lösningsförslag till uppgift 4 på OS-tentan 2020-08-24
+------------------------------------------------------
+
+> a) Vi kör programmet. Det tar 2,3 sekunder, men variabelns värde blir
+> inte alls 100 miljarder, utan 37226719. Vad beror det på att det blir
+> fel värde?
+
+Flera trådar arbetar med samma variabel samtidigt utan synkronisering.
+(Låt oss säga att variabeln innehåller värdet 1000. En tråd som körs
+på en processorkärna hämtar värdet ur variabeln från primärminnet till
+ett register, adderar ett så det blir 1001, och lägger det nya värdet
+1001 i variabeln i primärminnet. Men samtidigt har en annan tråd, som
+körs på en annan processorkärna, också hämtat värdet 1000. Den adderar
+också ett så det blir 1001, och lägger det nya värdet 1001 i variabeln
+i primärminnet. Två trådar har alltså ökat talet 1000 med ett, men
+resultatet blev bara 1001 och inte 1002.)
+
+> b) Vi kör programmet en gång till. Det tar 2,3 sekunder den här gången
+> också, men nu blir variabelns värde 39579883, alltså ett annat värde
+> än förra gången. Vad beror det på att det blir ett annat värde?
+
+Exakt i vilken ordning operationerna i trådarna utförs beror på
+scheduleringen ("schemaläggningen") av trådarna, som utförs av
+operativsystemkärnan, och den kan bli olika från gång till gång.
+Exempelvis kanske ett helt annat program också körs på en eller flera
+processorkärnor. Därför kan man inte räkna med att det blir samma
+resultat varje gång.
+
+> c) Vi ändrar konstanten NR_THREADS till 1, så det bara körs en enda
+> tråd, och kör programmet ännu en gång. Vad får variabeln för värde nu?
+> Varför?
+
+100 miljarder, dvs det förväntade rätta svaret. Eftersom bara en enda
+tråd arbetar med variabeln, kan det inte uppstå några "krockar" mellan
+trådarna pga bristande synkronisering.
+
+> d) Vi ändrar tillbaka konstanten NR_THREADS till 100. Ändra programmet
+> så det ger rätt resultat, även med 100 parallella trådar! (Det är som
+> sagt tillåtet att provköra, men det räcker med att visa vilka rader
+> som behöver läggas till i programmet.)
+
+Lägg till ett lås, enklast som en global variabel:
+
+    pthread_mutex_t lock;
+
+Ändra i funktionen "thread_body" så tråden låser låset före
+uppdateringen av variabeln "the_big_number", och låser upp det efter
+uppdateringen.
+
+    void *thread_body(void *arg) {
+        int thread_number = (int)arg;
+        for (long long int i = 0; i < NR_INCREMENTS_PER_THREAD; ++i) {
+            if (pthread_mutex_lock(&lock) != 0)
+                printf("LOCK FAILED!\n");
+            the_big_number ++;
+            pthread_mutex_unlock(&lock);
+        }
+        return NULL;
+    } // thread_body
+
+Dessutom måste man lägga till en initiering av låset i main, innan
+trådarna startas:
+
+    if (pthread_mutex_init(&lock, NULL) != 0) { 
+        printf("Mutex init failed\n");
+        exit(EXIT_FAILURE);
+    } 
+
+> e) Vi kör programmet från deluppgift d ovan. Om du gjort rätt får
+> variabeln det förväntade värdet. Men ungefär hur lång tid kan man
+> räkna med att det tar att köra programmet? Varför?
+
+Mycket längre tid. Dels blir det mindre parallellism, eftersom låset
+hindrar flera trådar från att uppdatera variabeln "the_big_number"
+samtidigt. Dels ska låset låsas och låsas upp, sammanlagt 100 miljarder
+gånger, och det tar förstås tid.
+
+> f) Jag vill att programmet ska gå fortare att köra, så jag ändrar
+> konstanten NR_THREADS till 1000. Vad händer med körtiden jämfört med
+> när det var 100 trådar? Varför?
+
+Ingen större skillnad. Alla provkörningar görs ju på en normal, modern
+stationär eller bärbar dator, och normala datorer idag har inte mer än
+8-12 kärnor i processorn. Även med hyperthreading, som duplicerar en
+del av kretsarna i varje kärna så att två trådar kan köras på varje
+kärna, kan vi inte köra mer än 20-30 trådar parallellt. Det spelar
+ingen roll om vi startar 100 eller 1000 trådar, för det blir inte mer
+än 20-30 som kan köras parallellt. Kanske blir det en liten aning
+långsammare eftersom det blir fler olika trådar att skapa och hålla
+reda på.

@@ -1,0 +1,727 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="sv">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Operativsystem: Lösningar till tentamen 2023-05-29</title>
+
+<body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+<h1><a href="../../index.html">Operativsystem</a>: Lösningar till tentamen 2023-05-29</h1>
+
+Observera att detta är förslag på lösningar.
+Det kan finnas andra lösningar som också är korrekta.
+Det kan hända att en del av lösningarna är mer omfattande än vad som krävs för full poäng på uppgiften,
+eller att de bara hänvisar till var man kan läsa svaren.
+Dessutom har det inträffat i världshistorien att lärare skrivit fel i lösningsförslagen.
+<i>Jag</i> har förstås aldrig gjort det, men andra.
+Är det verkligen någon som läser såna här inledande texter?
+Kanske skummar de början och hoppar över resten.
+Jag vet inte. Det kan vara så. Rabarber rabarber rabarber.
+Det har jag hört att statisterna får säga på filminspelningar
+när det ska vara bakgrundssorl från en restaurang eller liknande.
+Här nedan kommer lösningsförslagen till uppgifterna.
+
+
+
+<a name="uppgift-1"></a>
+<h2>Uppgift 1 (3 p)</h2>
+
+En dator har många olika uppgifter som den behöver utföra för att underlätta för användarna.
+En del uppgifter utförs av operativsystemet, andra av applikationsprogram.
+
+<p>
+
+a) Ange en uppgift som det är operativsystemet som utför.
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+Att hantera processer, som att skapa, schedulera och ta bort dem.
+Att hantera användaridentiteter, som att skapa dem, ta bort dem och ge dem rättigheter,
+och även att kontrollera de rättigheterna så de inte överskrids.
+Att hantera sekundärminnet med filer och filkataloger,
+och möjliggöra för programmen att läsa och skriva filerna.
+</td></tr></table>
+
+<p>
+
+b) Ange en uppgift som operativsystemet <i>inte</i> utför.
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+Redigering av text, ljud, bilder och andra data i olika program, till exempel Photoshop.
+Spel.
+</td></tr></table>
+
+<p>
+
+c) Ange en uppgift där det inte är uppenbart ifall operativsystemet
+eller ett applikationsprogram ska lösa den.
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+
+<p>
+
+Här kan man ge olika svar.
+En känd historisk händelse är "webbläsarkriget" på 1990-talet.
+Webben var ganska ny, och webbläsaren Netscape Navigator var helt dominerande.
+Den var ett applikationsprogram som, precis som andra applikationsprogram,
+man fick ladda ner
+(eller snarare läsa in från CD-skiva, för det var ju på 1990-talet)
+och installera på sin dator.
+Microsoft hävdade då att deras konkurrerande webbläsare, Internet Explorer,
+var en del av operativsystemet Windows.
+De skickade med den med varje kopia av Windows,
+och hävdade att den inte gick att avinstallera eftersom den var en integrerad del
+av operativsystemet.
+Eftersom alla Windows-användare var tvungna att ha Internet Explorer,
+och nästan alla vanliga datorer använde Windows,
+lyckades Microsoft konkurrera ut Netscape,
+och Internet Explorer blev den dominerande webbläsaren.
+
+<p>
+
+Andra exempel:
+Virusskydd
+(som kan vara inbyggt i operativsystemet eller ett separat program).
+Trådhantering
+(som kan ha stöd av operativsystemet och kärnan,
+elle vara ett separat paket med enbart user space-trådar).
+
+</td></tr></table>
+
+
+
+<a name="uppgift-2"></a>
+<h2>Uppgift 2 (5 p)</h2>
+
+En mikrokärna är en operativsystemkärna där man flyttat ut delar av
+kärnans uppgifter ut ur kärnan.
+
+<p>
+
+a) Det står att man "flyttat ut delar av
+kärnans uppgifter ut ur kärnan".
+Vart har man flyttat dem?
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+Till vanliga processer ("user mode processes")
+som inte kör med de särskilda rättigheter som kärnan har ("kernel mode")
+utan i "user mode",
+och i vanligt minne ("user space").
+</td></tr></table>
+
+<p>
+
+b) Varför vill man göra det, dvs vilka fördelar ger en mikrokärna?
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+
+<p>
+
+En fördel med mikrokärnor är att om en av de funktioner som
+är placerade i vanliga processer utanför kärnan skulle krascha,
+så leder det inte till att hela systemet kraschar.
+Därigenom blir operativsystemet stabilare.
+
+<p>
+
+Eftersom det blir mindre kod i kärnan,
+blir det också lättare att granska och testa den,
+vilket är tänkt att göra operativsystemet stabilare (mot krascher)
+och säkrare (mot angrepp).
+</td></tr></table>
+
+<p>
+
+c) Vilka nackdelar ger det?
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+Prestanda kan bli sämre,
+eftersom kärnan och de utflyttade delarna ibland måste kommunicera med varandra,
+och eftersom de utflyttade delarna kör i user mode och kärnan (förstås) i kernel mode,
+kan det behövas byten mellan user mode och kernel mode, och tillbaka,
+och kopiering av data mellan user space (användarprocessernas minne)
+och kernel space (kärnans minne).
+</td></tr></table>
+
+<p>
+
+d) Ge exempel på någon uppgift som man kan flytta ut ur kärnan.
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+Användargränssnitt.
+Hantering av filsystem.
+</td></tr></table>
+
+<p>
+
+e) Ge exempel på någon uppgift som man <i>inte</i> kan flytta ut ur kärnan.
+Varför går det inte att flytta ut den?
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+Skapande, schedulering och annan hantering av processer.
+Dessa kräver tillgång både till priviligierade instruktioner
+som processorn bara tillåter i kernel mode,
+och till kärnans interna datastrukturer (till exempel taskstructar och köer).
+</td></tr></table>
+
+
+
+<a name="uppgift-3"></a>
+<h2>Uppgift 3 (5 p)</h2>
+
+Här är ett C-program för Linux.
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#ccffcc">
+<pre>
+#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+
+int x = 0;
+
+int main(void) {
+    int y = 0;
+    fork();
+    x = x + 1;
+    y = y + 1;
+    fork();
+    x = x + 1;
+    y = y + 1;
+    fork();
+    x = x + 1;
+    y = y + 1;
+    printf("x = %d, y = %d\n", x, y);
+}
+</pre>
+</td></tr></table>
+
+<p>
+
+a) Vad skrivs ut när programmet körs?
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+<pre>
+x = 3, y = 3
+x = 3, y = 3
+x = 3, y = 3
+x = 3, y = 3
+x = 3, y = 3
+x = 3, y = 3
+x = 3, y = 3
+x = 3, y = 3
+</pre>
+</td></tr></table>
+
+<p>
+
+b) Kan det bli olika utskrifter från gång till gång,
+och vad beror det i så fall på?
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+
+<p>
+
+Nej.
+Vid <b>fork</b> får barnprocessen en egen adressrymd,
+som till att börja med är en kopia av föräldraprocessens,
+förutom att returvärdet från <b>fork</b>-anropet är olika.
+Varje process har alltså sin egen adressrymd,
+så ingen av variablerna <b>x</b> och <b>y</b> är delad mellan dem.
+Raderna som skrivs ut kan visserligen komma i olika ordning,
+eftersom det inte finns någon synkronisering mellan de olika processerna,
+men i slutet av programmet när variablerna skrivs ut har de samma innehåll i alla processerna,
+så utskrifterna är identiska.
+
+<p>
+
+Det <i>kan</i> förstås bli olika utskrifter,
+till exempel om någon stänger av datorn medan programmet körs,
+eller om datorn redan kör maximalt antal processer, så att fork-anropen misslyckas,
+eller om kosmisk strålning påverkar innehållet i minnet.
+</td></tr></table>
+
+
+
+<a name="uppgift-4"></a>
+<h2>Uppgift 4 (5 p)</h2>
+
+Här är ett annat C-program för Linux.
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#ccffcc">
+<pre>
+#include &lt;stdio.h&gt;
+#include &lt;pthread.h&gt;
+
+volatile int x = 0;
+
+void *thread_body(void *arg) {
+    int y = 0;
+    x = x + 1;
+    y = y + 1;
+    printf("x = %d, y = %d\n", x, y);
+    return NULL;
+}
+
+int main(void) {
+    int z = 0;
+    x = x + 1;
+    z = z + 1;
+    printf("x = %d, z = %d\n", x, z);
+    pthread_t thread1, thread2;
+    pthread_create(&amp;thread1, NULL, thread_body, NULL);
+    pthread_create(&amp;thread2, NULL, thread_body, NULL);
+    pthread_join(thread1, NULL);
+    pthread_join(thread2, NULL);
+    printf("x = %d, z = %d\n", x, z);
+}
+</pre>
+</td></tr></table>
+
+<p>
+
+a) Vad skrivs ut när programmet körs?
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+Det här är det resultat man kan förvänta sig:
+<pre>
+x = 1, z = 1
+x = 2, y = 1
+x = 3, y = 1
+x = 3, z = 1
+</pre>
+Vid en provkörning en miljon gånger fick man ovanstående resultat 999844 gånger.
+Man fick följande resultat 136 gånger:
+<pre>
+x = 1, z = 1
+x = 3, y = 1
+x = 2, y = 1
+x = 3, z = 1
+</pre>
+Det blev detta resultat 20 gånger:
+<pre>
+x = 1, z = 1
+x = 2, y = 1
+x = 2, y = 1
+x = 2, z = 1
+</pre>
+Vid en annan provkörning fick man också detta resultat:
+<pre>
+x = 1, z = 1
+x = 3, y = 1
+x = 3, y = 1
+x = 3, z = 1
+</pre>
+</td></tr></table>
+
+<p>
+
+b) Kan det bli olika utskrifter från gång till gång,
+och vad beror det i så fall på?
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+
+<ul>
+<li>
+Ja, värdena på <b>x</b> kan bli olika.
+Variabeln <b>x</b> är delad mellan trådarna,
+och det finns ingen synkronisering mellan trådarna.
+Båda trådarna uppdaterar variabeln <b>x</b>,
+som är gemensam för båda trådarna.
+Därför kan innehållet i <b>x</b> bli olika
+mellan olika körningar av programmet,
+både till slut och i trådarna.
+
+<li>
+Värdena på <b>y</b> och <b>z</b> kan dock inte bli olika.
+Varje tråd har en egen stack, och en egen variabel <b>y</b>,
+så utskrifterna av <b>y</b> är alltid lika.
+Variabeln <b>z</b> finns bara i <b>main</b>-funktionen,
+som körs i huvudtråden,
+så den finns bara i ett exemplar,
+och utskrifterna av <b>z</b> är alltid lika.
+
+<li>
+Ordningen på utskrifterna i thread_body kan också bli olika,
+men det påverkar inte hur utskrifterna ser ut.
+Värdet på <b>x</b> kan som vi sett bli olika mellan trådarna,
+men själva ordningen på utskrifterna spelar ingen roll.
+Om man hade haft ett trådnummer i varje tråd,
+och skrivit ut det trådnumret i utskriften inuti tråden,
+så hade man sett i vilken ordning utskrifterna kom,
+och det hade man sett även om det var samma värde på <b>x</b>.
+</ul>
+
+</td></tr></table>
+
+
+
+<a name="uppgift-5"></a>
+<h2>Uppgift 5 (7 p)</h2>
+
+Som ett hobbyprojekt ska vi bygga en dator från grunden,
+med grindar ("gates") och transistorer i stället för en färdig processor.
+Datorn ska vara byteadresserad och ha virtuellt minne.
+Fysiska adresser består av 6 bitar, och virtuella adresser av 8 bitar.
+Offset är 4 bitar.
+
+<p>
+
+a) Hur stor är den virtuella adressrymden?
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+2<sup>8</sup> adresser, dvs 256 adresser eller 256 byte
+</td></tr></table>
+
+<p>
+
+b) Hur stor är den fysiska adressrymden?
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+2<sup>6</sup> adresser, dvs 64 adresser eller 64 byte
+</td></tr></table>
+
+<p>
+
+c) Hur stor är en virtuell minnessida ("page" på engelska)?
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+2<sup>4</sup> byte, dvs 16 byte
+</td></tr></table>
+
+<p>
+
+d) Hur stor är en fysisk frame ("ram" på svenska)?
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+Lika stor som en virtuell minnessida, dvs 16 byte
+</td></tr></table>
+
+<p>
+
+e) Hur många frames (dvs platser för minnessidor) kan man ha i datorn?
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+2<sup>6</sup> / 2<sup>4</sup> = 2<sup>6-4</sup> frames, dvs 4 frames
+</td></tr></table>
+
+<p>
+
+f)
+Vi tänker oss att vi har en sidtabell ("page table") för en process,
+och att enligt den sidtabellen är virtuell minnessida 3
+lagrad i fysisk frame 2. (Båda numreras med början på noll.)
+Ange en adress inom denna virtuella minnessida,
+och visa hur den översätts till en fysisk adress.
+Visa både hur översättningen görs och vad resultatet blir.
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+3 decimalt är 11 binärt,
+och den första adressen på den virtuella minnessidan 3 (dvs den fjärde)
+är <b>0011&nbsp;0000</b> binärt, eller 3*16 = <b>48</b> decimalt.
+Via sidtabellen översätter vi sidnummer 3 (11 binärt) till framenummer 2 (10 binärt),
+och ersätter 3 (0011 binärt) i den virtuella adressen med framenummer 2 (10 binärt):
+<b>10&nbsp;0000</b> binärt, dvs 2*16 = <b>32</b> decimalt.
+
+<p>
+
+På samma sätt översätts virtuell adress <b>49</b> (<b>0011&nbsp;0001</b> binärt)
+till <b>33</b> (<b>10&nbsp;0001</b> binärt),
+virtuell adress <b>50</b> (<b>0011&nbsp;0010</b> binärt)
+till <b>34</b> (<b>10&nbsp;0010</b> binärt),
+och så vidare till den sista virtuella adressen på den sidan,
+<b>63</b> (<b>0011&nbsp;1111</b> binärt),
+som översätts till <b>33</b> (<b>10&nbsp;1111</b> binärt):
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3">
+<tr><th colspan=2>Virtuell adress</th> <th colspan=2>Fysisk adress</th></tr>
+<tr><th>Decimalt</th> <th>Binärt</th> <th>Decimalt</th> <th>Binärt</th></tr>
+
+<tr><td>48</td> <td>0011 0000</td> <td>32</td> <td>10 0000</td></tr>
+<tr><td>49</td> <td>0011 0001</td> <td>33</td> <td>10 0001</td></tr>
+<tr><td>50</td> <td>0011 0010</td> <td>34</td> <td>10 0010</td></tr>
+<tr><td>51</td> <td>0011 0011</td> <td>35</td> <td>10 0011</td></tr>
+<tr><td>52</td> <td>0011 0100</td> <td>36</td> <td>10 0100</td></tr>
+<tr><td>53</td> <td>0011 0101</td> <td>37</td> <td>10 0101</td></tr>
+<tr><td>54</td> <td>0011 0110</td> <td>38</td> <td>10 0110</td></tr>
+<tr><td>55</td> <td>0011 0111</td> <td>39</td> <td>10 0111</td></tr>
+<tr><td>56</td> <td>0011 1000</td> <td>40</td> <td>10 1000</td></tr>
+<tr><td>57</td> <td>0011 1001</td> <td>41</td> <td>10 1001</td></tr>
+<tr><td>58</td> <td>0011 1010</td> <td>42</td> <td>10 1010</td></tr>
+<tr><td>59</td> <td>0011 1011</td> <td>43</td> <td>10 1011</td></tr>
+<tr><td>60</td> <td>0011 1100</td> <td>44</td> <td>10 1100</td></tr>
+<tr><td>61</td> <td>0011 1101</td> <td>45</td> <td>10 1101</td></tr>
+<tr><td>62</td> <td>0011 1110</td> <td>46</td> <td>10 1110</td></tr>
+
+</table>
+</td></tr></table>
+
+<p>
+
+g)
+Om vi vill använda den här datorn till något, som till exempel beräkningar,
+vilka problem kommer vi att få?
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+
+<p>
+
+Minnet är förstås mycket litet, så det går inte att göra särskilt komplicerade
+beräkningar. Dels är det virtuella minnet litet, så vi kan inte ha så mycket data,
+och dessutom är det fysiska minnet ännu mindre,
+så om vi har annat än mycket lite data kommer vi att behöva page:a ut och in från
+någon sorts sekundärminne,
+vilket blir långsamt.
+Om vi dessutom tänkt oss att ha körbar programkod, operativsystem och sidtabell
+i primärminnet, blir det verkligen svår att få plats med allt.
+(Men våra 256 byte virtuellt minne är mer minne än vad som från början fanns i ENIAC:
+20 stycken register för 10-siffriga decimala tal!)
+
+<p>
+
+Minnet är litet, men sidstorleken är stor jämfört med minnet.
+Det kan ge onödigt stor intern fragmentering.
+(Intern fragmentering betyder att eftersom minnessidorna har en fast storlek,
+kommer en del av vissa sidor att vara oanvänd.)
+
+<p>
+
+Det finns bara plats för 4 sidor åt gången i minnet,
+vilket kan orsaka thrashing.
+(Thrashing betyder att de data som används inte alla får plats i det fysiska minnet,
+så datorn måste ägna mycket tid åt att flytta data fram och tillbaka mellan
+primärminnet och sekundärminnet.)
+Särskilt illa blir det om vi tänkt oss att vi ska kunna köra flera processer samtidigt.
+</td></tr></table>
+
+
+
+<a name="uppgift-6"></a>
+<h2>Uppgift 6 (3 p)</h2>
+
+När man ska lagra de data som hör till en process
+kan det vara svårt att hitta ett tillräckligt stort, sammanhängande utrymme
+i det fysiska primärminnet.
+Hur löser man det problemet på vanliga moderna datorer
+och med vanliga moderna operativsystem som Linux och Windows?
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+
+<p>
+
+Med sidindelat virtuellt minne.
+Man allokerar inte sammanhängande fysiskt minne,
+utan använder en virtuell minnesrymd som delas in i lika stora "sidor"
+(på engelska "pages"), exempelvis med storleken fyra kilobyte.
+Det fysiska minnet delas in i "frames" (på svenska kanske "ramar"),
+med samma storlek som sidorna,
+och en sida kan sedan placeras i vilken ledig frame som helst.
+Processens sidor behöver inte lagras sammanhängande eller i ordning i ramarna.
+"Sidtabellen" (på engelska "page table") översätter mellan sidnummer och ramnummer,
+dvs mellan virtuella och fysiska adresser.
+Den virtuella minnesrymden är sammanhängande,
+men fysiskt kan sidorna vara lagrade i en annan ordning.
+
+<p>
+
+Man kombinerar ofta detta med "paging",
+som innebär att en sidas innehåll kan flyttas till sekundärminne om det inte används just då.
+Då kan man frigöra plats i det fysiska primärminnet,
+för innehåll som faktiskt ska användas.
+Det gör att en process kan använda mer minne än vad som fysiskt finns,
+och det underlättar att hitta lediga frames,
+men det som löser problemet med att hitta ett tillräckligt stort, sammanhängande utrymme
+är den sidindelade virtuella adressrymden,
+inte att minnesinnehåll sparas på sekundärminne.
+</td></tr></table>
+
+
+
+<a name="uppgift-7"></a>
+<h2>Uppgift 7 (3 p)</h2>
+
+Varje process har normalt en egen minnesrymd,
+medan flera trådar kan dela samma minnesrymd.
+Man kan också med särskilda systemanrop få flera processer
+att dela ett gemensamt minnesutrymme.
+I Unix och Linux kan man använda systemanropet <b>shm_open</b>
+för att skapa delat minne,
+och systemanropet <b>mmap</b> för att lägga in detta delade minne
+i den virtuella minnesrymden för en process.
+
+<p>
+
+Om man låter två processer dela på ett gemensamt minnesutrymme,
+är en del av minnet alltså gemensamt för de två processerna.
+Har de blivit två trådar nu?
+Eller finns det skillnader jämfört med om de verkligen var trådar?
+Förklara!
+
+<p>
+
+<b>Svar:</b>
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#dddddd">
+
+<p>
+
+Förutom det gemensamma minnesutrymmet
+har varje process fortfarande eget minne, som den andra processen inte kommer åt.
+Trådar lever inom en process och i dess minnesutrymme,
+och de olika trådarna har inget eget minne som de andra trådarna inte kan komma åt.
+Varje tråd har en egen stack, men den skyddas inte från åtkomst från de andra trådarna.
+
+<p>
+
+Operativsystemets data om processerna,
+som till exempel vilken användare det är som kör och vilka filer de har öppna,
+är fortfarande separata för de två processerna,
+inte gemensamma som om de varit trådar i samma process.
+
+<p>
+
+En annan skillnad mot om det var trådar
+är att trådar <i>kan</i> vara "user space-trådar",
+vars schedulering sköts helt av vanliga programkod i det körande programmet,
+utan att operativsystemkärnan är inblandad eller ens vet om att de finns.
+Det kan inte dessa processer.
+
+</td></tr></table>
+
+<p>
+
+<hr>
+
+<font size=-1>
+<a href="http://basen.oru.se/tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Operativsystem: Lösningar till tentamen 2023-05-29">thomas.padron-mccarthy@oru.se</a>),
+14 augusti 2023
+</font>
+
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="sv">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Operativsystem för civilingenjörer: Tentamen 2023-05-29</title>
+<STYLE TYPE="text/css">
+     P.breakhere {page-break-before: always}
+</STYLE>
+</head>
+
+<body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+Örebro universitet
+<br>
+Institutionen för naturvetenskap och teknik
+<br>
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Operativsystem för civilingenjörer: Tentamen 2023-05-29">thomas.padron-mccarthy@oru.se</a>)
+
+<pre>
+
+
+
+
+
+</pre>
+<center>
+<font size="+2">Tentamen i</font>
+<p>
+<font size="+4">Operativsystem</font>
+<font size="+4">för civilingenjörer</font>
+<p>
+måndag 29 maj 2023
+<p>
+<font size="-1">
+Gäller som tentamen för:
+<br>
+DT513G Operativsystem för civilingenjörer, provkod A001
+</font>
+</center>
+
+<p>
+
+<hr noshade>
+
+<p>
+
+<table>
+<tr><td valign="top">
+<b>Hjälpmedel:</b>
+</td><td valign="top">
+Ordbok för översättning.
+</td></tr>
+<tr><td valign="top">
+<b>Poängkrav:</b>
+</td><td valign="top">
+Maximal poäng är 31.
+För godkänt betyg krävs 18 poäng.
+</td></tr>
+<tr><td valign="top">
+<b>Resultat:</b>
+</td><td valign="top">
+Meddelas senast 15 arbetsdagar efter tentamensdatum.
+</td></tr>
+<tr><td valign="top">
+<b>Återlämning av tentor:</b>
+</td><td valign="top">
+Elektroniskt via webbportalen Studenttjänster.
+</td></tr>
+<tr><td valign="top">
+<b>Examinator och jourhavande:</b>
+</td><td valign="top">
+Thomas Padron-McCarthy, telefon 070 - 73 47 013.
+</td></tr>
+</table>
+
+<p>
+
+<hr noshade>
+
+<p>
+
+<font size="-1">
+<ul>
+
+<li>
+Skriv tydligt och klart. Lösningar som inte går att läsa kan
+naturligtvis inte ge några poäng.
+Oklara och tvetydiga formuleringar kommer att misstolkas.
+
+<li>
+Skriv den personliga tentamenskoden på varje inlämnat blad.
+Skriv <i>inte</i> namn eller personnummer på bladen.
+
+<li>
+Skriv bara på en sida av papperet.
+Använd inte röd skrift.
+
+<li>
+Antaganden utöver de som står i uppgifterna måste anges. Gjorda
+antaganden får inte förändra den givna uppgiften.
+
+<li>
+Skriv gärna förklaringar om hur du tänkt.
+Även ett svar som är fel kan ge poäng,
+om det finns med en förklaring som visar att huvudtankarna var rätt.
+</ul>
+</font>
+
+<p>
+
+<hr noshade>
+
+<p>
+
+<pre>
+
+</pre>
+
+<center>LYCKA TILL!</center>
+
+
+
+<P CLASS="breakhere">
+
+
+
+<h2>Formelsamling</h2>
+
+<table border="1" cellspacing="0" cellpadding="3">
+<td>2<sup>0</sup> = 1</td> <td>2<sup>24</sup> = 16777216</td></tr></td></tr>
+<td>2<sup>1</sup> = 2</td> <td>2<sup>25</sup> = 33554432</td></tr>
+<td>2<sup>2</sup> = 4</td> <td>2<sup>26</sup> = 67108864</td></tr>
+<td>2<sup>3</sup> = 8</td> <td>2<sup>27</sup> = 134217728</td></tr>
+<td>2<sup>4</sup> = 16</td> <td>2<sup>28</sup> = 268435456</td></tr>
+<td>2<sup>5</sup> = 32</td> <td>2<sup>29</sup> = 536870912</td></tr>
+<td>2<sup>6</sup> = 64</td> <td>2<sup>30</sup> = 1073741824</td></tr>
+<td>2<sup>7</sup> = 128</td> <td>2<sup>31</sup> = 2147483648</td></tr>
+<td>2<sup>8</sup> = 256</td> <td>2<sup>32</sup> = 4294967296</td></tr>
+<td>2<sup>9</sup> = 512</td> <td>2<sup>33</sup> = 8589934592</td></tr>
+<td>2<sup>10</sup> = 1024</td> <td>2<sup>34</sup> = 17179869184</td></tr>
+<td>2<sup>11</sup> = 2048</td> <td>2<sup>35</sup> = 34359738368</td></tr>
+<td>2<sup>12</sup> = 4096</td> <td>2<sup>36</sup> = 68719476736</td></tr>
+<td>2<sup>13</sup> = 8192</td> <td>2<sup>37</sup> = 137438953472</td></tr>
+<td>2<sup>14</sup> = 16384</td> <td>2<sup>38</sup> = 274877906944</td></tr>
+<td>2<sup>15</sup> = 32768</td> <td>2<sup>39</sup> = 549755813888</td></tr>
+<td>2<sup>16</sup> = 65536</td> <td>2<sup>40</sup> = 1099511627776</td></tr>
+<td>2<sup>17</sup> = 131072</td> <td>2<sup>41</sup> = 2199023255552</td></tr>
+<td>2<sup>18</sup> = 262144</td> <td>2<sup>42</sup> = 4398046511104</td></tr>
+<td>2<sup>19</sup> = 524288</td> <td>2<sup>43</sup> = 8796093022208</td></tr>
+<td>2<sup>20</sup> = 1048576</td> <td>2<sup>44</sup> = 17592186044416</td></tr>
+<td>2<sup>21</sup> = 2097152</td> <td>2<sup>45</sup> = 35184372088832</td></tr>
+<td>2<sup>22</sup> = 4194304</td> <td>2<sup>46</sup> = 70368744177664</td></tr>
+<td>2<sup>23</sup> = 8388608</td> <td>2<sup>47</sup> = 140737488355328</td></tr>
+</table>
+
+<p>
+
+2<sup>x</sup> * 2<sup>y</sup> = 2<sup>x+y</sup>
+
+
+
+<P CLASS="breakhere">
+
+
+
+<a name="uppgift-1"></a>
+<h2>Uppgift 1 (3 p)</h2>
+
+En dator har många olika uppgifter som den behöver utföra för att underlätta för användarna.
+En del uppgifter utförs av operativsystemet, andra av applikationsprogram.
+
+<p>
+
+a) Ange en uppgift som det är operativsystemet som utför.
+
+<p>
+
+b) Ange en uppgift som operativsystemet <i>inte</i> utför.
+
+<p>
+
+c) Ange en uppgift där det inte är uppenbart ifall operativsystemet
+eller ett applikationsprogram ska lösa den.
+
+
+
+<a name="uppgift-2"></a>
+<h2>Uppgift 2 (5 p)</h2>
+
+En mikrokärna är en operativsystemkärna där man flyttat ut delar av
+kärnans uppgifter ut ur kärnan.
+
+<p>
+
+a) Det står att man "flyttat ut delar av
+kärnans uppgifter ut ur kärnan".
+Vart har man flyttat dem?
+
+<p>
+
+b) Varför vill man göra det, dvs vilka fördelar ger en mikrokärna?
+
+<p>
+
+c) Vilka nackdelar ger det?
+
+<p>
+
+d) Ge exempel på någon uppgift som man kan flytta ut ur kärnan.
+
+<p>
+
+e) Ge exempel på någon uppgift som man <i>inte</i> kan flytta ut ur kärnan.
+Varför går det inte att flytta ut den?
+
+
+
+<P CLASS="breakhere">
+
+
+
+<a name="uppgift-3"></a>
+<h2>Uppgift 3 (5 p)</h2>
+
+Här är ett C-program för Linux.
+<br>
+a) Vad skrivs ut när programmet körs?
+<br>
+b) Kan det bli olika utskrifter från gång till gång,
+och vad beror det i så fall på?
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#ccffcc">
+<pre>
+#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+
+int x = 0;
+
+int main(void) {
+    int y = 0;
+    fork();
+    x = x + 1;
+    y = y + 1;
+    fork();
+    x = x + 1;
+    y = y + 1;
+    fork();
+    x = x + 1;
+    y = y + 1;
+    printf("x = %d, y = %d\n", x, y);
+}
+</pre>
+</td></tr></table>
+
+
+
+<a name="uppgift-4"></a>
+<h2>Uppgift 4 (5 p)</h2>
+
+Här är ett annat C-program för Linux.
+<br>
+a) Vad skrivs ut när programmet körs?
+<br>
+b) Kan det bli olika utskrifter från gång till gång,
+och vad beror det i så fall på?
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#ccffcc">
+<pre>
+#include &lt;stdio.h&gt;
+#include &lt;pthread.h&gt;
+
+volatile int x = 0;
+
+void *thread_body(void *arg) {
+    int y = 0;
+    x = x + 1;
+    y = y + 1;
+    printf("x = %d, y = %d\n", x, y);
+    return NULL;
+}
+
+int main(void) {
+    int z = 0;
+    x = x + 1;
+    z = z + 1;
+    printf("x = %d, z = %d\n", x, z);
+    pthread_t thread1, thread2;
+    pthread_create(&thread1, NULL, thread_body, NULL);
+    pthread_create(&thread2, NULL, thread_body, NULL);
+    pthread_join(thread1, NULL);
+    pthread_join(thread2, NULL);
+    printf("x = %d, z = %d\n", x, z);
+}
+</pre>
+</td></tr></table>
+
+
+
+<P CLASS="breakhere">
+
+
+
+<a name="uppgift-5"></a>
+<h2>Uppgift 5 (7 p)</h2>
+
+Som ett hobbyprojekt ska vi bygga en dator från grunden,
+med grindar ("gates") och transistorer i stället för en färdig processor.
+Datorn ska vara byteadresserad och ha virtuellt minne.
+Fysiska adresser består av 6 bitar, och virtuella adresser av 8 bitar.
+Offset är 4 bitar.
+
+<p>
+
+a) Hur stor är den virtuella adressrymden?
+
+<p>
+
+b) Hur stor är den fysiska adressrymden?
+
+<p>
+
+c) Hur stor är en virtuell minnessida ("page" på engelska)?
+
+<p>
+
+d) Hur stor är en fysisk frame ("ram" på svenska)?
+
+<p>
+
+e) Hur många frames (dvs platser för minnessidor) kan man ha i datorn?
+
+<p>
+
+f)
+Vi tänker oss att vi har en sidtabell ("page table") för en process,
+och att enligt den sidtabellen är virtuell minnessida 3
+lagrad i fysisk frame 2. (Båda numreras med början på noll.)
+Ange en adress inom denna virtuella minnessida,
+och visa hur den översätts till en fysisk adress.
+Visa både hur översättningen görs och vad resultatet blir.
+
+<p>
+
+g)
+Om vi vill använda den här datorn till något, som till exempel beräkningar,
+vilka problem kommer vi att få?
+
+
+
+<a name="uppgift-6"></a>
+<h2>Uppgift 6 (3 p)</h2>
+
+När man ska lagra de data som hör till en process
+kan det vara svårt att hitta ett tillräckligt stort, sammanhängande utrymme
+i det fysiska primärminnet.
+Hur löser man det problemet på vanliga moderna datorer
+och med vanliga moderna operativsystem som Linux och Windows?
+
+
+
+<a name="uppgift-7"></a>
+<h2>Uppgift 7 (3 p)</h2>
+
+Varje process har normalt en egen minnesrymd,
+medan flera trådar kan dela samma minnesrymd.
+Man kan också med särskilda systemanrop få flera processer
+att dela ett gemensamt minnesutrymme.
+I Unix och Linux kan man använda systemanropet <b>shm_open</b>
+för att skapa delat minne,
+och systemanropet <b>mmap</b> för att lägga in detta delade minne
+i den virtuella minnesrymden för en process.
+
+<p>
+
+Om man låter två processer dela på ett gemensamt minnesutrymme,
+är en del av minnet alltså gemensamt för de två processerna.
+Har de blivit två trådar nu?
+Eller finns det skillnader jämfört med om de verkligen var trådar?
+Förklara!
+
+<p>
+
+<hr noshade>
+
+</body>
+</html>

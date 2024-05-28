@@ -1,0 +1,388 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="sv">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Operativsystem: Lösningar till hemtentamen 2020-06-03</title>
+
+<body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+<h1><a href="../../index.html">Operativsystem</a>: Lösningar till hemtentamen 2020-06-03</h1>
+
+Observera att detta är förslag på lösningar.
+Det kan finnas andra lösningar som också är korrekta.
+Det kan hända att en del av lösningarna är mer omfattande än vad som krävs för full poäng på uppgiften,
+eller att de bara hänvisar till var man kan läsa svaren.
+Dessutom har det inträffat i världshistorien att lärare skrivit fel i lösningsförslagen.
+<i>Jag</i> har förstås aldrig gjort det, men andra.
+Är det verkligen någon som läser såna här inledande texter?
+Kanske skummar de början och hoppar över resten.
+Jag vet inte. Det kan vara så. Rabarber rabarber rabarber.
+Det har jag hört att statisterna får säga på filminspelningar
+när det ska vara bakgrundssorl från en restaurang eller liknande.
+Här nedan kommer lösningsförslagen till uppgifterna.
+
+
+
+<a name="uppgift-1"></a>
+<h2>Uppgift 1 (6 p)</h2>
+
+a)
+
+<blockquote>
+<pre>
+// time-sleep.c
+
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;sys/time.h&gt;
+#include &lt;sys/wait.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;string.h&gt;
+
+int main(void) {
+    struct timeval before;
+    gettimeofday(&amp;before, NULL);
+
+    pid_t pid = fork();
+    if (pid == -1) {
+        fprintf(stderr, "time-sleep: Couldn't start process (%s).\n",
+                strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+    else if (pid == 0) {
+        sleep(5);
+    }
+    else {
+        waitpid(pid, NULL, 0);
+        struct timeval after;
+        gettimeofday(&amp;after, NULL);
+        double elapsed_seconds =
+            after.tv_sec - before.tv_sec + (after.tv_usec - before.tv_usec) / 1e6;
+        printf("Elapsed time: %.6f s\n", elapsed_seconds);
+        return EXIT_SUCCESS;
+    }
+}
+</pre>
+</blockquote>
+
+b)
+
+<blockquote>
+<pre>
+// my-time.c
+
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;sys/time.h&gt;
+#include &lt;sys/wait.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;string.h&gt;
+
+int main(int argc, char* argv[]) {
+    if (argc &lt; 2) {
+        fprintf(stderr, "Usage: my-time COMMAND [ ARGUMENTS ... ]\n");
+        exit(EXIT_FAILURE);
+    }
+
+    struct timeval before;
+    gettimeofday(&amp;before, NULL);
+
+    pid_t pid = fork();
+    if (pid == -1) {
+        fprintf(stderr, "my-time: Couldn't start process (%s).\n",
+                strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+    else if (pid == 0) {
+        execvp(argv[1], argv + 1);
+        fprintf(stderr, "my-time: Couldn't start command '%s' (%s).\n",
+                argv[1], strerror(errno));
+        exit(EXIT_FAILURE);        
+    }
+    else {
+        waitpid(pid, NULL, 0);
+        struct timeval after;
+        gettimeofday(&amp;after, NULL);
+        double elapsed_seconds =
+            after.tv_sec - before.tv_sec + (after.tv_usec - before.tv_usec) / 1e6;
+        printf("Elapsed time: %.6f s\n", elapsed_seconds);
+        return EXIT_SUCCESS;
+    }
+}
+</pre>
+</blockquote>
+
+
+
+<a name="uppgift-2"></a>
+<h2>Uppgift 2 (6 p)</h2>
+
+Operativsystemkärnan innehåller flera köer:
+
+<ul>
+  <li><b>Ready</b>-kön, eller kön med körbara processer (läs: processer och lättviktsprocesser),
+    som inte kör just nu men kan göra det så fort operativsystemet sätter igång dem ("dispatch").
+  <li><b>Körande</b> processer, som egentligen inte är en kö utan någon sorts lista och innehåller
+    de processer som just nu är igång och kör på någon processorkärna.
+  <li>Flera olika <b>vänte</b>-köer, som var och en innehåller de processer som väntar på en viss sak,
+    till exempel en viss sekundärminnesenhet, en timer eller liknande.
+</ul>
+
+<p>
+
+Processen som kör programmet <b>my-time</b>,
+låt oss kalla den process nummer 1,
+måste komma någonstans ifrån.
+Den processen har skapats med ett <b>fork</b>-anrop,
+vanligtvis i ett skal,
+och i process 1 har sedan programmet <b>my-time</b> startats med något av de olika <b>exec</b>-anropen.
+Om programmet <b>my-time</b> måste läsas in från sekundärminne
+kommer process 1 att tillbringa en tid i det sekundärminnets vänte-kö,
+men till sist placerar operativsystemet process 1 i den körbara kön (<b>ready</b>-kön).
+
+<p>
+
+eady-kön: process 1
+
+<p>
+
+Eftersom processen är körbar och det finns lediga processorkärnor,
+väljer operativsystemets schedulerare ("schemaläggare") ut process 1 för körning på en kärna.
+Då flyttas processen från den körbara kön till listan med körande processer.
+
+<p>
+
+Körande: process 1
+
+<p>
+
+När process 1 gör <b>fork</b>-anropet skapas en ny process,
+barnprocessen, som vi kan kalla process 2.
+Process 1 är fortfarande körbar och har en tilldelad kärna,
+så den kör vidare direkt efter systemanropet.
+
+<p>
+
+Körande: process 1
+<br>
+Ready-kön: process 2
+
+<p>
+
+Eftersom process 2 är körbar och det finns lediga processorkärnor,
+väljer operativsystemet ut process 2 för körning
+och placerar den på en kärna.
+
+<p>
+
+Körande: process 1, process 2
+
+<p>
+
+När process 1 kommer till <b>wait</b>-anropet, placeras den i en vänte-kö,
+etersom den förstås väntar på att barnprocessen ska avslutas.
+Processen står alltså still, och körs inte, och behöver inte ha någon kärna tilldelad.
+Om kärnorna räcker till kan den ha kvar en kärna, som då står still (om hårdvaran kan det).
+Process 1 ligger kvar i vänte-kön ända tills barnprocessen, process 2, avslutas.
+
+<p>
+
+Väntar på process 2: process 1
+<br>
+Körande: process 2
+
+<p>
+
+När <b>exec</b>-anropet görs, ersätts det körande <b>my-time</b>-programmet med <b>sleep</b>-programmet.
+Om programmet <b>sleep</b> måste läsas in från sekundärminne
+kommer process 2 att tillbringa en tid i det sekundärminnets vänte-kö,
+men till sist placeras process 2 i den körbara kön.
+
+<p>
+
+Det skulle slösa processorkraft att använda någon typ av busy-wait i <b>sleep</b>-programmet,
+så vi kan gissa att det programmet är gjort med ett anrop som väntar,
+så när det anropet görs placeras process 2 i vänte-kön, tills fem sekunder har gått.
+
+<p>
+
+Väntar på process 2: process 1
+<br>
+Väntar på en timer: process 2
+
+<p>
+
+Då flyttas processen till den körbara kön, tilldelas en kärna, och kör klart:
+Därefter avslutas processen, och tas bort.
+
+<p>
+
+När process 2 avslutats flyttas process 1 till den körbara kön,
+och när den körs kan <b>wait</b>-anropet returnera.
+Därefter avslutas processen, och tas bort.
+
+
+
+<a name="uppgift-3"></a>
+<h2>Uppgift 3 (6 p)</h2>
+
+a)
+128 gånger
+
+<p>
+
+b)
+Att skapa och avsluta en tråd tar tid.
+Synkronisering mellan trådar,
+om samma datastruktur behöver läsas eller skrivas av olika trådar,
+och minst en av trådarna skriver i datastrukturen.
+Då kan trådar behöva vänta på varandra, med hjälp av olika typer av lås
+(mutex-lås, semaforer eller monitorer).
+För lås, och för att schedulera trådarna,
+kan systemanrop och kontextswitchar krävas.
+Cache-koherens, att olika processorkärnors cache måste hållas i överensstämmelse
+med varandra, kan också göra programmet långsammare, men det kanske ska räknas till hårdvaran.
+Även om inga andra tunga program är igång på datorn
+kommer andra program och själva operativsystemet ibland att behöva utföra saker,
+till exempel stega fram en klocka som visas på skärmen, så vi kan inte använda alla
+128 möjliga processortrådar hela tiden.
+Det är inte säkert att schemaläggaren är optimal för just det här programmet,
+utan den kanske lägger flera av processens trådar på samma kärna.
+I värsta fall har vi ett trådbibliotek med enbart user-space-trådar,
+och då körs alla 128 trådarna på samma processorkärna!
+
+<p>
+
+c)
+Varje tråd ska utföra så mycket arbete att tiden det tar att starta, och avsluta, den lönar sig.
+Trådarna ska använda så skilda resurser som möjligt.
+Trådarna ska ha så lite interaktion med varandra som möjligt.
+Varje tråd ska köra kontinuerligt utan systemanrop eller andra avbrott,
+för att undvika kontextswitchar.
+
+
+
+<P CLASS="breakhere">
+
+
+
+<a name="uppgift-4"></a>
+<h2>Uppgift 4 (6 p)</h2>
+
+Här nedan använder jag B i betydelsen byte,
+K i betydelsen 2<sup>10</sup> = 1024,
+M i betydelsen 2<sup>20</sup> = 1048576,
+och G i betydelsen 2<sup>30</sup> = 1073741824.
+
+<p>
+
+a) 4 byte
+
+<p>
+
+Orimligt liten.
+Vi skulle visserligen få mindre intern fragmentering
+(under vissa förutsättningar i genomsnitt 1,5 byte per sammanhängande virtuellt minnesutrymme),
+men det skulle bli mycket ineffektivt att skyffla runt tusentals eller miljoner
+små minnessidor i varje process.
+Pagetabellen skulle också bli mycket stor.
+Åtminstone krävs en plats i pagetabellen för varje page som finns inläst i en frame i det fysiska minnet,
+och om vi antar att datorn har 16 GB minne blir det 4 G frames,
+vilket kräver 4 G stycken platser i pagetabellen om alla fysiska frames används för virtuella minnessidor.
+4 G olika frames kräver framenummer på 32 bitar, dvs 4 byte.
+Alltså går hela primärminnet på 16 GB åt enbart för att lagra framenumren i pagetabellen
+(eller de olika pagetabellerna, om man har flera virtuella minnesrymder).
+Man kan minska pagetabellens storlek genom att slå ihop flera av dessa 4-bytessidor
+och hantera dem gemensamt, men då har vi i praktiken ändrat till en större pagestorlek.
+Så små minnessidor skulle också fungera dåligt med processorns minnescache,
+eftersom minnesinnehållet skulle vara så utspritt i minnet att en cache-line innehåller
+flera helt olika sidor, som kan innehålla helt skilda data.
+I stället för att exempelvis en 16 byte stor struct (oftast) ligger i en enda minnessida
+och en enda cache-line,
+ligger den nu i fyra olika sidor och fyra olika cache-lines,
+tillsammans med en massa andra data.
+Cachen kommer att innehålla en massa förmodligen ointressanta data,
+och det går åt fyra cache-lines i stället för en.
+Eftersom minnet blir uppdelat i väldigt många minnessidor,
+behövs också en orimligt stor TLB.
+
+<p>
+
+b) 1024 byte
+
+<p>
+
+Rimlig. Kanske lite liten för en vanlig modern persondator,
+i synnerhet om det är den enda sidstorleken som processorn stöder.
+Redan 32-bitars Pentium-processorer arbetade med två olika sidstorlekar,
+4 KB och 4 MB.
+
+<p>
+
+c) 8192 byte
+
+<p>
+
+Rimlig.
+
+<p>
+
+d) 8193 byte
+
+<p>
+
+Inte rimlig.
+Inte en jämn tvåpotens, och därför blir adressöversättningen komplicerad och långsam.
+I stället för att pagenummer är de högre värda bitarna i adressen,
+och de lägre värda bitarna är offset inom sidan,
+så att det bara är att "dra ledningsbanorna till rätt ställe på chipet",
+måste vi implementera division.
+Dagens vanliga datorer har primärminnesstorlekar som är (summor av) tvåpotenser,
+till exempel 16 GB och 24 GB, och det skulle inte gå att fylla upp hela minnet med 8193-bytessidor.
+
+<p>
+
+e) 10000 byte
+
+<p>
+
+Inte rimlig, av samma skäl som ovan.
+Man <i>skulle</i> förstås kunna tänka sig en dator som arbetar med basen 10 i stället för binära tal,
+till exempel genom att en ledning inte bara kan ha två olika spänningsnivåer
+som representerar 0 och 1, utan tio olika.
+Eller att varje siffra representeras av tio olika radiorör, för värdena 0-9, som i
+<a href="https://en.wikipedia.org/wiki/ENIAC">ENIAC</a>.
+I en dator med decimala adresser skulle 10000 vara en mycket rimlig storlek.
+
+<p>
+
+f) 1099511627776 byte (2<sup>40</sup> byte)
+
+<p>
+
+Orimligt stor.
+Detta är en terabyte minne,
+och mer än vad som totalt finns i hela datorn, utom de allra största servrarna.
+(Lenovo ThinkSystem SR950 kan ha upp till 24 terabyte minne.)
+Även om datorn har så mycket minne skulle det ge mycket stor intern fragmentering,
+utom för väldigt specialiserade tillämpningar,
+och vara helt opraktiskt.
+En vanlig, stor hårddisk eller SSD är på 1-10 terabyte,
+så en normal swap-partition på en enda sekundärminnesenhet skulle bara ha plats för några få minnessidor.
+Paging skulle bli oerhört långsam om man ska flytta runt så stora sidor.
+(Att läsa 1 TB data tar flera minuter, även från de snabbaste SSD:er jag provkört.)
+
+<p>
+
+<hr>
+
+<font size=-1>
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Operativsystem: Lösningar till tentamen 2020-06-03">thomas.padron-mccarthy@oru.se</a>),
+24 juni 2020
+</font>
+
+</body>
+</html>

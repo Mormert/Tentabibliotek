@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="sv">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Operativsystem för civilingenjörer: Tentamen 2019-06-05</title>
+<STYLE TYPE="text/css">
+     P.breakhere {page-break-before: always}
+</STYLE>
+</head>
+
+<body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+Örebro universitet
+<br>
+Institutionen för naturvetenskap och teknik
+<br>
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Operativsystem för civilingenjörer: Tentamen 2019-06-05">thomas.padron-mccarthy@oru.se</a>)
+
+<pre>
+
+
+
+
+</pre>
+<center>
+<font size="+2">Tentamen i</font>
+<p>
+<font size="+4">Operativsystem</font>
+<font size="+4">för civilingenjörer</font>  
+<p>
+onsdag 5 juni 2019
+<p>
+<font size="-1">
+Gäller som tentamen för:
+<br>
+DT513G Operativsystem för civilingenjörer, provkod 0100
+</font>
+</center>
+
+<p>
+
+<hr noshade>
+
+<p>
+
+<table>
+<tr><td valign="top">
+<b>Hjälpmedel:</b>
+</td><td valign="top">
+Inga.
+</td></tr>
+<tr><td valign="top">
+<b>Poängkrav:</b>
+</td><td valign="top">
+Maximal poäng är 32.
+För godkänt betyg krävs 16 poäng.
+</td></tr>
+<tr><td valign="top">
+<b>Resultat:</b>
+</td><td valign="top">
+Meddelas på kursens hemsida eller via e-post senast onsdag 26 juni 2019.
+</td></tr>
+<tr><td valign="top">
+<b>Återlämning av tentor:</b>
+</td><td valign="top">
+Elektroniskt via Studentforum.
+</td></tr>
+<tr><td valign="top">
+<b>Examinator och jourhavande:</b>
+</td><td valign="top">
+Thomas Padron-McCarthy, telefon 070 - 73 47 013.
+</td></tr>
+</table>
+
+<p>
+
+<hr noshade>
+
+<p>
+
+<font size="-1">
+<ul>
+
+<li>
+Skriv tydligt och klart. Lösningar som inte går att läsa kan
+naturligtvis inte ge några poäng.
+Oklara och tvetydiga formuleringar kommer att misstolkas.
+
+<li>
+Skriv den personliga tentamenskoden på varje inlämnat blad.
+Skriv <i>inte</i> namn eller personnummer på bladen.
+
+<li>
+Skriv bara på en sida av papperet.
+Använd inte röd skrift.
+
+<li>
+Antaganden utöver de som står i uppgifterna måste anges. Gjorda
+antaganden får inte förändra den givna uppgiften.
+
+<li>
+Skriv gärna förklaringar om hur du tänkt.
+Även ett svar som är fel kan ge poäng,
+om det finns med en förklaring som visar att huvudtankarna var rätt.
+</ul>
+</font>
+
+<p>
+
+<hr noshade>
+
+<p>
+
+<center>LYCKA TILL!</center>
+
+
+
+<P CLASS="breakhere">
+
+
+
+<a name="uppgift-1"></a>
+<h2>Uppgift 1 (2 p)</h2>
+
+Vad är ett operativsystem?
+
+
+
+<a name="uppgift-2"></a>
+<h2>Uppgift 2 (3 p)</h2>
+
+Vilka är operativsystemets viktigaste uppgifter?
+
+
+
+<a name="uppgift-3"></a>
+<h2>Uppgift 3 (3 p)</h2>
+
+Här är ett C-program för Linux, kallat "program 1",
+som läser en gigabyte data från en fil:
+
+<p>
+
+<blockquote>
+<pre>
+#include &lt;unistd.h&gt;
+#include &lt;fcntl.h&gt;
+
+#define KILO 1024
+#define MEGA (KILO*KILO) // 1048576
+#define GIGA (KILO*KILO*KILO) // 1073741824
+
+char data[GIGA];
+
+int main(void) {
+    int fd = open("data.bin", O_RDONLY);
+    for (int i = 0; i &lt; KILO; ++i) {
+        read(fd, &amp;data[i * MEGA], MEGA);
+    }
+    close(fd);
+}
+</pre>
+</blockquote>
+  
+I en annan version av samma program, kallat "program 2",
+byter vi ut for-loopen mot den här:
+
+<blockquote>
+<pre>
+    for (int i = 0; i &lt; MEGA; ++i) {
+        read(fd, &amp;data[i * KILO], KILO);
+    }
+</pre>
+</blockquote>
+
+(Skillnaden är alltså att vi bytt plats på "MEGA" och "KILO".)
+
+<p>
+
+Programmen gör samma sak,
+och de fungerar korrekt,
+men man kan förvänta sig att ett av programmen går betydligt
+snabbare än det andra.
+
+<p>
+
+a) Vilket program är snabbast?
+<br>
+b) Förklara varför skillnaden mellan programmen blir så stor!
+
+
+
+<P CLASS="breakhere">
+
+
+
+<a name="uppgift-4"></a>
+<h2>Uppgift 4 (5 p)</h2>
+
+Operativsystemkärnan har, precis som många andra dataprogram,
+en hel del data som den håller reda på.
+Beskriv de viktigaste, och vilka datastrukturer man använder för dem.
+
+
+
+<a name="uppgift-5"></a>
+<h2>Uppgift 5 (3 p)</h2>
+
+En mikrokärna ("micro-kernel" på engelska)
+är ett sätt att bygga operativsystem.
+Vad innebär det att en operativsystem har en mikrokärna?
+Vilka fördelar och nackdelar medför det?
+
+
+
+<a name="uppgift-6"></a>
+<h2>Uppgift 6 (3 p)</h2>
+
+Vad är en process?
+Hur skiljer sig en process från en tråd?
+
+
+
+<a name="uppgift-7"></a>
+<h2>Uppgift 7 (2 p)</h2>
+
+Här är ett C-program för Linux.
+Vad skrivs ut när programmet körs?
+
+<p>
+
+<blockquote>
+<pre>
+#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+
+int main(void) {
+    int x = 1;
+    fork();
+    x = x + 1;
+    printf("Hej! x = %d!\n", x);
+    fork();
+    x = x + 1;
+    printf("Hopp! x = %d!\n", x);
+}
+</pre>
+</blockquote>
+
+
+
+<a name="uppgift-8"></a>
+<h2>Uppgift 8 (4 p)</h2>
+
+a) Vad innebär virtuellt minne?
+
+<p>
+
+b) Varför måste man ha stöd i hårdvaran när man använder virtuellt minne?
+
+<p>
+
+c) Varför är sidstorlekar ("page size" på engelska) alltid jämna tvåpotenser?
+Visa med exempel!
+
+
+
+<P CLASS="breakhere">
+
+
+
+<a name="uppgift-9"></a>
+<h2>Uppgift 9 (3 p)</h2>
+
+I Unix finns en datastruktur som kallas i-nod (på engelska "i-node" eller "inode").
+Vad används den till, och vad innehåller den?
+
+
+
+<a name="uppgift-10"></a>
+<h2>Uppgift 10 (4 p)</h2>
+
+När man ska lagra de data som hör till en process
+kan det vara svårt att hitta ett tillräckligt stort, sammanhängande utrymme
+i det fysiska primärminnet.
+Hur löser man det problemet på vanliga moderna datorer
+och med vanliga moderna operativsystem som Linux och Windows?
+
+<p>
+
+<hr>
+
+</body>
+</html>
