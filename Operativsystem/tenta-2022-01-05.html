@@ -1,0 +1,396 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="sv">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Operativsystem för civilingenjörer: Tentamen 2022-01-04</title>
+<STYLE TYPE="text/css">
+     P.breakhere {page-break-before: always}
+</STYLE>
+</head>
+
+<body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+Örebro universitet
+<br>
+Institutionen för naturvetenskap och teknik
+<br>
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Operativsystem för civilingenjörer: Tentamen 2022-01-04">thomas.padron-mccarthy@oru.se</a>)
+
+<pre>
+
+
+
+</pre>
+<center>
+<font size="+2">Tentamen i</font>
+<p>
+<font size="+4">Operativsystem</font>
+<font size="+4">för civilingenjörer</font>  
+<p>
+onsdag 5 januari 2022
+<p>
+<font size="-1">
+Gäller som tentamen för:
+<br>
+DT513G Operativsystem för civilingenjörer, provkod A001
+</font>
+</center>
+
+<p>
+
+<hr noshade>
+
+<p>
+
+<table>
+<tr><td valign="top">
+<b>Hjälpmedel:</b>
+</td><td valign="top">
+Ordbok för översättning.
+</td></tr>
+<tr><td valign="top">
+<b>Poängkrav:</b>
+</td><td valign="top">
+Maximal poäng är 28.
+För godkänt betyg krävs 15 poäng.
+</td></tr>
+<tr><td valign="top">
+<b>Resultat:</b>
+</td><td valign="top">
+Meddelas senast torsdag 27 januari 2022.
+</td></tr>
+<tr><td valign="top">
+<b>Återlämning av tentor:</b>
+</td><td valign="top">
+Elektroniskt via webbportalen Studenttjänster.
+</td></tr>
+<tr><td valign="top">
+<b>Examinator och jourhavande:</b>
+</td><td valign="top">
+Thomas Padron-McCarthy, telefon 070 - 73 47 013.
+</td></tr>
+</table>
+
+<p>
+
+<hr noshade>
+
+<p>
+
+<font size="-1">
+<ul>
+
+<li>
+Skriv tydligt och klart. Lösningar som inte går att läsa kan
+naturligtvis inte ge några poäng.
+Oklara och tvetydiga formuleringar kommer att misstolkas.
+
+<li>
+Skriv den personliga tentamenskoden på varje inlämnat blad.
+Skriv <i>inte</i> namn eller personnummer på bladen.
+
+<li>
+Skriv bara på en sida av papperet.
+Använd inte röd skrift.
+
+<li>
+Antaganden utöver de som står i uppgifterna måste anges. Gjorda
+antaganden får inte förändra den givna uppgiften.
+
+<li>
+Skriv gärna förklaringar om hur du tänkt.
+Även ett svar som är fel kan ge poäng,
+om det finns med en förklaring som visar att huvudtankarna var rätt.
+</ul>
+</font>
+
+<p>
+
+<hr noshade>
+
+<p>
+
+<pre>
+
+</pre>
+
+<center>LYCKA TILL!</center>
+
+
+
+<P CLASS="breakhere">
+
+
+
+<h2>Formelsamling</h2>
+
+<table border="1" cellspacing="0" cellpadding="3">
+<td>2<sup>0</sup> = 1</td> <td>2<sup>24</sup> = 16777216</td></tr></td></tr>
+<td>2<sup>1</sup> = 2</td> <td>2<sup>25</sup> = 33554432</td></tr>
+<td>2<sup>2</sup> = 4</td> <td>2<sup>26</sup> = 67108864</td></tr>
+<td>2<sup>3</sup> = 8</td> <td>2<sup>27</sup> = 134217728</td></tr>
+<td>2<sup>4</sup> = 16</td> <td>2<sup>28</sup> = 268435456</td></tr>
+<td>2<sup>5</sup> = 32</td> <td>2<sup>29</sup> = 536870912</td></tr>
+<td>2<sup>6</sup> = 64</td> <td>2<sup>30</sup> = 1073741824</td></tr>
+<td>2<sup>7</sup> = 128</td> <td>2<sup>31</sup> = 2147483648</td></tr>
+<td>2<sup>8</sup> = 256</td> <td>2<sup>32</sup> = 4294967296</td></tr>
+<td>2<sup>9</sup> = 512</td> <td>2<sup>33</sup> = 8589934592</td></tr>
+<td>2<sup>10</sup> = 1024</td> <td>2<sup>34</sup> = 17179869184</td></tr>
+<td>2<sup>11</sup> = 2048</td> <td>2<sup>35</sup> = 34359738368</td></tr>
+<td>2<sup>12</sup> = 4096</td> <td>2<sup>36</sup> = 68719476736</td></tr>
+<td>2<sup>13</sup> = 8192</td> <td>2<sup>37</sup> = 137438953472</td></tr>
+<td>2<sup>14</sup> = 16384</td> <td>2<sup>38</sup> = 274877906944</td></tr>
+<td>2<sup>15</sup> = 32768</td> <td>2<sup>39</sup> = 549755813888</td></tr>
+<td>2<sup>16</sup> = 65536</td> <td>2<sup>40</sup> = 1099511627776</td></tr>
+<td>2<sup>17</sup> = 131072</td> <td>2<sup>41</sup> = 2199023255552</td></tr>
+<td>2<sup>18</sup> = 262144</td> <td>2<sup>42</sup> = 4398046511104</td></tr>
+<td>2<sup>19</sup> = 524288</td> <td>2<sup>43</sup> = 8796093022208</td></tr>
+<td>2<sup>20</sup> = 1048576</td> <td>2<sup>44</sup> = 17592186044416</td></tr>
+<td>2<sup>21</sup> = 2097152</td> <td>2<sup>45</sup> = 35184372088832</td></tr>
+<td>2<sup>22</sup> = 4194304</td> <td>2<sup>46</sup> = 70368744177664</td></tr>
+<td>2<sup>23</sup> = 8388608</td> <td>2<sup>47</sup> = 140737488355328</td></tr>
+</table>
+
+
+
+<P CLASS="breakhere">
+
+
+
+<a name="uppgift-1"></a>
+<h2>Uppgift 1 (5 p)</h2>
+
+a) Vad är ett operativsystem?
+
+<p>
+
+b) Vad menas med operativsystemkärnan?
+Hur är den relaterad till kärnorna i en flerkärnig CPU?
+
+<p>
+
+c) Datorvirus är skadliga program som sprider sig
+genom att lägga en kopia av sig själva inuti andra program,
+så att när det programmet körs kan viruset spridas ytterligare.
+Är datorvirus systemprogram eller applikationsprogram? Diskutera!
+
+
+
+<a name="uppgift-2"></a>
+<h2>Uppgift 2 (5 p)</h2>
+
+a)
+Man brukar säga att operativsystemet ska erbjuda en virtuell maskin
+som applikationerna kan använda.
+Samtidigt finns det virtualisering, som också handlar om virtuella maskiner.
+Vad är skillnaden? Är det helt olika saker, eller hänger de ihop på något sätt?
+Jämför och förklara!
+
+<p>
+
+b)
+Moderna processorer brukar ha åtminstone två "exekveringsmoder" eller "körningslägen"
+("execution modes" på engelska)
+ibland kallade "ringar":
+en "user mode" med lägre rättigheter som är avsedd för att köra användarprogram,
+och en "supervisor mode" med mer rättigheter.
+För virtualisering och virtuella maskiner vill man ha åtminstone tre.
+Varför? Förklara!
+
+
+
+<a name="uppgift-3"></a>
+<h2>Uppgift 3 (3 p)</h2>
+
+Interrupt ("avbrott" på svenska)
+är en hårdvarumekanism i processorn som kan
+underlätta operativsystemets arbete och göra det effektivare (dvs snabbare).
+Förklara hur!
+
+
+
+
+<P CLASS="breakhere">
+
+
+
+<a name="uppgift-4"></a>
+<h2>Uppgift 4 (7 p)</h2>
+
+Här är ett C-program:
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#ccffcc">
+<pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;pthread.h&gt;
+
+#define NR_THREADS 2
+
+int total_printouts = 0;
+
+static void *thread_body(void *arg) {
+    int thread_number = (int)arg + 1;
+    printf("In thread %d: Started!\n", thread_number);
+    for (int i = 0; i &lt; 3; i++) {
+        for (int j = 0; j &lt; 1000000000; j++)
+            ;
+        printf("In thread %d, printout number %d: Running!\n",
+               thread_number, i + 1);
+        ++total_printouts;
+    }
+    printf("In thread %d: Finishing...\n", thread_number);
+    return NULL;
+} // thread_body
+
+int main(void) {
+    pthread_t threads[NR_THREADS];
+
+    printf("In main: Will be starting %d thread(s)...\n", NR_THREADS);
+
+    for (int i = 0; i &lt; NR_THREADS; ++i) {
+        if (pthread_create(&threads[i], NULL, thread_body, (void*)i) != 0) {
+	    printf("Error: Couldn't create thread %d.\n", i);
+	    exit(EXIT_FAILURE);
+	}
+    }
+
+    printf("In main: Waiting for %d thread(s) to finish...\n", NR_THREADS);
+
+    for (int i = 0; i &lt; NR_THREADS; ++i) {
+	if (pthread_join(threads[i], NULL) != 0) {
+	    printf("Error: Couldn't join thread %d.\n", i);
+	    exit(EXIT_FAILURE);
+	}
+    }
+
+    printf("In main: All %d thread(s) have finished.\n", NR_THREADS);
+    printf("Total printouts: %d\n", total_printouts);
+
+    return EXIT_SUCCESS;
+} // main
+</pre>
+</td></tr></table>
+
+
+
+<P CLASS="breakhere">
+
+
+
+Den dyraste processor som just nu (när jag skriver detta)
+finns i lager enligt prisjämförelsesajten Prisjakt är
+<b>Intel Xeon Platinum 8280</b>.
+Den kostar 129526 kronor inklusive moms.
+Den kan använda en terabyte (1024 gigabyte) minne och den klockas i 2,7 GHz,
+men den har också ett turboläge där den klarar ända upp till 4 GHz.
+Den har 28 kärnor, och med hyperthreading kan den köra 56 trådar parallellt.
+
+<p>
+
+Vi har en dator med den processorn,
+och Linux eller något annat modernt och bra operativsystem.
+Vi kör programmet på den datorn.
+Utmatningen från programmet kan variera lite
+beroende på hur trådarna råkar schemaläggas,
+men vid en provkörning ser det ut så här:
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#ccffcc">
+<pre>
+In main: Will be starting 2 thread(s)...
+In main: Waiting for 2 thread(s) to finish...
+In thread 1: Started!
+In thread 2: Started!
+In thread 1, printout number 1: Running!
+In thread 2, printout number 1: Running!
+In thread 1, printout number 2: Running!
+In thread 2, printout number 2: Running!
+In thread 1, printout number 3: Running!
+In thread 1: Finishing...
+In thread 2, printout number 3: Running!
+In thread 2: Finishing...
+In main: All 2 thread(s) have finished.
+Total printouts: 6
+</pre>
+</td></tr></table>
+
+<p>
+
+Körningen tog 4,0 sekunder.
+
+<p>
+
+Nu ändrar vi definitionen av <b>NR_THREADS</b> i programmet till den här:
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3"><tr><td bgcolor="#ccffcc">
+<pre>
+#define NR_THREADS 1000
+</pre>
+</td></tr></table>
+
+<p>
+
+Vad kommer nu att hända?
+Hur kommer utmatningen att se ut?
+Hur lång tid tar körningen?
+Förklara hur du resonerat och räknat.
+
+
+
+<P CLASS="breakhere">
+
+
+
+<a name="uppgift-5"></a>
+<h2>Uppgift 5 (8 p)</h2>
+
+Vi har en byteadresserad dator som arbetar med minnesadresser på 17 bitar.
+Det finns alltså 2<sup>17</sup>, dvs 131072, olika minnesadresser.
+Datorn har 2<sup>14</sup>, dvs 16384, byte fysiskt minne,
+som delas mellan de olika processerna som körs.
+Med hjälp av virtuellt minne och så kallad "paging"
+kan varje process ändå ha tillgång till 131072 byte virtuellt minne.
+Av de 17 bitarna i en virtuell adress används 9 för sidnummer ("page number")
+och 8 för offset inom sidan.
+
+<p>
+
+a) Hur stor (dvs hur många byte) är en minnessida ("page")?
+
+<p>
+
+b) Hur många minnessidor är den virtuella minnesrymden indelad i?
+
+<p>
+
+c) Hur många olika ramar ("frames") finns det i det fysiska minnet?
+
+<p>
+
+d) Ge ett exempel på vad den virtuella minnesadressen <b>3</b> skulle kunna översättas till.
+
+<p>
+
+e) Hur stor (i byte räknat) blir varje process sidtabell ("page table")?
+Redovisa hur du räknat!
+
+<p>
+
+f) Förklara, med den beskrivna datorn som exempel, hur paging fungerar.
+Hur är det möjligt att en process kan ha mer minne än vad som finns?
+Och hur är det möjligt att flera processer var och en kan ha mer minne än vad som finns?
+
+<p>
+
+<hr noshade>
+
+</body>
+</html>

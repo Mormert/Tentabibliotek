@@ -1,0 +1,487 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="sv">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Operativsystem: Lösningar till hemtentamen 2021-06-01</title>
+
+<body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+<h1><a href="../../index.html">Operativsystem</a>: Lösningar till hemtentamen 2021-06-01</h1>
+
+Observera att detta är förslag på lösningar.
+Det kan finnas andra lösningar som också är korrekta.
+Det kan hända att en del av lösningarna är mer omfattande än vad som krävs för full poäng på uppgiften,
+eller att de bara hänvisar till var man kan läsa svaren.
+Dessutom har det inträffat i världshistorien att lärare skrivit fel i lösningsförslagen.
+<i>Jag</i> har förstås aldrig gjort det, men andra.
+Är det verkligen någon som läser såna här inledande texter?
+Kanske skummar de början och hoppar över resten.
+Jag vet inte. Det kan vara så. Rabarber rabarber rabarber.
+Det har jag hört att statisterna får säga på filminspelningar
+när det ska vara bakgrundssorl från en restaurang eller liknande.
+Här nedan kommer lösningsförslagen till uppgifterna.
+
+
+
+<a name="uppgift-1"></a>
+<h2>Uppgift 1 (5 p)</h2>
+
+a) Varför kan ett systemanrop innebära ett avbrott ("interrupt")?
+
+<p>
+
+<b>Svar:</b>
+Ett avbrott innebär att processorn slutar köra den maskinkod som den höll på med,
+sparar undan alla maskintillstånd som kommer att behöva återställas efter avbrottet,
+och hoppar till en särskild avbrottsrutin.
+På en del processorer är systemanrop implementerade med hjälp av avbrott.
+Systemanropet innebär att någon instruktion som kräver särskilda priviligier,
+kanske en särskild instruktion avsedd för just detta ändamål,
+exekveras av en vanlig användarprocess,
+och då sker ett mjukvaruavbrott, så att exekveringen fortsätter i operativsystemkärnans kod.
+Eftersom OS-kärnans kod är lagrad i minne som endast OS-kärnan
+har rättighet att modifiera och exekvera,
+kanske till och med fast minne (ROM eller PROM) som inte alls kan ändras,
+har OS-kärnan kontroll över vad som kan göras i systemanropet.
+
+<p>
+
+b) Långt efter att systemanropet gjorts kan det förekomma fler interrupt,
+som en del av arbetet som utförs av systemanropet. Beskriv hur det kan gå till!
+
+<p>
+
+<b>Svar:</b>
+Moderna operativsystem är interrupt-drivna.
+Externa enheter som hårddiskar och nätverksenheter är mycket långsamma jämfört med processorn,
+och operationer på dem (som läsning och skrivning) tar mycket lång tid
+jämfört med den takt som processorn arbetar i.
+I stället för att operativsystemkärnans gång på gång ser efter om en uppgift
+(till exempel läsning från en hårddisk) är klar,
+så kallad pollning,
+använder man avbrott.
+Operativsystemkärnan som kör på processorn bara startar läsningen
+eller vad det nu är för extern process det gäller,
+och sen får den externa hårdvaran arbeta vidare utan inblandning av processorn.
+När operationen är färdig signalerar den externa hårdvaran till processorn
+med ett avbrott,
+och då kan processorn i sin avbrottsrutin ta hand om resultatet från den externa operationen.
+
+
+
+<a name="uppgift-2"></a>
+<h2>Uppgift 2 (5 p)</h2>
+
+Task-structen, eller PCB som den också kallas,
+är en av de viktigaste datastrukturerna som finns i operativsystemkärnan.
+
+<p>
+
+a) Vad används den till?
+
+<p>
+
+<b>Svar:</b>
+Den lagrar all information som operativsystemet har om en process,
+dvs en körande instans av ett program.
+
+<p>
+
+b) Vad innehåller den?
+
+<p>
+
+<b>Svar:</b>
+Uppgifter om processens namn (typiskt ett nummer),
+ägare,
+prioriteter,
+uppgifter om processens virtuella minne,
+processens öppna filer,
+aktuellt tillstånd (körande, redo att köra, eller väntar på något).
+Om processen inte är körande finns också undansparat maskintillstånd,
+så OS-kärnan kan köra igång processen igen.
+
+<p>
+
+c) Task-structen förekommer i flera olika köer i operativsystemkärnan.
+Vad är det för köer, och vad används de till?  
+
+<p>
+
+<b>Svar:</b>
+En kö med processer som är redo att köra, så fort det finns en ledig processor.
+En "kö" med de processer som är igång och kör just nu.
+En kö för varje extern enhet, till exempel ett sekundärminne eller en timer,
+som processer kan vänta på.
+
+
+
+<a name="uppgift-3"></a>
+<h2>Uppgift 3 (6 p)</h2>
+
+Vi konstruerar en processor där fysiska adresser är 37 bitar,
+medan virtuella adresser är 33 bitar,
+varav 22 bitar är sidnummer ("page number" på engelska) och 11 bitar är offset.
+
+<p>
+
+a) Hur stor är en minnessida ("page")? Visa hur du räknat.
+
+<p>
+
+<b>Svar:</b>
+2048 minnesplatser.
+Med 11 bitar kan man lagra
+2<sup>11</sup> = 2048 olika binära tal,
+så det är så många olika minnesplatser man kan adressera inom en minnessida.
+
+<p>
+
+b) Fysiska ramar ("frames") kommer att vara lika stora som minnessidorna. Förklara varför!
+
+<p>
+
+<b>Svar:</b>
+Innehållet på en minnessida (page) är egentligen data, och man lagrar den i en ram (frame).
+Därför bör de vara lika stora.
+Minessidan måste förstås få plats i ramen,
+så ramen måste vara minst lika stor som sidan,
+och det finns ingen anledning att göra ramen större än minnessidan,
+för då blir det bara oanvänd plats i den.
+
+<p>
+
+c)
+På den här processorn har fysiska adresser fler bitar än virtuella adresser.
+Är det något konstigt med det?
+Vad innebär det?
+
+<p>
+
+<b>Svar:</b>
+Det är inget konstigt, men ovanligt numera på vanliga datorer,
+och innebär att det fysiska minnet kan vara större än det virtuella minnet.
+Om man utnyttjar hela den fysiska adressrymden, dvs datorn är bestyckad
+med så mycket fysiskt minne som går med hänsyn till de fysiska adresserna,
+så kan upp till 16 olika processer som utnyttjar hela sin virtuella minnesrymd
+vara inladdade i fysiskt minne samtidigt.
+
+<p>
+
+d)
+Hur mycket plats (i byte) tar page-tabellen för en process?
+Gör rimliga antaganden, redovisa dem, och förklara hur du räknat!
+
+<p>
+
+<b>Svar:</b>
+Sidnummer är 22 bitar,
+dvs den virtuella minnesrymden består av 2<sup>22</sup> = 4194304 minnessidor (pages).
+Det behövs alltså,
+om man inte använder några trick för att "klumpa ihop" en del av minnessidorna till större,
+4194304 platser i page-tabellen.
+Hur många olika ramar (frames) finns i datorn?
+När man tar bort offseten på 11 bitar från den fysiska adressens 37 bitar,
+återstår 26 bitar för ramnumret.
+Vi behöver minst 26 bitar för att lagra ett ramnummer,
+och för att det åtminstone ska bli hela 8-bitarsbytes använder vi 32 bitar,
+dvs 4 byte.
+Alltså tar hela page-tabellen 4 * 4194304 byte,
+dvs 16777216 byte (16 megabyte).
+
+<p>
+
+e) Den virtuella minnessidan nummer <b>2</b> (binärt: <b>10</b>)
+lagras i fysisk frame nummer <b>0</b> (binärt: <b>0</b>).
+På vilken fysisk minnesplats finns den virtuella adressen <b>4097</b>
+(binärt <b>1000000000001</b>)?
+
+<p>
+
+<b>Svar:</b> 1
+
+<p>
+
+Den virtuella adressen är uppdelad i de 11 lägsta bitarna som är offset,
+och resten av bitarna som är sidnummer,
+dvs (binärt) <b>10</b> och <b>00000000001</b>.
+Sidnumret <b>10</b> binärt motsvarar <b>2</b> decimalt,
+och minnessida <b>2</b> (decimalt) lagrades ju i frame <b>0</b> (decimalt).
+<b>0</b> (decimalt) = <b>0</b> (binärt).
+Den fysiska adressen blir alltså (binärt) <b>0</b> sammanfogat med <b>00000000001</b>,
+dvs <b>000000000001</b> (binärt) = <b>1</b> (binärt) = <b>1</b> (decimalt).
+
+
+
+<a name="uppgift-4"></a>
+<h2>Uppgift 4 (7 p)</h2>
+
+Här är programmet <b>threads-1</b>, som startar två trådar,
+och där varje tråd ökar variabeln <b>data</b> med ett en miljon gånger.
+Slutresultatet borde förstås bli att variabeln innehåller värdet två miljoner.
+
+<p>
+
+...
+
+<p>
+
+a) Vi kör programmet,
+men variabelns värde blir inte alls två miljoner, utan 1028606.
+Vad beror det på att det blir fel värde?
+
+<p>
+
+<b>Svar:</b>
+De två trådarna uppdaterar samma variabel, utan lås eller annan synkronisering,
+och därför blir resultatet fel.
+När ett program ska ändra värdet på en variabel,
+som i <tt>++data</tt> i det här programmet,
+måste processorn först hämta variabelns värde från primärminnet
+till ett register i processorn, utföra beräkningen i processorn,
+och därefter skriva tillbaka värdet till variabelns plats i primärminnet.
+Med flera trådar kan det till exempel bli så att
+tråd 1 hämtar värdet <b>17</b> från variabeln,
+placerar det i ett register,
+utför beräkningen och får det nya värdet <b>18</b>,
+men innan tråd 1 hinner skriva tillbaka värdet till variabeln
+så har tråd 2 hunnit hämta det gamla värdet, <b>17</b>.
+Tråd 1 skriver det nya värdet <b>18</b> till variabeln,
+och nu utför tråd 2 sin beräkning på det värde (<b>17</b>) den hämtade,
+får resultatet <b>18</b>,
+och skriver tillbaka det till variabeln.
+Efter två försök att öka variabelns värde har det alltså bara ökat med ett.
+
+<p>
+
+b) Vi flyttar om raderna i <b>main</b>-funktionen så den ser ut enligt nedan.
+Vad blir variabelns värde nu, och vad beror det på?
+
+<p>
+
+...
+
+<p>
+
+<b>Svar:</b>
+Nu blir värdet rätt, dvs två miljoner.
+Vi kör en tråd i taget:
+huvudtråden, dvs den vanliga tråden i programmet som kör <b>main</b>-funktionen,
+startar tråd 1 med <b>pthread_create</b>,
+och väntar därefter med <b>pthread_join</b> på att den ska köra klart,
+innan den startar tråd 2 med nästa <b>pthread_create</b>.
+
+<p>
+
+c) Kan man gissa något om hur körtiden för <b>threads-2</b> kommer att bli, jämfört med <b>threads-1</b>?
+Vad beror det på?
+(Vi talar om den så kallade "väggklocketiden", som är den verkliga tid som det tog att köra programmen,
+och som man till exempel skulle kunna mäta genom att titta på en väggklocka).
+
+<p>
+
+<b>Svar:</b>
+Om vi har flera (lediga) processorkärnor kan man gissa att
+<b>threads-1</b>, med två parallella trådar,
+blir ungefär dubbelt så snabbt som <b>threads-2</b>, som inte har någon parallellitet.
+Om vi har bara har en processorkärna tillgänglig,
+kan man gissa att båda programmen tar ungefär lika lång tid att köra,
+eftersom det ändå inte kan bli någon parallellitet.
+
+<p>
+
+<i>Men,</i> som vi lärt oss på labbarna,
+kan det krävas synkronisering på hårdvarunivån mellan trådar,
+till exempel för att upprätthålla cache-koherens,
+och därför kan det mycket väl bli så att det mer parallella programmet <b>threads-1</b>
+blir mycket långsammare än det icke-parallella <b>threads-2</b>.
+
+<p>
+
+d) Vi har glömt hur man skrev för att använda pthread-paketets lås,
+så vi försöker göra ett lås själva, så programmet ser ut enligt nedan.
+Fungerar låset? Kommer variabelns värde att bli två miljoner nu? Förklara!
+
+<p>
+
+....
+
+<p>
+
+<b>Svar:</b>
+Nej, det här försöket att göra ett lås fungerar inte.
+Efter loopen som väntar på att låset ska bli ledigt,
+och innan låsningen genom att sätta variabeln <b>locked</b> till ett,
+kan en annan tråd hinna emellan och ta låset,
+så att mer än en tråd tror att den har låset.
+
+<p>
+
+e) Visa hur man gör låsningen på rätt sätt, med pthread-paketets lås.
+
+<p>
+
+<b>Svar:</b>
+Programmet <a href="threads-4.c">threads-4.c</a>:
+
+<table border="1" cellspacing="0" cellpadding="3" width="90%"><tr><td bgcolor="#ccffcc">
+<pre>
+// threads-4.c
+
+#include &lt;stdio.h&gt;
+#include &lt;pthread.h&gt;
+
+volatile long long data = 0;
+pthread_mutex_t lock;
+
+void *thread_body(void *arg) {
+    for (int i = 0; i &lt; 1000*1000; ++i) {
+        pthread_mutex_lock(&amp;lock);
+        ++data;
+        pthread_mutex_unlock(&amp;lock);
+    }
+    return NULL;
+}
+
+int main(void) {
+    pthread_t thread1, thread2;
+    pthread_mutex_init(&amp;lock, NULL);
+    pthread_create(&amp;thread1, NULL, thread_body, NULL);
+    pthread_create(&amp;thread2, NULL, thread_body, NULL);
+    pthread_join(thread1, NULL);
+    pthread_join(thread2, NULL);
+    pthread_mutex_destroy(&amp;lock);
+    printf("Result: data = %lld\n", data);
+}
+</pre>
+</td></tr></table>
+
+
+
+<P CLASS="breakhere">
+
+
+
+<a name="uppgift-5"></a>
+<h2>Uppgift 5 (7 p)</h2>
+
+Här är fem program som alla skriver en tio megabyte
+(10485760 byte) stor fil som heter <b>garbage</b>,
+och som bara innehåller bokstaven 'x'.
+
+<p>
+
+...
+
+<p>
+
+När vi provkör programmen mäter vi upp dessa körtider:
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3">
+<tr><th>Program</th> <th>Körtid</th></tr>
+<tr><td>create-garbage-1</td> <td>6.253 s</td></tr>
+<tr><td>create-garbage-2</td> <td>0.019 s</td></tr>
+<tr><td>create-garbage-3</td> <td>0.013 s</td></tr>
+<tr><td>create-garbage-4</td> <td>0.018 s</td></tr>
+<tr><td>create-garbage-5</td> <td>0.005 s</td></tr>
+</table>
+
+<p>
+
+a) Varför är <b>create-garbage-1</b> så väldigt långsamt? Förklara!
+
+<p>
+
+<b>Svar:</b>
+<b>create-garbage-1</b> skriver bara en enda byte (char) åt gången
+med systemanropet <b>write</b>,
+så det gör väldigt många (10485760 stycken) systemanrop.
+Systemanrop är långsamma,
+jämfört med till exempel ett vanligt funktionsanrop,
+eftersom det måste lämna över till operativsystemkärnan och byta exekveringsmod
+från user mode till kernel mode (och sen tillbaka).
+
+<p>
+
+b) Kan man förklara körtiderna för programmen
+<b>create-garbage-2</b>,
+<b>create-garbage-3</b> och
+<b>create-garbage-4</b>?
+
+<p>
+
+<b>Svar:</b>
+<b>create-garbage-2</b> skriver 1024 byte åt gången,
+och gör 10240 systemanrop till <b>write</b>.
+Därför är det rimligt att <b>create-garbage-2</b> är mycket snabbare än <b>create-garbage-1</b>,
+som gjorde 10485760 <b>write</b>-anrop.
+
+<p>
+
+<b>create-garbage-3</b> skriver 10240 byte åt gången,
+och gör 1024 systemanrop till <b>write</b>.
+Därför är det rimligt att <b>create-garbage-3</b> blir snabbare än <b>create-garbage-2</b>.
+
+<p>
+
+<b>create-garbage-4</b> skriver hela datamängden, 10485760 byte, på en gång,
+och gör alltså bara ett enda systemanrop till <b>write</b>.
+Man skulle kunna gissa att <b>create-garbage-4</b>
+därför blir ännu snabbare än <b>create-garbage-3</b>,
+men i stället ser vi att det blir långsammare.
+Men det är inte bara systemanrop som tar tid när man kör ett program,
+utan även vanligt arbete i user mode.
+Här måste programmet fylla hela bufferten med 'x',
+och det kanske tar så lång tid att skriva dessa 10485760 byte med data
+att vi inte vinner något på att ha färre systemanrop.
+Det är i alla fall en möjlig förklaring.
+En annan förklaring kan bero på detaljerna i hur <b>write</b> är implementerat
+inuti kärnan, till exempel hur buffertar allokeras och kopieras.
+
+<p>
+
+c) Kan man säga något om hur många processorkärnor som datorn vi provkörde på har?
+Vad, och varför?
+
+<p>
+
+<b>Svar:</b>
+Ja, när vi delar upp programmet i tio trådar blir det snabbare än någon
+av de icke-trådade versionerna,
+så det förefaller som om en del arbete görs parallellt.
+Därför måste det finnas mer än en processorkärna,
+och förmodligen också minst tre (eller två med hyperthreading),
+eftersom det flertrådade programmet blir mer än dubbelt så snabbt som
+något av de enkeltrådade.
+(Men vi har inget enkeltrådat program som gör just tio <b>write</b>-anrop,
+och det hade varit intressant att jämföra med det.)
+
+<p>
+
+d) Ett program kan vara flertrådat, men man talar också om flertrådade operativsystemkärnor.
+Kan man säga något om ifall operativsystemkärnan på datorn som vi provkörde på är flertrådad?
+Vad, och varför?
+
+<p>
+
+<b>Svar:</b>
+Ja,
+systemanropen verkar ju gå snabbare när man gör flera parallellt,
+och det tyder på att de utförs parallellt även i kärnan.
+Om operativsystemkärnan var enkeltrådad skulle de olika systemanropen
+behöva vänta, för bara en tråd i taget kan utföra arbete i kärnan.
+
+<p>
+
+<hr>
+
+<font size=-1>
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Operativsystem: Lösningar till tentamen 2021-06-01">thomas.padron-mccarthy@oru.se</a>),
+21 juni 2021
+</font>
+
+</body>
+</html>

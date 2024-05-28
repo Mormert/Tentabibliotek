@@ -1,0 +1,376 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="sv">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Operativsystem för civilingenjörer: Tentamen 2019-08-26</title>
+<STYLE TYPE="text/css">
+     P.breakhere {page-break-before: always}
+</STYLE>
+</head>
+
+<body bgcolor="#ffffff" text="#000000" link="#0000cc" vlink="#551a8b" alink="#ff0000">
+
+Örebro universitet
+<br>
+Institutionen för naturvetenskap och teknik
+<br>
+<a href="http://www.aass.oru.se/~tpy/">Thomas Padron-McCarthy</a>
+(<a href="mailto:thomas.padron-mccarthy@oru.se?subject=Operativsystem för civilingenjörer: Tentamen 2019-08-26">thomas.padron-mccarthy@oru.se</a>)
+
+<pre>
+
+
+
+
+</pre>
+<center>
+<font size="+2">Tentamen i</font>
+<p>
+<font size="+4">Operativsystem</font>
+<font size="+4">för civilingenjörer</font>  
+<p>
+måndag 26 augusti 2019
+<p>
+<font size="-1">
+Gäller som tentamen för:
+<br>
+DT513G Operativsystem för civilingenjörer, provkod 0100
+</font>
+</center>
+
+<p>
+
+<hr noshade>
+
+<p>
+
+<table>
+<tr><td valign="top">
+<b>Hjälpmedel:</b>
+</td><td valign="top">
+Inga.
+</td></tr>
+<tr><td valign="top">
+<b>Poängkrav:</b>
+</td><td valign="top">
+Maximal poäng är 38.
+För godkänt betyg krävs 20 poäng.
+</td></tr>
+<tr><td valign="top">
+<b>Resultat:</b>
+</td><td valign="top">
+Meddelas på kursens hemsida eller via e-post senast måndag 16 september 2019.
+</td></tr>
+<tr><td valign="top">
+<b>Återlämning av tentor:</b>
+</td><td valign="top">
+Elektroniskt via Studentforum.
+</td></tr>
+<tr><td valign="top">
+<b>Examinator och jourhavande:</b>
+</td><td valign="top">
+Thomas Padron-McCarthy, telefon 070 - 73 47 013.
+</td></tr>
+</table>
+
+<p>
+
+<hr noshade>
+
+<p>
+
+<font size="-1">
+<ul>
+
+<li>
+Skriv tydligt och klart. Lösningar som inte går att läsa kan
+naturligtvis inte ge några poäng.
+Oklara och tvetydiga formuleringar kommer att misstolkas.
+
+<li>
+Skriv den personliga tentamenskoden på varje inlämnat blad.
+Skriv <i>inte</i> namn eller personnummer på bladen.
+
+<li>
+Skriv bara på en sida av papperet.
+Använd inte röd skrift.
+
+<li>
+Antaganden utöver de som står i uppgifterna måste anges. Gjorda
+antaganden får inte förändra den givna uppgiften.
+
+<li>
+Skriv gärna förklaringar om hur du tänkt.
+Även ett svar som är fel kan ge poäng,
+om det finns med en förklaring som visar att huvudtankarna var rätt.
+</ul>
+</font>
+
+<p>
+
+<hr noshade>
+
+<p>
+
+<center>LYCKA TILL!</center>
+
+
+
+<P CLASS="breakhere">
+
+
+
+<a name="uppgift-1"></a>
+<h2>Uppgift 1 (2 p)</h2>
+
+Vad är ett operativsystem?
+
+
+
+<a name="uppgift-2"></a>
+<h2>Uppgift 2 (3 p)</h2>
+
+Vilka är operativsystemets viktigaste uppgifter?
+
+
+
+<a name="uppgift-3"></a>
+<h2>Uppgift 3 (5 p)</h2>
+
+Här är datorn <b>basen.oru.se</b>:
+
+<p>
+
+<img src="basen.jpg" width="189" height="170" alt="basen.oru.se" title="basen.oru.se">
+
+<p>
+
+Det är en HP Microserver, med en 2-kärnig Celeron-processor utan hyperthreading.
+Den har 16 GB primärminne. Sekundärminnet består av en Samsung-SSD med 500 GB.
+
+<p>
+
+Att ha den som webb- och databasserver är tråkigt,
+så jag stänger av de serverprogrammen och använder i stället datorn för att simulera
+en massa monster som slåss med varandra, ungefär som i labben "monster world" i kursen.
+
+<p>
+
+Om jag skriver en flertrådad version av programmet,
+och gör på rätt sätt, kan jag få bättre prestanda än med en enkeltrådad version.
+
+<p>
+
+a) Vad är den absolut högsta uppsnabbning jag kan få
+på den här datorn
+med en flertrådad version,
+jämfört med en enkeltrådad version?
+
+<p>
+
+b) Varför?
+
+<p>
+
+c) I praktiken får man inte samma uppsnabbning. Vad beror det på?
+
+<p>
+
+d) Hur bör man skriva det flertrådade programmet för att få så hög uppsnabbning som möjligt?
+  
+
+
+<P CLASS="breakhere">
+
+
+
+<a name="uppgift-4"></a>
+<h2>Uppgift 4 (5 p)</h2>
+
+Task-structen, eller PCB som den också kallas,
+är en av de viktigaste datastrukturerna som finns i operativsystemkärnan.
+
+<p>
+
+a) Vad används den till?
+
+<p>
+
+b) Vad innehåller den?
+
+<p>
+
+c) Task-structen förekommer i flera olika köer i operativsystemkärnan.
+Vad är det för köer, och vad används de till?  
+
+
+
+<a name="uppgift-5"></a>
+<h2>Uppgift 5 (4 p)</h2>
+
+a) Vad är ett systemanrop?
+
+<p>
+
+b) Beskriv hur systemanrop går till.
+
+
+
+<a name="uppgift-6"></a>
+<h2>Uppgift 6 (4 p)</h2>
+
+
+Trådar som tillhör samma process kan dela data,
+eftersom de har tillgång till samma minnesrymd,
+men det är svårare för processer att kommunicera,
+eftersom varje process har sin egen minnesrymd.
+
+<p>
+
+Beskriv några olika sätt för processer att kommunicera med varandra!
+
+
+
+<a name="uppgift-7"></a>
+<h2>Uppgift 7 (4 p)</h2>
+
+En vanlig sidstorlek ("page size" på engelska) är 4 kilobyte (4096 byte).
+
+<p>
+
+a) Om man ska ange offset inom en sida, hur många bitar behövs?
+
+<p>
+
+b) Om vi antar att en maskin använder virtuella 16-bitarsadresser,
+med sidor på 4096 byte,
+hur många bitar i den virtuella adressen blir över till sidnumret?
+
+<p>
+  
+c) Vi antar att vi utnyttjar hela den virtuella adressrymden,
+Vi antar också att vi har 4 gigabyte fysiskt minne, så det behövs 32 bitar för att adressera det.
+Hur mycket minne går åt till sidtabellen ("page table")?
+
+
+
+<P CLASS="breakhere">
+
+
+
+<a name="uppgift-8"></a>
+<h2>Uppgift 8 (4 p)</h2>
+
+Här är ett C-program för Linux:
+
+<p>
+
+<blockquote>
+<pre>
+#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+
+int main(void) {
+    printf("Hur många varv? ");
+    int antal_varv;
+    scanf("%d", &amp;antal_varv);
+    for (int i = 0; i &lt; antal_varv; ++i) {
+        printf("i = %d\n", i);
+        fork();
+    }
+}
+</pre>
+</blockquote>
+
+<p>
+
+a) Användaren matar in talet <b>2</b>.
+Vad skrivs ut när programmet körs?
+
+<p>
+
+b) Användaren matar in talet <b>1000</b>.
+Du behöver inte ange precis vad som skrivs ut när programmet körs,
+men vad kommer att hända?
+
+<p>
+
+c) Kan programmet påverka säkerheten i operativsystemet på något sätt?
+Vad kan operativsystemet göra åt det?
+
+
+
+<P CLASS="breakhere">
+
+
+
+<a name="uppgift-9"></a>
+<h2>Uppgift 9 (7 p)</h2>
+
+Ange för varje påstående om det är sant eller falskt!
+Lämna in denna sida tillsammans med resten av svaren.
+Fel svar ger inte minuspoäng.
+
+<p>
+
+<table border="1" cellspacing="0" cellpadding="3" width="90%">
+<tr><th>Påstående</th> <th>Sant</th> <th>Falskt</th></tr>
+
+<tr><td>
+I Linux kan programmet <b>strace</b> användas
+för att visa vilka systemanrop en process gör.
+</td> <td>&nbsp;</td> <td>&nbsp;</td></tr>
+
+<tr><td>
+Äldre operativsystem var baserade på avbrott (interrupts),
+så att när det till exempel fanns data att läsa från en disk
+så skickade disken ett avbrott till operativsystemkärnan.
+Ett avbrott medför att den körande processen stoppas,
+och kärnan tar över.
+I moderna operativsystem använder man i stället pollning,
+dvs att kärnan hela tiden ligger och kollar om det finns data.
+Med flerkärniga processorer blir det effektivare,
+eftersom man kan ha en pollningstråd på varje kärna.
+</td> <td>&nbsp;</td> <td>&nbsp;</td></tr>
+
+<tr><td>
+Systemanropet <b>wait</b> i Linux gör att processen stoppas det antal sekunder
+som man skickar som argument, och sedan fortsätter köra.
+</td> <td>&nbsp;</td> <td>&nbsp;</td></tr>
+
+<tr><td>
+Virtualisering innebär att trådar kan flyttas mellan olika processer.
+</td> <td>&nbsp;</td> <td>&nbsp;</td></tr>
+
+<tr><td>
+Demand paging innebär att varje process när den startas
+måste ange hur mycket minne (mätt i antal sidor, eller på engelska "pages")
+som den maximalt kommer att behöva.
+Om den skulle begära mer minne, kommer operativsystemet i stället att avsluta processen.
+</td> <td>&nbsp;</td> <td>&nbsp;</td></tr>
+
+<tr><td>
+När primärminnet blir fullt kan operativsystemet behöva kasta ut en del av sidorna ("pages"),
+och det finns flera olika algoritmer för att välja vilka som ska kastas ut.
+Det bästa är att kasta ut de sidor som det kommer att dröja längst tid innan de behövs,
+men man kan normalt inte veta vilka det är.
+Det näst bästa är att i stället använda en FIFO-kö,
+och kasta ut den sida som funnits i minnet längst.
+</td> <td>&nbsp;</td> <td>&nbsp;</td></tr>
+
+<tr><td>
+Thrashing är samma sak som garbage collection, eller skräpsamling på svenska,
+tillämpat på sidorna i primärminnet.
+Operativsystemet går igenom minnet,
+och kastar ut de sidor som inte längre går att nå från något av de körande programmen.
+</td> <td>&nbsp;</td> <td>&nbsp;</td></tr>
+
+</table>
+
+<p>
+
+<hr noshade>
+
+</body>
+</html>
